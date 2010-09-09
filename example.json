@@ -1,0 +1,61 @@
+{
+  "banner": "logo.png",
+  "template": "template.html",
+  "rounds": [
+    {
+      "title": "Simple Jeopardy",
+      "categories": [
+        {
+	  "title": "Apple Types",
+	  "questions": [
+	    {
+	      "statement": "42",
+	      "answer": "What is the meaning of life?",
+	      "value": 300
+	    },
+	    {
+	      "statement": "Macintosh",
+	      "answer": "What is Steve Jobs' favorite kind of apple?",
+	      "value": 100
+	    },
+	    {
+	      "statement": "Dead trees",
+	      "answer": "What is paper made out of?",
+	      "value": 300
+	    }
+	  ]
+	},
+	{
+	  "title": "Cookies",
+	  "questions": [
+	    {
+	      "stament": "I like cookies",
+	      "answer": "What is your biggest weakness?",
+	      "value": 32767
+	    }
+	  ]
+	}
+      ]
+    },
+    {
+      "title": " Squared Jeopardy",
+      "categories": [
+        {
+	  "title": "Chicken Soup",
+	  "questions": [
+	    {
+	      "stament": "Noodles",
+	      "answer": "What makes chicken soup so tasty?",
+	      "value": 1000
+	    },
+	    {
+	      "stament": "Nutella",
+	      "answer": "What should you never add to a chicken soup?",
+	      "value": 100
+	    }
+	  ]
+	}
+      ]
+    }
+  ]
+}
