@@ -2,7 +2,7 @@ import sys, json
 
 class Rules:
     def __init__(self):
-        self.banner = ''
+        self.representation = '' # 'image' or 'html'
         self.numRounds = 0
         self.numCategories = []
         self.numQuestions = []
@@ -16,7 +16,8 @@ class RuleLoader:
            sys.exit()
    def validate():
        self.rules = Rules()
-       
+       if 'banner' in self.rawRules:
+           self.rules.ba 
        return self.rules
 
 def printUsage():

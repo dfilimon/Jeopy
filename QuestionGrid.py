@@ -2,15 +2,16 @@ import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-class QuestionSelector(QWidget):
+class QuestionGrid(QWidget):
     def __init__(self, m, n, categoryLabels, scores, labelFontSize=20, scoreFontSize=12, width=800, height=600, parent = None):
-        super(QuestionSelector, self).__init__(parent)
+        super(QuestionGrid, self).__init__(parent)
 
         layout = QGridLayout()
         
         for i in range(n):
             w = QLabel(categoryLabels[i])
             self.setFontSize(w, labelFontSize)
+            w.setAlignment(Qt.AlignCenter)
             layout.addWidget(w, 0, i)
         
         for i in range(m):
@@ -19,7 +20,7 @@ class QuestionSelector(QWidget):
                 self.setFontSize(w, scoreFontSize)
                 layout.addWidget(w, i + 1, j)
 
-        for i in range(layout.rowCount()):
+        for i in range(1, layout.rowCount()):
             for j in range(layout.columnCount()):
                 w = layout.itemAtPosition(i, j).widget()
                 w.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -33,7 +34,6 @@ class QuestionSelector(QWidget):
         self.setLayout(layout)
         self.setFixedSize(width, height)
         
-        self.l = [ [lambda x: self.sayHi(x, i, j) for i in range(1, layout.rowCount())] for j in range(layout.columnCount()) ]
         for i in range(1, layout.rowCount()):
             for j in range(layout.columnCount()):
                 w = layout.itemAtPosition(i, j).widget()
@@ -61,7 +61,7 @@ class QuestionSelector(QWidget):
 def main():
     app = QApplication(sys.argv)
 
-    q = QuestionSelector(m=3, n=3, categoryLabels=['cookies', 'milk', 'crayons'], scores=[[10, 10, 10], [20, 20, 20], [30, 30, 30]], labelFontSize = 32, scoreFontSize=24)
+    q = QuestionGrid(m=3, n=3, categoryLabels=['cookies', 'milk', 'crayons'], scores=[[10, 10, 10], [20, 20, 20], [30, 30, 30]], labelFontSize = 32, scoreFontSize=24)
 
     win = QMainWindow()
     win.setCentralWidget(q)
