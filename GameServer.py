@@ -26,11 +26,10 @@ class GameServer(QThread, Pyro.core.ObjBase):
         self.players = {}
         
         self.gui = gui
-        
-        self.playerConnected.connect(self.gui.adminView.insertItem)
-        self.serverStarted.connect(self.gui.enableLogin)
 
     def run(self):
+        self.playerConnected.connect(self.gui.adminView.insertItem)
+        self.serverStarted.connect(self.gui.enableLogin)
         self.playerConnected.connect(self.gui.hello)
         
         Pyro.core.initServer()

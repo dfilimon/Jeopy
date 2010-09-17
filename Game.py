@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 import Pyro.core
 import Pyro.naming
 
@@ -19,6 +21,7 @@ class Game(QThread, Pyro.core.ObjBase):
         self.exec_()
         
     def connect(self, name):
+        name = str(name)
         if self.server.loginEnabled:
             print 'Game: Connection from:', name
             player = Pyro.core.getProxyForURI('PYRONAME://' + name)
@@ -36,4 +39,7 @@ class Game(QThread, Pyro.core.ObjBase):
         print 'Game has been contacted'        
 
     def getPlayers(self):
-        return self.server.players
+        return self.server.players.keys()
+
+    def getResources(self):
+        return deepcopy(self.server.resources)

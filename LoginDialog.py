@@ -12,15 +12,16 @@ class LoginDialog(QDialog):
         super(LoginDialog, self).__init__(parent)
         self.setupGui()
         self.player = None
-        
-        self.connect(self.button, SIGNAL('clicked(bool)'), self.startPlayerServer)
+
+        self.button.clicked.connect(self.startPlayerServer)
 
     def startPlayerServer(self):
         name = str(self.lineEdit.text())
         if name == '':
             return
+        """
         if self.player == None:
-            self.player = PlayerServer(None)
+            self.player = PlayerServer(self, None)
             print self.player.game.players
         if name in self.player.game.getPlayers():
              QMessageBox.warning(self, '', 'The selected nickname is taken.\nPlease choose a different one.', QMessageBox.Ok)
@@ -28,6 +29,9 @@ class LoginDialog(QDialog):
             self.player.setName(name)
             self.button.setDisabled(True)
             self.player.start()
+        """
+        self.player = PlayerServer(self, name)
+        self.player.start()
 
     def setupGui(self):
         layout = QHBoxLayout()
@@ -44,6 +48,10 @@ class LoginDialog(QDialog):
         layout.addWidget(self.button)
 
         self.setLayout(layout)
+
+    def greet(self):
+        test = Pyro.core.getProxyForURI('PYRONAME://' + str(self.lineEdit.text()))
+        test.greet()
 
 def main():
     import sys
