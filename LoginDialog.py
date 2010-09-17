@@ -3,14 +3,35 @@ from PyQt4.QtCore import *
 
 import Pyro.core
 
-import PlayerServer
+from PlayerServer import PlayerServer
 
 class LoginDialog(QDialog):
+    playerConnected = pyqtSignal()
+    
     def __init__(self, parent=None):
         super(LoginDialog, self).__init__(parent)
+        self.setupGui()
+        self.player = None
+        
+        self.connect(self.button, SIGNAL('clicked(bool)'), self.startPlayerServer)
 
+    def startPlayerServer(self):
+        name = str(self.lineEdit.text())
+        if name == '':
+            return
+        if self.player == None:
+            self.player = PlayerServer(None)
+            print self.player.game.players
+        if name in self.player.game.getPlayers():
+             QMessageBox.warning(self, '', 'The selected nickname is taken.\nPlease choose a different one.', QMessageBox.Ok)
+        else:
+            self.player.setName(name)
+            self.button.setDisabled(True)
+            self.player.start()
+
+    def setupGui(self):
         layout = QHBoxLayout()
-
+        
         w = QLabel()
         w.setText('Nickname:')
         layout.addWidget(w)
@@ -23,18 +44,6 @@ class LoginDialog(QDialog):
         layout.addWidget(self.button)
 
         self.setLayout(layout)
-
-        self.connect(self.button, SIGNAL('clicked(bool)'), self.startPlayerServer)
-
-    def startPlayerServer(self):
-        if self.lineEdit.text() != '':
-            print str( self.lineEdit.text() )
-            #self.player = PlayerServer(self.lineEdit.text().toStr())
-            #self.connect(self.player, SIGNAL('serverStarted'), self.loadMainWindow)
-            self.button.setDisabled(True)
-
-    def loadMainWindow(self):
-        pass
 
 def main():
     import sys

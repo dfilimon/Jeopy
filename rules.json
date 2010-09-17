@@ -16,7 +16,7 @@
 	    {
 	      "statement": "Macintosh",
 	      "answer": "What is Steve Jobs' favorite kind of apple?",
-	      "value": 100
+	      "value": 100,
 	      "template": "template2.html"
 	    },
 	    {
