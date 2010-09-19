@@ -7,31 +7,32 @@ from PlayerServer import PlayerServer
 
 class LoginDialog(QDialog):
     playerConnected = pyqtSignal()
-    
+    gameStarted = pyqtSignal((type(PlayerServer))
+                             
     def __init__(self, parent=None):
         super(LoginDialog, self).__init__(parent)
         self.setupGui()
         self.player = None
 
         self.button.clicked.connect(self.startPlayerServer)
+        self.playerConnected.connect(self.disableLogin)
+        self.gameStarted
 
     def startPlayerServer(self):
         name = str(self.lineEdit.text())
         if name == '':
             return
-        """
         if self.player == None:
-            self.player = PlayerServer(self, None)
+            self.player = PlayerServer(self.parent, None)
             print self.player.game.players
-        if name in self.player.game.getPlayers():
+        if name in self.player.game.getPlayers() or name == 'jeopardy':
              QMessageBox.warning(self, '', 'The selected nickname is taken.\nPlease choose a different one.', QMessageBox.Ok)
         else:
             self.player.setName(name)
-            self.button.setDisabled(True)
             self.player.start()
-        """
-        self.player = PlayerServer(self, name)
-        self.player.start()
+
+    def disableLogin(self):
+        self.button.setEnabled(False)
 
     def setupGui(self):
         layout = QHBoxLayout()

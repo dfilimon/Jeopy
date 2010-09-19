@@ -5,16 +5,17 @@ import Pyro.core
 import Pyro.naming
 
 from PyQt4.QtCore import *
+
+from Server import Server
 from Game import Game
 
-class GameServer(QThread, Pyro.core.ObjBase):
+class GameServer(Server):
 
-    serverStarted = pyqtSignal()
     playerConnected = pyqtSignal(QString)
+    playerMutex = QMutex()
     
-    def __init__(self, gui, parent = None):
-        Pyro.core.ObjBase.__init__(self)
-        super(GameServer, self).__init__(parent)
+    def __init__(self, gui, name, parent = None):
+        Server.__init__(self, gui, name)
         
         self.rules = ''
         self.resources = []
@@ -24,34 +25,17 @@ class GameServer(QThread, Pyro.core.ObjBase):
         self.numQuestions = []
         self.loginEnabled = False
         self.players = {}
-        
-        self.gui = gui
 
-    def run(self):
+        self.round = -1
+        self.usedQuestions = None
+
+    def connectSignals(self):
         self.playerConnected.connect(self.gui.adminView.insertItem)
         self.serverStarted.connect(self.gui.enableLogin)
         self.playerConnected.connect(self.gui.hello)
-        
-        Pyro.core.initServer()
-        ns = Pyro.naming.NameServerLocator().getNS()
 
-        self.daemon = Pyro.core.Daemon()
-        self.daemon.useNameServer(ns)
-
-        uri = self.daemon.connect(Game(self), 'jeopardy')
-
-        print 'The daemon runs on port:', self.daemon.port
-        print 'The game\'s URI is:', uri  
-
-        self.serverStarted.emit()
-        while True:
-            QAbstractEventDispatcher.instance(self).processEvents(QEventLoop.AllEvents)
-            self.daemon.handleRequests(0)
-            sleep(0.01)
-
-    def exit(self):
-        print 'Game Server exitting'
-        self.daemon.shutdown()
+    def connectDaemon(self):
+        self.uri = self.daemon.connect(Game(self), self.name)
 
     def getPlayers(self):
         return self.players
