@@ -24,9 +24,9 @@ class Server(QThread):
         self.daemon.useNameServer(ns)
         self.connectDaemon()
 
-        self.status('The daemon runs on port: ' + str(self.daemon.port))
-        self.status('The server\'s URI is: ' + str(self.uri))
-        self.status('Server started')
+        self.log('The daemon runs on port: ' + str(self.daemon.port))
+        self.log('The server\'s URI is: ' + str(self.uri))
+        self.log('Server started')
 
         self.serverStarted.emit(self.name)
         while True:
@@ -34,14 +34,14 @@ class Server(QThread):
             self.daemon.handleRequests(0)
             sleep(0.01)
 
-    def status(self, message):
+    def log(self, message):
         print self.name + ': ' + message
         
     def exit(self):
-        status('Server exitting')
-        self.daemon.shutdown()
+        self.log('Server exitting')
+        self.daemon.shutdown(True)
 
     def connectSignals(self):
         pass
-    def connectDameon(self):
+    def connectDaemon(self):
         pass

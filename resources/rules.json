@@ -1,14 +1,8 @@
 {
   "type": "html",
-  "template": "uso.html",
-  "size": {
-    "width": 800,
-    "height": 600
-  },
+  "template": "template.html",
   "rounds": [
     {
-      "buttonFontSize": 24,
-      "labelFontSize": 16,
       "title": "Simple Jeopardy",
       "categories": [
         {
@@ -44,8 +38,6 @@
       ]
     },
     {
-      "buttonFontSize": 20,
-      "labelFontSize": 16,
       "title": " Squared Jeopardy",
       "categories": [
         {

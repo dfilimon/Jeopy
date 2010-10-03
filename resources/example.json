@@ -1,14 +1,8 @@
 {
-  "type": "html",
-  "template": "uso.html",
-  "size": {
-    "width": 800,
-    "height": 600
-  },
+  "banner": "logo.png",
+  "template": "template.html",
   "rounds": [
     {
-      "buttonFontSize": 24,
-      "labelFontSize": 16,
       "title": "Simple Jeopardy",
       "categories": [
         {
@@ -35,7 +29,7 @@
 	  "title": "Cookies",
 	  "questions": [
 	    {
-	      "statement": "I like cookies",
+	      "stament": "I like cookies",
 	      "answer": "What is your biggest weakness?",
 	      "value": 32767
 	    }
@@ -44,20 +38,18 @@
       ]
     },
     {
-      "buttonFontSize": 20,
-      "labelFontSize": 16,
       "title": " Squared Jeopardy",
       "categories": [
         {
 	  "title": "Chicken Soup",
 	  "questions": [
 	    {
-	      "statement": "Noodles",
+	      "stament": "Noodles",
 	      "answer": "What makes chicken soup so tasty?",
 	      "value": 1000
 	    },
 	    {
-	      "statement": "Nutella",
+	      "stament": "Nutella",
 	      "answer": "What should you never add to a chicken soup?",
 	      "value": 100
 	    }

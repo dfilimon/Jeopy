@@ -2,60 +2,84 @@ from copy import deepcopy
 
 import Pyro.core
 import Pyro.naming
+from Pyro.errors import *
 
 from PyQt4.QtCore import *
 
-class Game(QThread, Pyro.core.ObjBase):
-    
-    playerConnected = pyqtSignal(QString)
-    playerDisctonnected = pyqtSignal(QString)
-    playerBuzzed = pyqtSignal(QString)
+Pyro.config.PYRO_ONEWAY_THREADED = True	
+
+
+class Game(Pyro.core.ObjBase):
     
     def __init__(self, server, parent = None):
         Pyro.core.ObjBase.__init__(self)
-        super(Game, self).__init__(parent)
         self.server = server
-        
-        self.playerConnected.connect(self.server.gui.adminView.insertItem)
-        self.playerConnected.connect(self.server.greet)
-        #self.playerBuzzed.connect(self.server.gui.
 
-    def run(self):
-        self.exec_()
+    def canConnect(self, name):
+        name = str(name)
+        self.server.playerMutex.lock()
+        if self.server.loginEnabled:
+            if name not in self.server.players:
+                self.server.players[name] = (None, None, 'Waiting', 0)
+                ans = True
+            else:
+                ans = False
+        elif name in self.server.players and self.server.players[name][2] == 'Disconnected':
+            ans = True
+        else:
+            ans = False
+        self.server.playerMutex.unlock()
+        return ans
         
     def connect(self, name):
         name = str(name)
-        if self.server.loginEnabled:
-            print 'Game: Connection from:', name
-            player = Pyro.core.getProxyForURI('PYRONAME://' + name)
-            player._setOneway('greet')
-            
-            self.server.playerMutex.lock()
-            self.server.players[name] = (0,  player)
-            self.server.playerMutex.unlock()
-            
-            print self.server.players[name]
-            print 'Game: hello', self, self.server
-            self.playerConnected.emit(name)
-
-    def disconnect(self, name):
-        name = str(name)
+        print 'Game: Connection from:', name
+        player = Pyro.core.getProxyForURI('PYRONAME://' + name)
+        ip = player.getIp()
         self.server.playerMutex.lock()
-        del self.server.players[name]
-        self.playerDisconnected.emit(name)
+        score = self.server.players[name][3]
+        status = self.server.players[name][2]
+        self.server.players[name] = (player, player.getIp(), 'Waiting', score)
+        self.server.scores[name] = [0]
         self.server.playerMutex.unlock()
-        
-    def greet(self, name):
-        print 'Game has been contacted'        
+        if status != 'Disconnected':
+            self.server.playerConnected.emit((name, ip, 'Waiting', score))
+            self.server.gamesToStart += 1
+        else:
+            self.server.playerReconnected.emit((name, ip, 'Waiting', score))
 
     def getPlayers(self):
-        return self.server.players.keys()
+        self.server.playerMutex.lock()
+        players = [ (player[0], player[1][3]) for player in self.server.players.items() ]
+        self.server.playerMutex.unlock()
+        return players
 
+    def getStatus(self, name):
+        return self.server.players[name][2]
+
+    def getScore(self, name):
+        return self.server.players[name][3]
+    
     def getResources(self):
         return deepcopy(self.server.resources)
 
-    def getQuestion(self, i, j):
-        return self.server.rules['rounds'][self.server.round]['categories'][i]['questions'][j]
+    def getRound(self):
+        return deepcopy(self.server.round)
+
+    def getQuestion(self):
+        return self.server.question
+
+    def getUsedQuestions(self):
+        return self.server.usedQuestions
+
+    def getTemplate(self):
+        return self.server.template
+
+    def getWidth(self):
+        return self.server.width
+
+    def getHeight(self):
+        return self.server.height
 
     def buzz(self, name):
         self.server.buzzMutex.lock()
@@ -65,6 +89,22 @@ class Game(QThread, Pyro.core.ObjBase):
             self.server.buzzMutex.unlock()
             return
         self.server.buzzMutex.unlock()
-        self.playerBuzzed.emit(name)
         
+        self.server.changeStatus(name, 'Answering')
         
+        for player in self.server.players.items():
+            try:
+                player[1][0].disableBuzz()
+            except (ConnectionClosedError, ProtocolError):
+                self.server.changeStatus(player[0], 'Disconnected')
+                
+        self.server.playerBuzzed.emit(name)
+
+    def gameStarted(self):
+        self.server.gamesToStart -= 1
+        if self.server.gamesToStart == 0:
+            print 'choosing player...'
+            self.server.allGamesStarted.emit()
+
+    def getScores(self):
+        return deepcopy(self.server.scores)
