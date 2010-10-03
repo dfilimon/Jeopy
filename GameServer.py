@@ -7,23 +7,25 @@ import Pyro.naming
 from Pyro.errors import *
 
 from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 from Server import Server
 from Game import Game
 
+from PlotRenderer import PlotRenderer
+
 Pyro.config.PYRO_ONEWAY_THREADED = True	
 
 class GameServer(Server):
-    serverStarted = pyqtSignal(str)
 
     playerConnected = pyqtSignal(tuple)
     playerReconnected = pyqtSignal(tuple)
     playerStatusChanged = pyqtSignal(tuple)
-    playerScoreChanged = pyqtSignal(tuple)
 
     playerBuzzed = pyqtSignal(str)
     questionSelected = pyqtSignal(int)
 
+    labelTextSet = pyqtSignal(str)
     allGamesStarted = pyqtSignal()
     
     playerMutex = QMutex()
@@ -46,22 +48,60 @@ class GameServer(Server):
         self.selectingPlayer = ''
 
         self.roundNum = -1
+        self.pixmap = None
         self.usedQuestions = set()
 
-    def connectSignals(self):
-        self.serverStarted.connect(self.gui.enableLogin)
+    """
+    Without setting loginEnabled True, nobody is allowed to log in, unless they
+    are marked as 'Disconnected'.
+    """
+    def enableLogin(self):
+        self.log('Login enabled')
+        self.loginEnabled = True
+
+    def setupSignals(self):
+        self.serverStarted.connect(self.enableLogin)
         self.playerConnected.connect(self.gui.playerAdmin.addPlayer)
+        self.allGamesStarted.connect(self.choosePlayer)
+
+    def setupGuiSignals(self):
+        Server.setupGuiSignals(self)
+        self.playerReconnected.connect(self.gui.getTable().updatePlayer)
+        self.playerReconnected.connect(self.startPlayerGame) 
+        self.playerStatusChanged.connect(self.gui.getTable().updatePlayer)
+
+        self.playerBuzzed.connect(self.gui.playerBuzzed)
+        self.questionSelected.connect(self.gui.displayQuestion)
+
+        self.labelTextSet.connect(self.gui.setLabelText)
 
     def connectDaemon(self):
         self.uri = self.daemon.connect(Game(self), self.name)
 
+    def renderPlot(self):
+        self.log('Rendering plot')
+        self.gui.timer.stop()
+        self.labelTextSet.emit('Rendering Plot')
+        plotThread = PlotRenderer(self.scores, self.gui.getTempPath(), self)
+        plotThread.finishedPlot.connect(self.displayPlot)
+        plotThread.start()
+    
+    def displayPlot(self, path):
+        self.log('Displaying plot')
+        self.rawPixmap = QPixmap(path)
+        self.pixmap = self.rawPixmap.scaled(self.gui.width, self.gui.height,
+                                            Qt.KeepAspectRatioByExpanding,
+                                            Qt.SmoothTransformation)
+        for player in self.players.values():
+                player[0].displayPlot()
+        self.plotDisplayed.emit()
+    
     def nextRound(self):
         self.roundNum += 1
+        
         if self.roundNum >= self.numRounds:
-            for player in self.players.values():
-                player[0].displayEndGame()
-            self.gui.displayEndGame()
-            return
+            self.renderPlot()
+            return False
         self.round = self.rules['rounds'][self.roundNum]
 
         self.usedQuestions = set()
@@ -75,8 +115,8 @@ class GameServer(Server):
                     player[1][0].nextRound()
                 except (ConnectionClosedError, ProtocolError):
                     self.changeStatus(player[0], 'Disconnected')
-                #player[0].test()
-            self.gui.updateGrid()
+            self.roundChanged.emit()
+        return True
 
     def startGame(self):
         for name in self.players.keys():
@@ -91,18 +131,6 @@ class GameServer(Server):
             self.players[name][0].startGame()
         except (ConnectionClosedError, ProtocolError):
             self.changeStatus(name, 'Disconnected')
-
-    def setupGuiSignals(self):
-        self.playerStatusChanged.connect(self.gui.getTable().updatePlayer)
-        self.playerScoreChanged.connect(self.gui.getTable().updatePlayer)
-
-        self.playerBuzzed.connect(self.gui.playerBuzzed)
-        self.questionSelected.connect(self.gui.displayQuestion)
-
-        self.allGamesStarted.connect(self.choosePlayer)
-
-        self.playerReconnected.connect(self.gui.getTable().updatePlayer)
-        self.playerReconnected.connect(self.startPlayerGame)
     
     def choosePlayer(self):
         numActivePlayers = len(self.players)
@@ -153,12 +181,12 @@ class GameServer(Server):
         for name in names:
             if name == self.selectingPlayer:
                 continue
-            if self.players[name][2] == 'Waiting':
+            if name in self.players.keys() and self.players[name][2] == 'Waiting':
                 self.changeStatus(name, 'Muted')
 
     def unmutePlayers(self, names):
         for name in names:
-            if self.players[name][2] == 'Muted':
+            if name in self.players.keys() and self.players[name][2] == 'Muted':
                 self.changeStatus(name, 'Waiting')
 
     def nextQuestion(self):
@@ -169,7 +197,8 @@ class GameServer(Server):
             self.selectingPlayer = ''
             
         if len(self.usedQuestions) == self.numQuestions:
-            self.nextRound()
+            if not self.nextRound():
+                return
         for player in self.players.items():
             try:
                 player[1][0].displayGrid()
@@ -177,7 +206,6 @@ class GameServer(Server):
                 self.changeStatus(player[0], 'Disconnected')
         
         self.gui.displayGrid()
-        self.gui.displayShowAnswerButton()
 
     def changeStatus(self, name, status):
         print 'server', name, 'changing status to', status

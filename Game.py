@@ -4,10 +4,7 @@ import Pyro.core
 import Pyro.naming
 from Pyro.errors import *
 
-from PyQt4.QtCore import *
-
 Pyro.config.PYRO_ONEWAY_THREADED = True	
-
 
 class Game(Pyro.core.ObjBase):
     
@@ -67,10 +64,10 @@ class Game(Pyro.core.ObjBase):
         return deepcopy(self.server.round)
 
     def getQuestion(self):
-        return self.server.question
+        return deepcopy(self.server.question)
 
     def getUsedQuestions(self):
-        return self.server.usedQuestions
+        return deepcopy(self.server.usedQuestions)
 
     def getTemplate(self):
         return self.server.template
@@ -103,8 +100,7 @@ class Game(Pyro.core.ObjBase):
     def gameStarted(self):
         self.server.gamesToStart -= 1
         if self.server.gamesToStart == 0:
-            print 'choosing player...'
             self.server.allGamesStarted.emit()
 
-    def getScores(self):
-        return deepcopy(self.server.scores)
+    def getPixmap(self):
+        return self.server.pixmap

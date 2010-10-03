@@ -1,6 +1,3 @@
-0. Document every module
-
-
 1. Name server startup:
    make ServerLauncher spawn a new thread with the name server before GUI startup.
 

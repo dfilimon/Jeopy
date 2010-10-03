@@ -7,7 +7,8 @@ from PlayerServer import PlayerServer
 
 class LoginDialog(QDialog):
     gameStarted = pyqtSignal((type(PlayerServer)))
-
+    playerConnected = pyqtSignal()
+    
     def __init__(self, parent=None):
         super(LoginDialog, self).__init__(parent)
         self.setupGui()
@@ -16,7 +17,7 @@ class LoginDialog(QDialog):
 
         self.button.clicked.connect(self.login)
         self.player.playerConnected.connect(self.disableLogin)
-
+        
     def login(self):
         name = str(self.lineEdit.text())
         if name == '':
@@ -49,15 +50,3 @@ class LoginDialog(QDialog):
 
         self.setLayout(layout)
 
-    def greet(self):
-        print 'login hello'
-
-def main():
-    import sys
-    app = QApplication(sys.argv)
-    l = LoginDialog()
-    l.show()
-    app.exec_()
-
-if __name__ == '__main__':
-    main()

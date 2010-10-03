@@ -12,7 +12,8 @@ class PlayerTable(QWidget):
 
         if buttonText != '':
             self.layout().itemAtPosition(1, 0).widget().clicked.connect(self.mutePlayers)
-            self.layout().itemAtPosition(1, 1).widget().clicked.connect(self.unmutePlayers)
+            if buttonText != 'ban':
+                self.layout().itemAtPosition(1, 1).widget().clicked.connect(self.unmutePlayers)
 
 
     def addPlayer(self, player):
@@ -46,8 +47,6 @@ class PlayerTable(QWidget):
         self.updateTableWidth()
         table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-                
-
 
     def setupGui(self, labels, buttonText):
         layout = QGridLayout()
@@ -74,8 +73,11 @@ class PlayerTable(QWidget):
         
 
         if buttonText != '':
-            layout.addWidget(QPushButton(buttonText.title()), 1, 0)
-            layout.addWidget(QPushButton('Un' + buttonText), 1, 1)
+            if buttonText != 'ban':
+                layout.addWidget(QPushButton(buttonText.title()), 1, 0)
+                layout.addWidget(QPushButton('Un' + buttonText), 1, 1)
+            else:
+                layout.addWidget(QPushButton(buttonText.title()), 1, 0, 1, 2)
 
 
     def getTable(self):
@@ -101,29 +103,12 @@ class PlayerTable(QWidget):
     def getSelected(self):
         return [str(item.text()) for item in self.getTable().selectedItems()]
 
-
     def mutePlayers(self):
         self.playersMuted.emit(self.getSelected())
-
 
     def unmutePlayers(self):
         self.playersUnmuted.emit(self.getSelected())
 
-
-
-"""
-def main():
-    import sys
-    app = QApplication(sys.argv)
-    w = PlayerAdminTable('ban')
-
-    w.addPlayer(Player('dan', 34, status= 'Waiting'))
-    w.addPlayer(Player('alice', 42, status='Busy'))
-    w.addPlayer(Player('eve', 2, status='Wn'))
-    
-    w.show()
-    app.exec_()
-
-if __name__ == '__main__':
-    main()
-"""
+    def hideButtons(self):
+        self.layout().itemAt(1).widget().hide()
+        self.layout().itemAt(2).widget().hide()

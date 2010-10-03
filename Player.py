@@ -11,12 +11,6 @@ class Player(Pyro.core.ObjBase):
         Pyro.core.ObjBase.__init__(self)
         self.server = server
 
-    def greet(self):
-        print self.server.name, 'has been contacted'
-
-    def hello(self):
-        print 'hello'
-
     def loadResources(self):
         self.server.template = self.server.game.getTemplate()
         self.server.resources = self.server.game.getResources()
@@ -48,12 +42,8 @@ class Player(Pyro.core.ObjBase):
     def displayGrid(self):
         self.server.gridDisplayed.emit()
 
-    def displayEndGame(self):
-        self.server.gameEnded.emit()
-
-    #def nextRound(self):
-    #    print self.name, 'next round'
-    #    self.server.nextRound.emit(self.server.game.getRound())
+    def displayPlot(self):
+        self.server.plotDisplayed.emit()
 
     def changeStatus(self, status):
         print self.server.name, 'changing status to', status
@@ -65,7 +55,5 @@ class Player(Pyro.core.ObjBase):
         self.server.playerScoreChanged.emit((name, score))
 
     def nextRound(self):
-        self.server.nextRound.emit(self.server.game.getRound())
+        self.server.roundChanged.emit()
 
-    def endGame(self):
-        self.server.gameEnded.emit()
