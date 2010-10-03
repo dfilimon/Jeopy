@@ -1,0 +1,28 @@
+Requires:
+	- Python > 2.6
+	- PyQt > 4.6
+	- Pyro ~ 3.10 (NOT Pyro 4)
+	- Matplotlib
+
+Running:
+
+	- You need to start the Pyro Name Server by yourself
+	  this is operating system and path dependent so I
+	  have not done that in code. Perhaps before final
+	  revision.
+
+	  Do so, by running 'pyro-ns' in UNIX and 'pyro-ns.cmd'
+	  in Windows, which is probably located in the Tools/Scripts
+	  directory of your Python distribution root.
+
+	  For UNIX, you can also start the server by running
+	  'python ServerLauncher.py' which whill start the nameserver
+	  automatically.
+	  
+	- First, run the game server and select a .jeop file. Do this
+	  by running 'python ServerGui.py'.
+
+	- Any client can only start after a game has been selected and
+	the login table has been displayed in the server gui. Clients
+	can be started by running 'python PlayerGui.py'.
+	
