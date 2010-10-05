@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 """
 AdminGui is the administrative interface main class. It provides game file
 selection, validation, player management and question selection.
@@ -114,13 +116,8 @@ class AdminGui(Gui):
     def getTemplate(self):
         return self.game.template
 
-    # pixmap is scaled to fit in the window, this is shown in the ui
-    def getPixmap(self):
-        return self.game.pixmap
-
-    # the 'raw' pixmap gets saved (3200x2400)
-    def getRawPixmap(self):
-        return self.game.rawPixmap
+    def getScores(self):
+        return self.game.scores
 
     """
     Custom table used in the AdminGui.
@@ -202,8 +199,12 @@ class AdminGui(Gui):
     """
     The AdminGui can also save the scores in addition to displaying them.
     """
-    def displayPlot(self):
-        Gui.displayPlot(self)
+    def displayEndGame(self):
+        self.getTable().hideButtons()
+        Gui.displayEndGame(self)
+
+    def displayPlot(self, path):
+        Gui.displayPlot(self, path)
         
         w = QPushButton('Save scores as PNG')
         w.clicked.connect(self.saveScoresPng)
@@ -212,8 +213,6 @@ class AdminGui(Gui):
         w = QPushButton('Save scores as text file')
         w.clicked.connect(self.saveScoresText)
         self.layout().addWidget(w, 2, 1)
-
-        self.getTable().hideButtons()
 
     def saveScoresText(self):
         fileName = QFileDialog.getSaveFileName(self, 'Save Scores', 'scores.txt', 'Text files (*.txt)')
@@ -224,7 +223,7 @@ class AdminGui(Gui):
 
     def saveScoresPng(self):
         fileName = QFileDialog.getSaveFileName(self, 'Save Scores', 'scores.png', 'Images (*.png)')
-        self.getRawPixmap().save(fileName)
+        self.pixmap.save(fileName)
         
     
 def main():

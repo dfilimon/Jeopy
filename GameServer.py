@@ -12,8 +12,6 @@ from PyQt4.QtGui import *
 from Server import Server
 from Game import Game
 
-from PlotRenderer import PlotRenderer
-
 Pyro.config.PYRO_ONEWAY_THREADED = True	
 
 class GameServer(Server):
@@ -77,30 +75,17 @@ class GameServer(Server):
 
     def connectDaemon(self):
         self.uri = self.daemon.connect(Game(self), self.name)
-
-    def renderPlot(self):
-        self.log('Rendering plot')
-        self.gui.timer.stop()
-        self.labelTextSet.emit('Rendering Plot')
-        plotThread = PlotRenderer(self.scores, self.gui.getTempPath(), self)
-        plotThread.finishedPlot.connect(self.displayPlot)
-        plotThread.start()
-    
-    def displayPlot(self, path):
-        self.log('Displaying plot')
-        self.rawPixmap = QPixmap(path)
-        self.pixmap = self.rawPixmap.scaled(self.gui.width, self.gui.height,
-                                            Qt.KeepAspectRatioByExpanding,
-                                            Qt.SmoothTransformation)
+        
+    def endGame(self):
         for player in self.players.values():
-                player[0].displayPlot()
-        self.plotDisplayed.emit()
+                player[0].endGame()
+        self.gameEnded.emit()
     
     def nextRound(self):
         self.roundNum += 1
         
         if self.roundNum >= self.numRounds:
-            self.renderPlot()
+            self.endGame()
             return False
         self.round = self.rules['rounds'][self.roundNum]
 

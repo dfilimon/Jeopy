@@ -21,6 +21,10 @@ class PlayerGui(Gui):
         self.loginDialog = LoginDialog(self)
         self.loginDialog.show()
 
+    def setupGui(self, buttonText, width, height):
+        Gui.setupGui(self, buttonText, width, height)
+        self.setLabelText(self.player.name)
+
     def startGame(self):
         self.player = self.loginDialog.player
         self.loginDialog.close()
@@ -60,17 +64,15 @@ class PlayerGui(Gui):
     def getTempPath(self):
         return self.player.tempPath
 
-    def getPixmap(self):
-        self.pixmap = self.player.game.getPixmap()
-        print self.pixmap
-        return self.pixmap
+    def getScores(self):
+        return self.player.game.getScores()
 
     def updateStatus(self, status):
         self.log('Updating ' + self.player.name + ' status to ' + status)
 
         self.player.status = status
         if status == 'Waiting':
-            self.setLabelText('')
+            self.setLabelText(self.player.name)
         elif status == 'Muted':
             self.setLabelText('Muted')
         else:

@@ -42,8 +42,8 @@ class Player(Pyro.core.ObjBase):
     def displayGrid(self):
         self.server.gridDisplayed.emit()
 
-    def displayPlot(self):
-        self.server.plotDisplayed.emit()
+    def endGame(self):
+        self.server.gameEnded.emit()
 
     def changeStatus(self, status):
         print self.server.name, 'changing status to', status

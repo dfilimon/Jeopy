@@ -102,5 +102,6 @@ class Game(Pyro.core.ObjBase):
         if self.server.gamesToStart == 0:
             self.server.allGamesStarted.emit()
 
-    def getPixmap(self):
-        return self.server.pixmap
+    def getScores(self):
+        return deepcopy(self.server.scores)
+

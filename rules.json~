@@ -1,10 +1,10 @@
 {
   "type": "html",
-  "template": "uso.html",
+  "template": "template.html",
+  "labelFontSize": 14,
+  "buttonFontSize": 26,
   "rounds": [
     {
-      "labelFontSize": 12,
-      "buttonFontSize": 25,
       "title": "Simple Jeopardy",
       "categories": [
         {
@@ -42,7 +42,7 @@
             },
 	    {
 	     "statement": "Comandă folosită pentru concatenarea și vizualizarea conținutului fișierelor",
-	     "answer": "Ce este cat ?",
+	     "answer": "Ce este cat?",
 	     "value": 700
             },
 	    {
@@ -143,46 +143,46 @@
 	  ]
 	},
 	{
-	  "title": "Low-level Madness",
+	  "title": "Low-level madness",
 	  "questions": [
 	    {
-	     "statement": "Dimensiunea unui MBR (în bytes)",
-	     "answer": " Ce este 512 ?",
+	     "statement": "Comandă care permite afișarea sub formă arborescentă a proceselor care rulează într-un sistem Linux",
+	     "answer": "Ce este pstree ?",
 	     "value": 100
             },
 	    {
-	     "statement": "Comandă folosită pentru a schimba temporar runlevelul unui sistem",
-	     "answer": "Ce este telinit ?",
+	     "statement": "Comandă care permite aducerea în foreground a unui proces",
+	     "answer": "Ce este fg ?",
 	     "value": 200
             },
 	    {
-	     "statement": "Tip de memorie folosită de procesor pentru a reduce timpul mediu de acces la memoria principală",
-	     "answer": "Ce este memoria cache ?",
+	     "statement": "Program în Linux, ce rulează în background și nu se află sub controlul direct al unui utilizator",
+	     "answer": "Ce este un daemon?",
 	     "value": 300
             },
 	    {
-	     "statement": "Comandă folosită pentru a afla informații despre un modul de kernel",
-	     "answer": "Ce este modinfo ?",
+	     "statement": "Numele procesului din Linux care este părintele tuturor celorlalte procese",
+	     "answer": "Ce este init ?",
 	     "value": 400
             },
 	    {
-	     "statement": "Directoarele unde se află scripturile de pornire sau oprire daemoni",
-	     "answer": "Ce sunt /etc/rcX.d ?",
+	     "statement": "Combinație de taste în shell care transmite semnalul SIGTSTOP",
+	     "answer": "Ce este ^Z ?",
 	     "value": 500
             },
 	    {
-	     "statement": "Un Kilobyte conține acest număr de biți",
-	     "answer": "Ce este 1024 * 8? (sau orice altă formă)",
+	     "statement": "Numele semnalului ce are codul 9",
+	     "answer": "Ce este SIGKILL ?",
 	     "value": 600
             },
 	    {
-	     "statement": "Dispozitiv special care face discard tuturor datelor ce sunt scrise în el",
-	     "answer": "Ce este /dev/null ?",
+	     "statement": "Mecanism de comunicație inter-procese prin intermediul rețelei",
+	     "answer": "Ce sunt sockeții ?",
 	     "value": 700
             },
 	    {
-	     "statement": "Model ce descrie un sistem de calcul capabil să ruleze un program stocat",
-	     "answer": "Ce este modelul von Neumann ?",
+	     "statement": "Tip de multitasking în care procesele cedează obligatoriu controlul procesorului",
+	     "answer": "Ce este multitasking preemptiv ?",
 	     "value": 800
             }
 	  ]
@@ -191,88 +191,88 @@
 	  "title": "Teh Internets",
 	  "questions": [
 	    {
-	     "statement": "Fișier în care se specifică serverele de DNS folosite pentru rezolvarea numelor de domenii",
-	     "answer": "Ce este /etc/resolv.conf ?",
+	     "statement": "Comandă care permite afișarea sub formă arborescentă a proceselor care rulează într-un sistem Linux",
+	     "answer": "Ce este pstree ?",
 	     "value": 100
             },
 	    {
-	     "statement": "Comandă prin care se poate modifica adresa IP a unei interfețe de rețea",
-	     "answer": "Ce este ifconfig ?",
+	     "statement": "Comandă care permite aducerea în foreground a unui proces",
+	     "answer": "Ce este fg ?",
 	     "value": 200
             },
 	    {
-	     "statement": "Formatul numeric al măștii de rețea /8",
-	     "answer": "Ce este 255.0.0.0",
+	     "statement": "Program în Linux, ce rulează în background și nu se află sub controlul direct al unui utilizator",
+	     "answer": "Ce este un daemon?",
 	     "value": 300
             },
 	    {
-	     "statement": "Comandă prin care se poate afișa tabela de rutare, fără rezolvarea numelor",
-	     "answer": "Ce este route -n?",
+	     "statement": "Numele procesului din Linux care este părintele tuturor celorlalte procese",
+	     "answer": "Ce este init ?",
 	     "value": 400
             },
 	    {
-	     "statement": "Comandă folosită des pentru testarea conectivității",
-	     "answer": "Ce este ping ?",
+	     "statement": "Combinație de taste în shell care transmite semnalul SIGTSTOP",
+	     "answer": "Ce este ^Z ?",
 	     "value": 500
             },
 	    {
-	     "statement": "Comandă folosită pentru a vizualiza drumul parcurs de un pachet până la destinație",
-	     "answer": "Ce este traceroute ?",
+	     "statement": "Numele semnalului ce are codul 9",
+	     "answer": "Ce este SIGKILL ?",
 	     "value": 600
             },
 	    {
-	     "statement": "Adresa de broadcast a rețelei 10.0.0.0/16",
-	     "answer": "Ce este 10.0.255.255 ?",
+	     "statement": "Mecanism de comunicație inter-procese prin intermediul rețelei",
+	     "answer": "Ce sunt sockeții ?",
 	     "value": 700
             },
 	    {
-	     "statement": "Numărul de biți dintr-o adresă IP",
-	     "answer": "Ce este 32 ?",
+	     "statement": "Tip de multitasking în care procesele cedează obligatoriu controlul procesorului",
+	     "answer": "Ce este multitasking preemptiv ?",
 	     "value": 800
             }
 	  ]
 	},
 	{
-	  "title": "What's in a Name?",
+	  "title": "What's in a name",
 	  "questions": [
 	    {
-	     "statement": "FAT",
-	     "answer": "Ce este File Allocation Table ?",
+	     "statement": "Comandă care permite afișarea sub formă arborescentă a proceselor care rulează într-un sistem Linux",
+	     "answer": "Ce este pstree ?",
 	     "value": 100
             },
 	    {
-	     "statement": "POST",
-	     "answer": "Ce este Power-On Self Test ?",
+	     "statement": "Comandă care permite aducerea în foreground a unui proces",
+	     "answer": "Ce este fg ?",
 	     "value": 200
             },
 	    {
-	     "statement": "MBR",
-	     "answer": "Ce este un Master Boot Record ?",
+	     "statement": "Program în Linux, ce rulează în background și nu se află sub controlul direct al unui utilizator",
+	     "answer": "Ce este un daemon?",
 	     "value": 300
             },
 	    {
-	     "statement": "HDD",
-	     "answer": "Ce este Hard Disk Drive ?",
+	     "statement": "Numele procesului din Linux care este părintele tuturor celorlalte procese",
+	     "answer": "Ce este init ?",
 	     "value": 400
             },
 	    {
-	     "statement": "BIOS",
-	     "answer": "Ce este Basic Input-Output System ?",
+	     "statement": "Combinație de taste în shell care transmite semnalul SIGTSTOP",
+	     "answer": "Ce este ^Z ?",
 	     "value": 500
             },
 	    {
-	     "statement": "MAC",
-	     "answer": "Ce este Media Access Control ?",
+	     "statement": "Numele semnalului ce are codul 9",
+	     "answer": "Ce este SIGKILL ?",
 	     "value": 600
             },
 	    {
-	     "statement": "DNS",
-	     "answer": "Ce sunt Domain Name System ?",
+	     "statement": "Mecanism de comunicație inter-procese prin intermediul rețelei",
+	     "answer": "Ce sunt sockeții ?",
 	     "value": 700
             },
 	    {
-	     "statement": "DHCP",
-	     "answer": "Ce este Dynamic Host Configuration Protocol?",
+	     "statement": "Tip de multitasking în care procesele cedează obligatoriu controlul procesorului",
+	     "answer": "Ce este multitasking preemptiv ?",
 	     "value": 800
             }
 	  ]

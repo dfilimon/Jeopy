@@ -17,6 +17,9 @@ from copy import deepcopy
 from ButtonGridWidget import ButtonGrid
 from QuestionDisplayWidget import QuestionDisplay
 
+from PlotRenderer import PlotRenderer
+
+
 class Gui(QWidget):
     gameStarted = pyqtSignal()
 
@@ -126,14 +129,28 @@ class Gui(QWidget):
     Displays the plot drawn by the PlotRenderer. The pixmap getPixmap() returns
     is always scaled down to the appropriate width and height.
     """
-    def displayPlot(self):
+    def displayEndGame(self):
         self.getLabel().hide()
         w = QLabel()
-        pixmap = self.getPixmap()
-        print pixmap
-        w.setPixmap(pixmap)
-        self.getStack().insertWidget(0, w)
-        self.getStack().setCurrentIndex(0)
+        w.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
+        w.setFont(QFont(QFont.defaultFamily(w.font()), 32))
+        w.setText('Rendering plot...')
+        self.getStack().addWidget(w)
+        self.getStack().setCurrentIndex(2)
+
+        self.renderPlot()
+
+    def renderPlot(self):
+        plotThread = PlotRenderer(self.getScores(), self.getTempPath(), self)
+        plotThread.finishedPlot.connect(self.displayPlot)
+        plotThread.start()
+        self.log('Renering plot')
+
+    def displayPlot(self, path):
+        self.pixmap = QPixmap(path)
+        self.getPlot().setPixmap(self.pixmap.scaled(self.width, self.height,
+                                                    Qt.KeepAspectRatioByExpanding,
+                                                    Qt.SmoothTransformation))
 
     def setLabelText(self, message):
         self.getLabel().setText(message)
@@ -163,6 +180,9 @@ class Gui(QWidget):
     def getGridButton(self, i):
         return self.getGrid().layout().itemAt(i).widget()
 
+    def getPlot(self):
+        return self.getStack().itemAt(2).widget()
+
     """
     These functions get game related data, which is typically obtained differently for the client and server guis.
     This is why these functions are virtual and their specific implementation is in the derived classes.
@@ -179,8 +199,8 @@ class Gui(QWidget):
     def getTemplate(self):
         raise NotImplementedError('getTemplate is virtual and must be overridden')
 
-    def getPixmap(self):
-        raise NotImplementedError('getPixmap is virtual and must be overridden')
+    def getScores(self):
+        raise NotImplementedError('getScores is virtual and must be overridden')
 
     """
     Helper function, for the case where a question defines a custom html template which needs to be read.

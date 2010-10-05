@@ -15,7 +15,7 @@ class Server(QThread):
     questionDisplayed = pyqtSignal(int)
     answerDisplayed = pyqtSignal()
     gridDisplayed = pyqtSignal()
-    plotDisplayed = pyqtSignal()
+    gameEnded = pyqtSignal()
 
     roundChanged = pyqtSignal()
     
@@ -61,7 +61,7 @@ class Server(QThread):
         self.questionDisplayed.connect(self.gui.displayQuestion)
         self.answerDisplayed.connect(self.gui.displayAnswer)
         self.gridDisplayed.connect(self.gui.displayGrid)
-        self.plotDisplayed.connect(self.gui.displayPlot)
+        self.gameEnded.connect(self.gui.displayEndGame)
         
         self.roundChanged.connect(self.gui.updateGrid)
     
