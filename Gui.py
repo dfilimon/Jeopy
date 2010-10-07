@@ -66,11 +66,6 @@ class Gui(QWidget):
 
     def setupSignals(self):
         raise NotImplementedError('setupSignals is virtual and must be overridden')
-
-    # both guis keep resources in a temporary folder generated in the system's tmp/ hierarchy; they are deleted upon exit
-    def __del__(self):
-        if self.game != None:
-            self.deleteTempFiles()
         
     def deleteTempFiles(self):
         path = self.getTempPath()
