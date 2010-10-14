@@ -1,13 +1,19 @@
 #! /usr/bin/env python
 
+"""
+PlayerGui is the main player interface class. It also launches LoginDialog to get
+a name. The main gui actually appears after startGame is called from the server.
+This class must be instantiated after having chosen a jeop game file. Otherwise,
+it will silently fail.
+"""
 import sys
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from Gui import Gui
 from PlayerServer import PlayerServer
 
-from Gui import Gui
 from PlayerTableWidget import PlayerTable
 
 from LoginDialog import LoginDialog
@@ -15,6 +21,11 @@ from LoginDialog import LoginDialog
 class PlayerGui(Gui):
     buzzed = pyqtSignal()
     
+    """
+       ***REIMPLEMENTED METHODS FROM BASECLASS***
+       These work similarly to the ones in AdminGui. For more information, check
+       those.
+    """
     def __init__(self, parent = None):
         super(PlayerGui, self).__init__(parent)
         self.player = None
@@ -67,13 +78,15 @@ class PlayerGui(Gui):
     def getScores(self):
         return self.player.game.getScores()
 
+    """
+    The player's status is displayed above the PlayerTable. {Waiting,Selecting,
+    Answering} -> [:-3]
+    """
     def updateStatus(self, status):
         self.log('Updating ' + self.player.name + ' status to ' + status)
 
         self.player.status = status
-        if status == 'Waiting':
-            self.setLabelText(self.player.name)
-        elif status == 'Muted':
+        if status == 'Muted':
             self.setLabelText('Muted')
         else:
             self.setLabelText(status[:-3])

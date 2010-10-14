@@ -7,10 +7,20 @@ import Pyro.naming
 from PyQt4.QtCore import *
 
 class Server(QThread):
-    
+    """
+       ***Signals common to both the GameServer and the PlayerServer***
+    """
     serverStarted = pyqtSignal(str)
 
-    playerScoreChanged = pyqtSignal(tuple)    
+    """
+    These signals trigger modifications in the gui
+    """
+    playerScoreChanged = pyqtSignal(tuple)
+    """
+    playerStatusChanged exists in both derived classes but behaves completely
+    different. Do not try to add it here. PlayerServer emits a str whereas
+    GameServer emits a tuple.
+    """
 
     questionDisplayed = pyqtSignal(int)
     answerDisplayed = pyqtSignal()
@@ -25,6 +35,7 @@ class Server(QThread):
         self.gui = gui
         self.name = name
 
+    # When closing the app, its name must be unregistered from the NameServer
     def close(self):
         self.log('Server exitting')
         if self.daemon != None:
@@ -49,9 +60,6 @@ class Server(QThread):
             self.daemon.handleRequests(0)
             sleep(0.01)
 
-    def log(self, message):
-        print self.name + ': ' + message        
-
     def setupSignals(self):
         raise NotImplementedError('setupSignals is a virtual method and must be overridden')
 
@@ -67,3 +75,7 @@ class Server(QThread):
     
     def connectDaemon(self):
         raise NotImplementedError('connectDaemon is a virtual method and must be overridden')
+
+        def log(self, message):
+        print self.name + ': ' + message
+        

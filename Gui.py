@@ -44,7 +44,7 @@ class Gui(QWidget):
 
         w = QLabel()
         w.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
-        w.setFont(QFont(QFont.defaultFamily(w.font()), 32))
+        w.setFont(QFont(QFont.defaultFamily(w.font()), 28))
         layout.addWidget(w, 0, 1)
         layout.addLayout(QStackedLayout(), 1, 0)
         layout.addWidget(self.setupTable(), 1, 1)
@@ -133,6 +133,11 @@ class Gui(QWidget):
         self.getStack().addWidget(w)
         self.getStack().setCurrentIndex(2)
 
+        """
+        TODO: Color calculation
+        hue = 0
+        hueInc = 360 / self.getPlayers()
+        """
         self.renderPlot()
 
     def renderPlot(self):

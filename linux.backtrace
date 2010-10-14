@@ -1,0 +1,90 @@
+Gui: displaying question 44
+
+Program received signal SIGSEGV, Segmentation fault.
+0x00871ee0 in typeinfo name for QMetaCallEvent () from /usr/lib/libQtCore.so.4
+(gdb) bt
+#0  0x00871ee0 in typeinfo name for QMetaCallEvent ()
+   from /usr/lib/libQtCore.so.4
+#1  0x005a9769 in ?? () from /usr/lib/pymodules/python2.6/PyQt4/QtCore.so
+#2  0x005a9815 in ?? () from /usr/lib/pymodules/python2.6/PyQt4/QtCore.so
+#3  0x007af8ca in QMetaObject::metacall(QObject*, QMetaObject::Call, int, void**) () from /usr/lib/libQtCore.so.4
+#4  0x007c26ad in QMetaObject::activate(QObject*, QMetaObject const*, int, void**) () from /usr/lib/libQtCore.so.4
+#5  0x01944019 in QAbstractButton::clicked(bool) () from /usr/lib/libQtGui.so.4
+#6  0x01603ff9 in ?? () from /usr/lib/libQtGui.so.4
+#7  0x016056f4 in ?? () from /usr/lib/libQtGui.so.4
+#8  0x016059ae in QAbstractButton::mouseReleaseEvent(QMouseEvent*) ()
+   from /usr/lib/libQtGui.so.4
+#9  0x00ee9ce4 in ?? () from /usr/lib/pymodules/python2.6/PyQt4/QtGui.so
+#10 0x01233e08 in QWidget::event(QEvent*) () from /usr/lib/libQtGui.so.4
+#11 0x01603e9e in QAbstractButton::event(QEvent*) ()
+   from /usr/lib/libQtGui.so.4
+#12 0x016b1c22 in QPushButton::event(QEvent*) () from /usr/lib/libQtGui.so.4
+#13 0x00ecd800 in ?? () from /usr/lib/pymodules/python2.6/PyQt4/QtGui.so
+#14 0x011d5fdc in QApplicationPrivate::notify_helper(QObject*, QEvent*) ()
+   from /usr/lib/libQtGui.so.4
+#15 0x011dcc2e in QApplication::notify(QObject*, QEvent*) ()
+   from /usr/lib/libQtGui.so.4
+---Type <return> to continue, or q <return> to quit---
+#16 0x00ebf6cd in ?? () from /usr/lib/pymodules/python2.6/PyQt4/QtGui.so
+#17 0x007a9b3b in QCoreApplication::notifyInternal(QObject*, QEvent*) ()
+   from /usr/lib/libQtCore.so.4
+#18 0x011db094 in QApplicationPrivate::sendMouseEvent(QWidget*, QMouseEvent*, QWidget*, QWidget*, QWidget**, QPointer<QWidget>&, bool) ()
+   from /usr/lib/libQtGui.so.4
+#19 0x01269d10 in ?? () from /usr/lib/libQtGui.so.4
+#20 0x01269151 in QApplication::x11ProcessEvent(_XEvent*) ()
+   from /usr/lib/libQtGui.so.4
+#21 0x0129836a in ?? () from /usr/lib/libQtGui.so.4
+#22 0x00a30855 in g_main_context_dispatch () from /lib/libglib-2.0.so.0
+#23 0x00a34668 in ?? () from /lib/libglib-2.0.so.0
+#24 0x00a34848 in g_main_context_iteration () from /lib/libglib-2.0.so.0
+#25 0x007d8565 in QEventDispatcherGlib::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /usr/lib/libQtCore.so.4
+#26 0x01297be5 in ?? () from /usr/lib/libQtGui.so.4
+#27 0x007a8609 in QEventLoop::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /usr/lib/libQtCore.so.4
+#28 0x007a8a8a in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) ()
+   from /usr/lib/libQtCore.so.4
+#29 0x007ad00f in QCoreApplication::exec() () from /usr/lib/libQtCore.so.4
+#30 0x011d4e07 in QApplication::exec() () from /usr/lib/libQtGui.so.4
+#31 0x00ec0264 in ?? () from /usr/lib/pymodules/python2.6/PyQt4/QtGui.so
+---Type <return> to continue, or q <return> to quit---
+#32 0x080ddd23 in call_function (f=
+    Frame 0x8bd9154, for file AdminGui.py, line 232, in main (app=<QApplication at remote 0x8b9ce2c>, gui=<AdminGui(pixmap=None, playerAdmin=<PlayerAdminDialog at remote 0x8ba86ac>, timer=<QTimer at remote 0x8ba88ec>, height=600, width=800, game=<GameServer(height=600, buzzed=False, tempPath='/tmp/tmp5Uvfkv', numCategories=[6], question={u'answer': u'Ce este 32 ?', 'category': u'Teh Internets', u'statement': u'Num\u0103rul de bi\u021bi dintr-o adres\u0103 IP', u'value': 800}, roundNum=0, width=800, template='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml"><head>\n\n<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" /><title>uso</title></head><body style="width: 768;">\n<div style="text-align: center; width: 768;">\n<table style="text-align: left; width: 768px; margin-left: auto; margin-right: auto; height: 486px;" border="0" cellpadding="10" cellspacing="2">\n  <tbody>\n    <tr>\n      <t...(truncated), throwflag=0) at ../Python/ceval.c:3750
+#33 PyEval_EvalFrameEx (f=
+    Frame 0x8bd9154, for file AdminGui.py, line 232, in main (app=<QApplication at remote 0x8b9ce2c>, gui=<AdminGui(pixmap=None, playerAdmin=<PlayerAdminDialog at remote 0x8ba86ac>, timer=<QTimer at remote 0x8ba88ec>, height=600, width=800, game=<GameServer(height=600, buzzed=False, tempPath='/tmp/tmp5Uvfkv', numCategories=[6], question={u'answer': u'Ce este 32 ?', 'category': u'Teh Internets', u'statement': u'Num\u0103rul de bi\u021bi dintr-o adres\u0103 IP', u'value': 800}, roundNum=0, width=800, template='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 S---Type <return> to continue, or q <return> to quit---
+trict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml"><head>\n\n<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" /><title>uso</title></head><body style="width: 768;">\n<div style="text-align: center; width: 768;">\n<table style="text-align: left; width: 768px; margin-left: auto; margin-right: auto; height: 486px;" border="0" cellpadding="10" cellspacing="2">\n  <tbody>\n    <tr>\n      <t...(truncated), throwflag=0) at ../Python/ceval.c:2412
+#34 0x080df04c in fast_function (f=
+    Frame 0x82e6c24, for file AdminGui.py, line 239, in <module> (), 
+    throwflag=0) at ../Python/ceval.c:3836
+#35 call_function (f=
+    Frame 0x82e6c24, for file AdminGui.py, line 239, in <module> (), 
+    throwflag=0) at ../Python/ceval.c:3771
+#36 PyEval_EvalFrameEx (f=
+    Frame 0x82e6c24, for file AdminGui.py, line 239, in <module> (), 
+    throwflag=0) at ../Python/ceval.c:2412
+#37 0x080dfbb2 in PyEval_EvalCodeEx (co=0xb7f99968, globals=
+    {'QAbstractButton': <PyQt4.QtCore.pyqtWrapperType at remote 0x8335434>, 'PlayerTable': <PyQt4.QtCore.pyqtWrapperType at remote 0x8b9135c>, 'QSizePolicy': <PyQt4.QtCore.pyqtWrapperType at remote 0x8372654>, 'QMatrix3x4': <PyQt4.QtCore.pyqtWrapperType at remote 0x83611ec>, 'QMatrix3x3': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360e7c>, 'QMatrix3x2': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360b0c>, 'QGraphicsColorizeEffect': <PyQt4.QtCore.pyqtWrapperType at remote 0x834---Type <return> to continue, or q <return> to quit---
+e4e4>, 'qRound64': <built-in function qRound64>, 'QSizeGrip': <PyQt4.QtCore.pyqtWrapperType at remote 0x837246c>, 'QStyleOptionComboBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x837a964>, 'QStringListModel': <PyQt4.QtCore.pyqtWrapperType at remote 0x8375634>, 'QAbstractSpinBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x8338fc4>, 'QTreeView': <PyQt4.QtCore.pyqtWrapperType at remote 0x834790c>, 'QWorkspace': <PyQt4.QtCore.pyqtWrapperType at remote 0x83a2b44>, 'QPoint': <PyQt4.QtCore.pyqtWrapperType at remote 0x830bcfc>, 'QFontComboBox': <PyQ...(truncated), locals=
+    {'QAbstractButton': <PyQt4.QtCore.pyqtWrapperType at remote 0x8335434>, 'PlayerTable': <PyQt4.QtCore.pyqtWrapperType at remote 0x8b9135c>, 'QSizePolicy': <PyQt4.QtCore.pyqtWrapperType at remote 0x8372654>, 'QMatrix3x4': <PyQt4.QtCore.pyqtWrapperType at remote 0x83611ec>, 'QMatrix3x3': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360e7c>, 'QMatrix3x2': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360b0c>, 'QGraphicsColorizeEffect': <PyQt4.QtCore.pyqtWrapperType at remote 0x834e4e4>, 'qRound64': <built-in function qRound64>, 'QSizeGrip': <PyQt4.QtCore.pyqtWrapperType at remote 0x837246c>, 'QStyleOptionComboBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x837a964>, 'QStringListModel': <PyQt4.QtCore.pyqtWrapperType at remote 0x8375634>, 'QAbstractSpinBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x8338fc4>, 'QTreeView': <PyQt4.QtCore.pyqtWrapperType at remote 0x834790c>, 'QWorkspace': <PyQt4.QtCore.pyqtWrapperType at remote 0x83a2b44>, 'QPoint': <PyQt4.QtCore.pyqtWrapperType at remote 0x830bcfc>, 'QFontComboBox': <PyQ...(truncated), args=0x0, argcount=0, kws=0x0, kwcount=0, defs=0x0, defcount=0, closure=
+    0x0) at ../Python/ceval.c:3000
+---Type <return> to continue, or q <return> to quit---
+#38 0x080dfca7 in PyEval_EvalCode (co=0xb7f99968, globals=
+    {'QAbstractButton': <PyQt4.QtCore.pyqtWrapperType at remote 0x8335434>, 'PlayerTable': <PyQt4.QtCore.pyqtWrapperType at remote 0x8b9135c>, 'QSizePolicy': <PyQt4.QtCore.pyqtWrapperType at remote 0x8372654>, 'QMatrix3x4': <PyQt4.QtCore.pyqtWrapperType at remote 0x83611ec>, 'QMatrix3x3': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360e7c>, 'QMatrix3x2': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360b0c>, 'QGraphicsColorizeEffect': <PyQt4.QtCore.pyqtWrapperType at remote 0x834e4e4>, 'qRound64': <built-in function qRound64>, 'QSizeGrip': <PyQt4.QtCore.pyqtWrapperType at remote 0x837246c>, 'QStyleOptionComboBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x837a964>, 'QStringListModel': <PyQt4.QtCore.pyqtWrapperType at remote 0x8375634>, 'QAbstractSpinBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x8338fc4>, 'QTreeView': <PyQt4.QtCore.pyqtWrapperType at remote 0x834790c>, 'QWorkspace': <PyQt4.QtCore.pyqtWrapperType at remote 0x83a2b44>, 'QPoint': <PyQt4.QtCore.pyqtWrapperType at remote 0x830bcfc>, 'QFontComboBox': <PyQ...(truncated), locals=
+    {'QAbstractButton': <PyQt4.QtCore.pyqtWrapperType at remote 0x8335434>, 'PlayerTable': <PyQt4.QtCore.pyqtWrapperType at remote 0x8b9135c>, 'QSizePolicy': <PyQt4.QtCore.pyqtWrapperType at remote 0x8372654>, 'QMatrix3x4': <PyQt4.QtCore.pyqtWrapperType at remote 0x83611ec>, 'QMatrix3x3': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360e7c>, 'QMatrix3x2': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360b0c>, 'QGraphicsColorizeEffect': <PyQt4.QtCore.pyqtWrapperType at remote 0x834e4e4>, 'qRound64': <built-in function qRound64>, 'QSizeGrip': <PyQt4.QtCore.pyqtWrapperType at remote 0x837246c>, 'QStyleOptionComboBox': <PyQt4.QtCore.pyqtWrap---Type <return> to continue, or q <return> to quit---
+perType at remote 0x837a964>, 'QStringListModel': <PyQt4.QtCore.pyqtWrapperType at remote 0x8375634>, 'QAbstractSpinBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x8338fc4>, 'QTreeView': <PyQt4.QtCore.pyqtWrapperType at remote 0x834790c>, 'QWorkspace': <PyQt4.QtCore.pyqtWrapperType at remote 0x83a2b44>, 'QPoint': <PyQt4.QtCore.pyqtWrapperType at remote 0x830bcfc>, 'QFontComboBox': <PyQ...(truncated)) at ../Python/ceval.c:541
+#39 0x080fd956 in run_mod (fp=0x829d6b8, filename=0xbffff61e "AdminGui.py", 
+    start=257, globals=
+    {'QAbstractButton': <PyQt4.QtCore.pyqtWrapperType at remote 0x8335434>, 'PlayerTable': <PyQt4.QtCore.pyqtWrapperType at remote 0x8b9135c>, 'QSizePolicy': <PyQt4.QtCore.pyqtWrapperType at remote 0x8372654>, 'QMatrix3x4': <PyQt4.QtCore.pyqtWrapperType at remote 0x83611ec>, 'QMatrix3x3': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360e7c>, 'QMatrix3x2': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360b0c>, 'QGraphicsColorizeEffect': <PyQt4.QtCore.pyqtWrapperType at remote 0x834e4e4>, 'qRound64': <built-in function qRound64>, 'QSizeGrip': <PyQt4.QtCore.pyqtWrapperType at remote 0x837246c>, 'QStyleOptionComboBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x837a964>, 'QStringListModel': <PyQt4.QtCore.pyqtWrapperType at remote 0x8375634>, 'QAbstractSpinBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x8338fc4>, 'QTreeView': <PyQt4.QtCore.pyqtWrapperType at remote 0x834790c>, 'QWorkspace': <PyQt4.QtCore.pyqtWrapperType at remote 0x83a2b44>, 'QPoint': <PyQt4.QtCore.pyqtWrapperType at remote 0x830bcfc>, 'QFontComboBox': <PyQ...(truncated), locals=
+    {'QAbstractButton': <PyQt4.QtCore.pyqtWrapperType at remote 0x8335434>, 'Pla---Type <return> to continue, or q <return> to quit---
+yerTable': <PyQt4.QtCore.pyqtWrapperType at remote 0x8b9135c>, 'QSizePolicy': <PyQt4.QtCore.pyqtWrapperType at remote 0x8372654>, 'QMatrix3x4': <PyQt4.QtCore.pyqtWrapperType at remote 0x83611ec>, 'QMatrix3x3': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360e7c>, 'QMatrix3x2': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360b0c>, 'QGraphicsColorizeEffect': <PyQt4.QtCore.pyqtWrapperType at remote 0x834e4e4>, 'qRound64': <built-in function qRound64>, 'QSizeGrip': <PyQt4.QtCore.pyqtWrapperType at remote 0x837246c>, 'QStyleOptionComboBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x837a964>, 'QStringListModel': <PyQt4.QtCore.pyqtWrapperType at remote 0x8375634>, 'QAbstractSpinBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x8338fc4>, 'QTreeView': <PyQt4.QtCore.pyqtWrapperType at remote 0x834790c>, 'QWorkspace': <PyQt4.QtCore.pyqtWrapperType at remote 0x83a2b44>, 'QPoint': <PyQt4.QtCore.pyqtWrapperType at remote 0x830bcfc>, 'QFontComboBox': <PyQ...(truncated), closeit=1, flags=0xbffff3ac) at ../Python/pythonrun.c:1351
+#40 PyRun_FileExFlags (fp=0x829d6b8, filename=0xbffff61e "AdminGui.py", 
+    start=257, globals=
+    {'QAbstractButton': <PyQt4.QtCore.pyqtWrapperType at remote 0x8335434>, 'PlayerTable': <PyQt4.QtCore.pyqtWrapperType at remote 0x8b9135c>, 'QSizePolicy': <PyQt4.QtCore.pyqtWrapperType at remote 0x8372654>, 'QMatrix3x4': <PyQt4.QtCore.pyqtWrapperType at remote 0x83611ec>, 'QMatrix3x3': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360e7c>, 'QMatrix3x2': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360b0c>, 'QGraphicsColorizeEffect': <PyQt4.QtCore.pyqtWrapperType at remote 0x834e4e4>, 'qRound64': <built-in function qRound64>, 'QSizeGrip': <PyQt4.QtCore.pyqtWrapperType at remote 0x837246c>, 'QStyleOptionComboBox': <PyQt4.QtCore.pyqtWrap---Type <return> to continue, or q <return> to quit---
+perType at remote 0x837a964>, 'QStringListModel': <PyQt4.QtCore.pyqtWrapperType at remote 0x8375634>, 'QAbstractSpinBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x8338fc4>, 'QTreeView': <PyQt4.QtCore.pyqtWrapperType at remote 0x834790c>, 'QWorkspace': <PyQt4.QtCore.pyqtWrapperType at remote 0x83a2b44>, 'QPoint': <PyQt4.QtCore.pyqtWrapperType at remote 0x830bcfc>, 'QFontComboBox': <PyQ...(truncated), locals=
+    {'QAbstractButton': <PyQt4.QtCore.pyqtWrapperType at remote 0x8335434>, 'PlayerTable': <PyQt4.QtCore.pyqtWrapperType at remote 0x8b9135c>, 'QSizePolicy': <PyQt4.QtCore.pyqtWrapperType at remote 0x8372654>, 'QMatrix3x4': <PyQt4.QtCore.pyqtWrapperType at remote 0x83611ec>, 'QMatrix3x3': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360e7c>, 'QMatrix3x2': <PyQt4.QtCore.pyqtWrapperType at remote 0x8360b0c>, 'QGraphicsColorizeEffect': <PyQt4.QtCore.pyqtWrapperType at remote 0x834e4e4>, 'qRound64': <built-in function qRound64>, 'QSizeGrip': <PyQt4.QtCore.pyqtWrapperType at remote 0x837246c>, 'QStyleOptionComboBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x837a964>, 'QStringListModel': <PyQt4.QtCore.pyqtWrapperType at remote 0x8375634>, 'QAbstractSpinBox': <PyQt4.QtCore.pyqtWrapperType at remote 0x8338fc4>, 'QTreeView': <PyQt4.QtCore.pyqtWrapperType at remote 0x834790c>, 'QWorkspace': <PyQt4.QtCore.pyqtWrapperType at remote 0x83a2b44>, 'QPoint': <PyQt4.QtCore.pyqtWrapperType at remote 0x830bcfc>, 'QFontComboBox': <PyQ...(truncated), closeit=1, flags=0xbffff3ac) at ../Python/pythonrun.c:1337
+#41 0x080fdbb2 in PyRun_SimpleFileExFlags (fp=0x829d6b8, filename=
+    0xbffff61e "AdminGui.py", closeit=1, flags=0xbffff3ac)
+    at ../Python/pythonrun.c:941
+---Type <return> to continue, or q <return> to quit---
+#42 0x0805b6d3 in Py_Main (argc=2, argv=0xbffff494) at ../Modules/main.c:577
+#43 0x0805a8ab in main (argc=2, argv=0xbffff494) at ../Modules/python.c:23
+(gdb) 
+

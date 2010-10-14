@@ -1,12 +1,18 @@
+"""
+The Question Display Widget. Obviously.
+Can customize size [width, height], and button text.
+The widget can also display a pixmap when passed a pixmap and 'image' as a type.
+This was intended for a different type game file functionality. It is no longer
+supported or used.
+"""
+
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtWebKit import *
 
 class QuestionDisplay(QWidget):
-
     buttonClicked = pyqtSignal()
 
-    
     def __init__(self, type_, resource,
                  path = '',
                  buttonText = 'Buzz',
@@ -19,65 +25,33 @@ class QuestionDisplay(QWidget):
         self.width = width
         self.height = height
         
-        self.setupGui(resource, path)
-        
+        self.setupGui(resource, path)       
 
     def setupGui(self, resource, path):
-
         layout = QVBoxLayout()
         self.setLayout(layout)
         
         if self.type == 'image':
             w = QLabel()
-        else:
+        else: # 'html' theoretically; can also set type to 'peanuts' [ps: don't]
             w = QWebView()
         layout.addWidget(w)
         
         self.updateGui(resource, path)
         
         layout.addWidget(QPushButton(self.buttonText))
-        #w.setFixedSize(self.width, self.height)
-
-
         self.layout().itemAt(1).widget().clicked.connect(self.buttonClicked.emit)
-
         self.setFixedSize(self.width, self.height)
 
-        
-    def updateGui(self, resource, path):
-        
+    """
+    It is essential to pass a full path to setHtml because otherwise images
+    and really, any kind of separate file, won't work.
+    """
+    def updateGui(self, resource, path):        
         w = self.layout().itemAt(0).widget()
         
         if self.type == 'image':
             w.setPixmap(resource.scaled(QSize(self.width, self.height)))
         else:
-            #print 'HTML load path:', path
-            #print resource
             w.setHtml(resource, QUrl('file://' + path + '/'))
-
-
-
-"""
-import sys
-def main():
-    app = QApplication(sys.argv)
-    f = open('template.html')
-    text = ''
-    for line in f:
-        text += line
-    #q = QuestionDisplay('image', QPixmap('test.002.png'))
-    path = QDir().absolutePath()
-    q = QuestionDisplay('html', text, path, 'Answer', 800, 600)
-    win = QMainWindow()
-    win.setCentralWidget(q)
-    win.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-    
-    print q.size().width(), q.size().height()
-
-    win.show()
-
-    app.exec_()
-
-if __name__ == '__main__':
-    main()
-"""    
+  

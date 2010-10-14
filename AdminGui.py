@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 
 """
-AdminGui is the administrative interface main class. It provides game file
+AdminGui is the administrative interface's main class. It provides game file
 selection, validation, player management and question selection.
-This class must be started before any player connection may be attempted.
+This class must be instantiated before any player connection may be attempted.
 """
 import sys
 
@@ -20,13 +20,11 @@ from PlayerTableWidget import PlayerTable
 from PlayerAdminDialog import PlayerAdminDialog
 
 class AdminGui(Gui):
-
     """
     Signals are used to communicate with the GameServer, which is in a
     different thread. Any instance where a GameServer method is called
     directly is a _bug_. Please report it.
-    """
-    
+    """    
     answerShown = pyqtSignal()
     answerChecked = pyqtSignal(str, bool)
 
@@ -40,8 +38,8 @@ class AdminGui(Gui):
         self.loadRules()
 
         """
-        setup the player table, and wait for players to login before
-        the game may be started
+        Setup the player table, and wait for players to login before
+        the game may be started.
         """
         self.playerAdmin = PlayerAdminDialog(self)        
         self.playerAdmin.startGame.connect(self.startGame)

@@ -23,7 +23,7 @@ class PlayerTable(QWidget):
         for i in range(len(player)):
             table.setItem(0, i, QTableWidgetItem(str(player[i])))
 
-        table.sortItems(3, Qt.DescendingOrder)
+        table.sortItems(len(player) - 1, Qt.DescendingOrder)
 
         self.updateTableWidth()
         table.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -88,8 +88,9 @@ class PlayerTable(QWidget):
         width = 0
         
         for c in range(table.columnCount()):
-            width += table.columnWidth(c)
-            #table.horizontalHeader().resizeSection(c, table.columnWidth(c))
+            width += min(table.columnWidth(c),
+                         table.horizontalHeader().sectionSize(c))
+            
         width += table.verticalHeader().width() + 2
         return width
 
@@ -112,3 +113,20 @@ class PlayerTable(QWidget):
     def hideButtons(self):
         self.layout().itemAt(1).widget().hide()
         self.layout().itemAt(2).widget().hide()
+
+    def setColors(self, colors):
+        c = table.columnCount() + 1
+        table = self.getTable()
+        table.setColumnCount(c)
+        c -= 1
+        table.setHorizontalHeaderItem(c, QTableWidgetItem('Color'))
+
+        for r in range(table.rowCount()):
+            (r, g, b) = colors[table.item(r, 0).text()]
+            color = QColor()
+            color.setRedF = r
+            color.setGreenF = g
+            color.setBlueF = b
+            item = QTableWidgetItem()
+            item.setBackground(QBrush(color))
+            table.setItem(r, c, item)
