@@ -88,10 +88,12 @@ class PlayerTable(QWidget):
         width = 0
         
         for c in range(table.columnCount()):
+            if table.horizontalHeader().isSectionHidden(c):
+                continue
             width += min(table.columnWidth(c),
                          table.horizontalHeader().sectionSize(c))
             
-        width += table.verticalHeader().width() + 2
+        width += table.verticalHeader().width() + 4
         return width
 
     def updateTableWidth(self):
@@ -114,19 +116,22 @@ class PlayerTable(QWidget):
         self.layout().itemAt(1).widget().hide()
         self.layout().itemAt(2).widget().hide()
 
-    def setColors(self, colors):
-        c = table.columnCount() + 1
+    def showColors(self, colors):
         table = self.getTable()
-        table.setColumnCount(c)
-        c -= 1
+        table.setColumnCount(table.columnCount() + 1)
+        c = table.columnCount() - 1
         table.setHorizontalHeaderItem(c, QTableWidgetItem('Color'))
 
+        if c == 4:
+            table.horizontalHeader().hideSection(1)
+            table.horizontalHeader().hideSection(2)            
+            
         for r in range(table.rowCount()):
-            (r, g, b) = colors[table.item(r, 0).text()]
+            (r, g, b, a) = colors[str(table.item(r, 0).text())]
             color = QColor()
-            color.setRedF = r
-            color.setGreenF = g
-            color.setBlueF = b
+            color.setRgbF(r, g, b, a)
             item = QTableWidgetItem()
             item.setBackground(QBrush(color))
             table.setItem(r, c, item)
+
+        self.updateTableWidth()

@@ -32,7 +32,7 @@ class PlotRenderer(QThread):
             
         ax.legend(loc = 'best')
         linePlotPath = tempfile.mkstemp(suffix = '.png', dir = path)[1]
-        plt.savefig(linePlotPath, dpi = 400)
+        plt.savefig(linePlotPath, dpi = 100)
 
         self.finishedPlot.emit(linePlotPath)
         self.exec_()

@@ -147,10 +147,13 @@ class Gui(QWidget):
         self.log('Renering plot')
 
     def displayPlot(self, path):
+        self.getTable().showColors(self.getColors())
         self.pixmap = QPixmap(path)
         self.getPlot().setPixmap(self.pixmap.scaled(self.width, self.height,
                                                     Qt.KeepAspectRatioByExpanding,
                                                     Qt.SmoothTransformation))
+        self.resize(self.minimumSize())
+        self.adjustSize()
 
     def setLabelText(self, message):
         self.getLabel().setText(message)
@@ -183,6 +186,25 @@ class Gui(QWidget):
     def getPlot(self):
         return self.getStack().itemAt(2).widget()
 
+    """
+    Each player is associated a color by dividing the hue range by the number of
+    players. When there are lots of players, there is going to be a 'rainbow'
+    effect and some colors might be very similar and quite hard to distinguish.
+    Perhaps try changing saturation and value as well...?
+    """
+    def getColors(self):
+        colors = {}
+        names = [ player for player in self.getScores().keys() ]
+        hue = 0
+        hueInc = 360 / len(names)
+        for name in names:
+            hue += hueInc - 1
+            color = QColor()
+            color.setHsv(hue, 255, 240)
+            colors[name] = color.getRgbF()
+        print colors
+        return colors
+    
     """
     These functions get game related data, which is typically obtained differently for the client and server guis.
     This is why these functions are virtual and their specific implementation is in the derived classes.

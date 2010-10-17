@@ -76,6 +76,6 @@ class Server(QThread):
     def connectDaemon(self):
         raise NotImplementedError('connectDaemon is a virtual method and must be overridden')
 
-        def log(self, message):
+    def log(self, message):
         print self.name + ': ' + message
         
