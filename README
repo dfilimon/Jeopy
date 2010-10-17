@@ -4,6 +4,23 @@ Requires:
 	- Pyro ~ 3.10 (NOT Pyro 4)
 	- Matplotlib
 
+For Ubuntu 10.10, install [sud apt-get install ...]:
+    	- python-qt4
+	- pyro
+	- python-matplotlib
+
+For Mac OS X [10.5+], install [sudo port install ...]:
+    	! The python interpreted from MacPorts is required to run this program.
+	! You can find it in /opt/local/bin/python2.6.
+	! To use it by default, set /opt/local/bin before /usr/bin in your PATH
+	! Create a symlink named python in /opt/local/bin to the python2.6 binary
+    	- py26-pyqt4
+	- py26-pyro
+	- py26-matplotlib
+
+For Windows, install:
+    	- ?
+
 Running:
 
 	- You need to start the Pyro Name Server by yourself
@@ -15,12 +32,10 @@ Running:
 	  in Windows, which is probably located in the Tools/Scripts
 	  directory of your Python distribution root.
 
-	  For UNIX, you can also start the server by running
-	  'python ServerLauncher.py' which whill start the nameserver
-	  automatically.
 	  
 	- First, run the game server and select a .jeop file. Do this
-	  by running 'python ServerGui.py'.
+	  by running 'python AdminGui.py' or './AdminGui.py' if the program
+	  is executable.
 
 	- Any client can only start after a game has been selected and
 	the login table has been displayed in the server gui. Clients
