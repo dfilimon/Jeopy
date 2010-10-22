@@ -205,8 +205,9 @@ class GameServer(Server):
                 self.changeStatus(player[0], 'Disconnected')
                 
             self.scores[player[0]].append(player[1][3])
-            
-        self.gui.displayAnswer()
+
+        # used to be self.gui.displayAnswer()... I wonder if this caused the SIGSEGV
+        self.answerDisplayed.emit()
 
     """
     The game continues by waiting for another question to be selected.
