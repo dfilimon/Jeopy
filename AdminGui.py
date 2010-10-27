@@ -19,6 +19,8 @@ from PlayerTableWidget import PlayerTable
 
 from PlayerAdminDialog import PlayerAdminDialog
 
+from PlotRenderer import PlotRenderer
+
 class AdminGui(Gui):
     """
     Signals are used to communicate with the GameServer, which is in a
@@ -221,8 +223,9 @@ class AdminGui(Gui):
 
     def saveScoresPng(self):
         fileName = QFileDialog.getSaveFileName(self, 'Save Scores', 'scores.png', 'Images (*.png)')
-        self.pixmap.save(fileName)
-        
+
+        plotThread = PlotRenderer(self.getScores(), str(fileName), True, 300, self)
+        plotThread.start()        
     
 def main():
     app = QApplication(sys.argv)

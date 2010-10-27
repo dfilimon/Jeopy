@@ -141,7 +141,10 @@ class Gui(QWidget):
         self.renderPlot()
 
     def renderPlot(self):
-        plotThread = PlotRenderer(self.getScores(), self.getTempPath(), self)
+        # generate a random plot path!
+        plotPath = tempfile.mkstemp(suffix = '.png', dir = self.getTempPath())[1]
+        
+        plotThread = PlotRenderer(self.getScores(), plotPath, False, 100, self)
         plotThread.finishedPlot.connect(self.displayPlot)
         plotThread.start()
         self.log('Renering plot')

@@ -7,14 +7,15 @@ import tempfile
 class PlotRenderer(QThread):
     finishedPlot = pyqtSignal(str)
 
-    def __init__(self, scores, path, parent = None):
+    def __init__(self, scores, filePath, drawLegend, dpi, parent):
         super(PlotRenderer, self).__init__(parent)
         self.scores = scores
-        self.path = path
+        self.filePath = filePath    
+        self.drawLegend = drawLegend
+        self.dpi = dpi
     
     def run(self):
         scores = self.scores
-        path = self.path
         
         fig = plt.figure()
         ax = fig.add_subplot(111)
@@ -29,12 +30,14 @@ class PlotRenderer(QThread):
             hue += hueInc - 1
             x = range(1, len(player[1]) + 1)
             ax.plot(x, player[1], color = color.getRgbF(), label = player[0])
-            
-        ax.legend(loc = 'best')
-        linePlotPath = tempfile.mkstemp(suffix = '.png', dir = path)[1]
-        plt.savefig(linePlotPath, dpi = 100)
 
-        self.finishedPlot.emit(linePlotPath)
+        if self.drawLegend:
+            ax.legend(loc = 'best')
+            
+        #linePlotPath = tempfile.mkstemp(suffix = '.png', dir = path)[1]
+        plt.savefig(self.filePath, dpi = self.dpi)
+
+        self.finishedPlot.emit(self.filePath)
         self.exec_()
 
         
