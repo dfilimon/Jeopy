@@ -196,17 +196,9 @@ class Gui(QWidget):
     Perhaps try changing saturation and value as well...?
     """
     def getColors(self):
-        colors = {}
-        names = [ player for player in self.getScores().keys() ]
-        hue = 0
-        hueInc = 360 / len(names)
-        for name in names:
-            hue += hueInc - 1
-            color = QColor()
-            color.setHsv(hue, 255, 240)
-            colors[name] = color.getRgbF()
-        print colors
-        return colors
+        return dict([ (player[0], player[1][1])
+                      for player in
+                      self.getScores().items() ])
     
     """
     These functions get game related data, which is typically obtained differently for the client and server guis.

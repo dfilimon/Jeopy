@@ -37,7 +37,7 @@ class Game(Pyro.core.ObjBase):
         score = self.server.players[name][3]
         status = self.server.players[name][2]
         self.server.players[name] = (player, player.getIp(), 'Waiting', score)
-        self.server.scores[name] = [0]
+        self.server.scores[name] = ([0], None)
         self.server.playerMutex.unlock()
         if status != 'Disconnected':
             self.server.playerConnected.emit((name, ip, 'Waiting', score))

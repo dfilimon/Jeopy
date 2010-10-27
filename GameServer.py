@@ -19,6 +19,8 @@ from PyQt4.QtGui import *
 from Server import Server
 from Game import Game
 
+from PyQt4.QtGui import QColor
+
 class GameServer(Server):
     """
     Signals used to communicate with Gui. Do not update interface elements, or
@@ -204,7 +206,7 @@ class GameServer(Server):
             except (ConnectionClosedError, ProtocolError):
                 self.changeStatus(player[0], 'Disconnected')
                 
-            self.scores[player[0]].append(player[1][3])
+            self.scores[player[0]][0].append(player[1][3])
 
         # used to be self.gui.displayAnswer()... I wonder if this caused the SIGSEGV
         self.answerDisplayed.emit()
@@ -275,8 +277,19 @@ class GameServer(Server):
     """
     At the end of the game, when there are no more questions and no more rounds,
     this function gets called to trigger the drawing of the score plots.
+    Also, assigns a color to each player in the game.
     """
     def endGame(self):
+        hue = 0
+        hueInc = 360 / len(self.scores.items())
+        
+        for e in self.scores.items():
+            color = QColor()
+            color.setHsv(hue, 255, 240)
+            hue += hueInc - 1
+            self.scores[e[0]] = (e[1][0], color.getRgbF())
+
+        # actually ending the game here...
         for player in self.players.values():
                 player[0].endGame()
         self.gameEnded.emit()

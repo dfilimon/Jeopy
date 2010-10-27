@@ -16,20 +16,15 @@ class PlotRenderer(QThread):
     
     def run(self):
         scores = self.scores
+        print scores
         
         fig = plt.figure()
         ax = fig.add_subplot(111)
         plt.hold(True)
-
-        hue = 0
-        hueInc = 360 / len(scores)
         
         for player in scores.items():
-            color = QColor()
-            color.setHsv(hue, 255, 240)
-            hue += hueInc - 1
-            x = range(1, len(player[1]) + 1)
-            ax.plot(x, player[1], color = color.getRgbF(), label = player[0])
+            x = range(1, len(player[1][0]) + 1)
+            ax.plot(x, player[1][0], color = player[1][1], label = player[0])
 
         if self.drawLegend:
             ax.legend(loc = 'best')
