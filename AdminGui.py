@@ -171,6 +171,7 @@ class AdminGui(Gui):
     """
     def displayQuestion(self, i):
         Gui.displayQuestion(self, i)
+        Gui.displayAnswer(self)
         self.displayShowAnswerButton()
         
     def displayAnswer(self):
@@ -224,8 +225,8 @@ class AdminGui(Gui):
     def saveScoresPng(self):
         fileName = QFileDialog.getSaveFileName(self, 'Save Scores', 'scores.png', 'Images (*.png)')
 
-        plotThread = PlotRenderer(self.getScores(), str(fileName), True, 300, self)
-        plotThread.start()        
+        self.plotThread = PlotRenderer(self.getScores(), str(fileName), True, 300, self)
+        self.plotThread.start()        
     
 def main():
     app = QApplication(sys.argv)

@@ -144,9 +144,9 @@ class Gui(QWidget):
         # generate a random plot path!
         plotPath = tempfile.mkstemp(suffix = '.png', dir = self.getTempPath())[1]
         
-        plotThread = PlotRenderer(self.getScores(), plotPath, False, 100, self)
-        plotThread.finishedPlot.connect(self.displayPlot)
-        plotThread.start()
+        self.plotThread = PlotRenderer(self.getScores(), plotPath, False, 100, self)
+        self.plotThread.finishedPlot.connect(self.displayPlot)
+        self.plotThread.start()
         self.log('Renering plot')
 
     def displayPlot(self, path):
@@ -157,6 +157,7 @@ class Gui(QWidget):
                                                     Qt.SmoothTransformation))
         self.resize(self.minimumSize())
         self.adjustSize()
+        self.plotThread.exit()
 
     def setLabelText(self, message):
         self.getLabel().setText(message)
