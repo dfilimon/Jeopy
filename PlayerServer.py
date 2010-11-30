@@ -27,11 +27,13 @@ class PlayerServer(Server):
     """
     def __init__(self, gui, name, parent=None):
         Server.__init__(self, gui, name)
-        self.game = Pyro.core.getProxyForURI('PYRONAME://' + 'jeopardy')
+        ns = Pyro.naming.NameServerLocator().getNS()
+        self.game = Pyro.core.getProxyForURI(ns.resolve('jeopardy'))
+        #    'PYRONAME://' + 'jeopardy')
         self.running = False
 
         self.name = name
-        self.ip = gethostbyname(gethostname())
+        #self.ip = gethostbyname(gethostname())
 
     def run(self):
         self.running = True

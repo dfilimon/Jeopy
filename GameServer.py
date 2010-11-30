@@ -8,6 +8,7 @@ that is exposed to clients to the AdminGui. This works through QThreads.
 """
 import sys, random
 from copy import deepcopy
+from socket import gethostbyname, gethostname
 
 import Pyro.core
 import Pyro.naming

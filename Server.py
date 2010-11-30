@@ -1,5 +1,6 @@
 import sys
 from time import sleep
+import socket
 
 import Pyro.core
 import Pyro.naming
@@ -34,6 +35,7 @@ class Server(QThread):
         self.daemon = None
         self.gui = gui
         self.name = name
+        self.ip = [ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][0]
 
     # When closing the app, its name must be unregistered from the NameServer
     def close(self):
@@ -45,8 +47,8 @@ class Server(QThread):
         self.setupSignals()
         Pyro.core.initServer()
         ns = Pyro.naming.NameServerLocator().getNS()
-
-        self.daemon = Pyro.core.Daemon()
+        
+        self.daemon = Pyro.core.Daemon('PYRO', self.ip)
         self.daemon.useNameServer(ns)
         self.connectDaemon()
 
