@@ -1,3 +1,8 @@
+TODO:
+	- use netifaces
+	- http://pypi.python.org/pypi/netifaces/0.4
+	netifaces.ifaddresses('vmnet8')[netifaces.AF_INET][0]['addr']
+
 Requires:
 	- Python > 2.6
 	- PyQt > 4.6
@@ -8,6 +13,7 @@ For Ubuntu 10.10, install [sud apt-get install ...]:
     	- python-qt4
 	- pyro
 	- python-matplotlib
+	- python-netifaces (soon...)
 
 For Mac OS X [10.5+], install [sudo port install ...]:
     	! The python interpreted from MacPorts is required to run this program.
