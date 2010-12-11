@@ -125,13 +125,13 @@ class PlayerTable(QWidget):
         if c == 4:
             table.horizontalHeader().hideSection(1)
             table.horizontalHeader().hideSection(2)            
-            
-        for r in range(table.rowCount()):
-            (r, g, b, a) = colors[str(table.item(r, 0).text())]
-            color = QColor()
+
+        color = QColor()            
+        for row in range(table.rowCount()):
+            (r, g, b, a) = colors[str(table.item(row, 0).text())]
             color.setRgbF(r, g, b, a)
             item = QTableWidgetItem()
-            item.setBackground(QBrush(color))
-            table.setItem(r, c, item)
+            item.setBackground(QBrush(QColor(color)))
+            table.setItem(row, c, item)
 
         self.updateTableWidth()
