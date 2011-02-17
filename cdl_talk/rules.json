@@ -1,0 +1,87 @@
+{
+  "type": "html",
+  "template": "template.html",
+  "size": {
+    "width": 800,
+    "height": 600
+  },
+  "rounds": [
+    {
+      "buttonFontSize": 14,
+      "labelFontSize": 18,
+      "title": "Simple Jeopardy",
+      "categories": [
+        {
+	  "title": "Who?",
+	  "questions": [
+	    {
+	      "statement": "whoami",
+	      "answer": "Dan-George Filimon",
+	      "value": 100
+	    },
+	    {
+	      "statement": "whatami",
+	      "answer": "Student, anul 2, CA, more @ danf.wordpress.com",
+	      "value": 200
+	    },
+	    {
+	      "statement": "wherewasi",
+	      "answer": "CDLv2.0, am lucrat la MinVG",
+	      "value": 300
+	    }
+	  ]
+	},
+	{        
+	  "title": "What?",
+	  "questions": [
+	    {
+	      "statement": "Ce e Jeopy?",
+	      "answer": "self",
+	      "value": 100
+	    },
+            {
+              "statement": "Ce tehnologii folosește?",
+              "answer": "Scris în Python (ușurința dezvoltării, weakly-typed), PyQt pentru GUI, Pyro pentru comunicarea în rețea",
+              "value": 200
+            },
+            {
+              "statement": "Cum funcționează în rețea? (2)",
+              "answer": "Există obiecte Server și obiecte Game și Player care sunt folosite pentru comunicarea între instanțe...",
+              "value": 300
+            }
+	  ]
+	},
+        {
+          "title": "Why?",
+          "questions": [
+            {
+              "statement": "De ce ai ales tehnologiile astea?",
+              "answer": "Python: se folosește peste tot, Pyro: nu ști{u,am} network programming, Qt: cross-platform for free, Matplotlib: îmi plac graficele",
+              "value": 100
+            },
+            {
+              "statement": "De ce aș lucra eu la Jeopy? (0)",
+              "answer": "E awesome.",
+              "value": 200
+            },
+            {
+              "statement": "De ce aș lucra eu la Jeopy? (1)",
+              "answer": "Git: cum folosesc revision control, Licensing: cum trebuie licențiat codul, Documentație: eu am scris proiectul, vă pot răspunde la orice întrebare, Teamwork: și eu voi mai adăuga cod",
+              "value": 0
+            },
+            {
+              "statement": "De ce aș lucra eu la Jeopy? (2)",
+              "answer": "Taskuri de diferite dificultăți, începând de la un warm-up până la o reproiectare a unor componente fundamentale",
+              "value": 300
+            },
+            {
+              "statement": "De ce aș lucra eu la Jeopy? (3)",
+              "answer": "Satisfacție. Jeopy a fost folosit deja la USO în 2010 și la un curs de CCNA. First step to World Domination.",
+              "value": 400
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
