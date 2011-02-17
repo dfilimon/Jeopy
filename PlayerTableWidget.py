@@ -1,17 +1,31 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+"""
+PlayerTable class contains the table displayed at various times throughout Jeopy.
+One of these tables is displayed in the PlayerAdminDialog and the others in the Gui (both Player and Admin) and finally it supports colors when drawing the plot at the end.
+
+QTableWidgets are not very cooperative. They need to be specifically forced to a
+certain size and the table needs to know that its holding ints, otherwise when
+enabling sorting it will do a lexicographic sort, which makes no sense for numbers.
+"""
+
 class PlayerTable(QWidget):
 
     playersMuted = pyqtSignal(list)
     playersUnmuted = pyqtSignal(list)
-    
+
+    """
+    There are two basic types of table - the ones displayed in the AdminGui which also contain buttons for muting and unmuting and the ones used in all other cases which don't have any buttons.
+    """
     def __init__(self, labels, buttonText, parent = None):
         super(PlayerTable, self).__init__(parent)
         self.setupGui(labels, buttonText)
 
         if buttonText != '':
             self.layout().itemAtPosition(1, 0).widget().clicked.connect(self.mutePlayers)
+            # this is legacy! banning is no longer permitted during login
+            # actually working to fix this
             if buttonText != 'ban':
                 self.layout().itemAtPosition(1, 1).widget().clicked.connect(self.unmutePlayers)
 
@@ -45,7 +59,7 @@ class PlayerTable(QWidget):
         table.setSortingEnabled(True)
         table.sortItems(len(player) - 1, Qt.DescendingOrder)
         self.updateTableWidth()
-        table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        #table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
 
     def setupGui(self, labels, buttonText):
@@ -53,6 +67,8 @@ class PlayerTable(QWidget):
         self.setLayout(layout)
 
         table = QTableWidget()
+        # starting at line 0 and column 0, taking up 1 line and 2 columns
+        # this way we make sure that buttons (if there are any are properly aligned)
         layout.addWidget(table, 0, 0, 1, 2)
 
         table.setColumnCount(len(labels))
@@ -62,16 +78,11 @@ class PlayerTable(QWidget):
         table.setShowGrid(False)
         table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         
-        #table.horizontalHeader().setResizeMode(QHeaderView.Stretch)
         table.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        #table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
-        #table.horizontalHeader().setStretchLastSection(True)
-        #table.verticalHeader().setResizeMode(QHeaderView.Stretch)
-        table.horizontalHeader().setSortIndicatorShown(False)
+ 
+        table.horizontalHeader().setSortIndicatorShown(True)
         self.updateTableWidth()
-        #table.setFixedWidth(self.getTableWidth())
         
-
         if buttonText != '':
             if buttonText != 'ban':
                 layout.addWidget(QPushButton(buttonText.title()), 1, 0)
@@ -83,25 +94,25 @@ class PlayerTable(QWidget):
     def getTable(self):
         return self.layout().itemAt(0).widget()
 
+    """
+    set the appropriate table width! needs to work properly!
+    """
     def getTableWidth(self):
         table = self.getTable()
         width = 0
-        
+        table.resizeColumnsToContents()
+
         for c in range(table.columnCount()):
             if table.horizontalHeader().isSectionHidden(c):
                 continue
-            width += min(table.columnWidth(c),
+            width += max(table.columnWidth(c),
                          table.horizontalHeader().sectionSize(c))
+            print table.columnWidth(c), table.horizontalHeader().sectionSize(c)
             
-        width += table.verticalHeader().width() + 4
         return width
 
     def updateTableWidth(self):
-        table = self.getTable()
-        table.resizeColumnsToContents()
-        width = self.getTableWidth()
-        
-        table.setFixedWidth(width)
+        self.getTable().setFixedWidth(self.getTableWidth())
 
     def getSelected(self):
         return [str(item.text()) for item in self.getTable().selectedItems()]

@@ -33,12 +33,14 @@ class Game(Pyro.core.ObjBase):
         print 'Game: Connection from:', name
         player = Pyro.core.getProxyForURI('PYRONAME://' + name)
         ip = player.getIp()
+        
         self.server.playerMutex.lock()
         score = self.server.players[name][3]
         status = self.server.players[name][2]
-        self.server.players[name] = (player, player.getIp(), 'Waiting', score)
+        self.server.players[name] = (player, ip, 'Waiting', score)
         self.server.scores[name] = ([0], None)
         self.server.playerMutex.unlock()
+        
         if status != 'Disconnected':
             self.server.playerConnected.emit((name, ip, 'Waiting', score))
             self.server.gamesToStart += 1

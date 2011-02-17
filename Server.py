@@ -50,7 +50,14 @@ class Server(QThread):
         
         self.daemon = Pyro.core.Daemon('PYRO', self.ip)
         self.daemon.useNameServer(ns)
-        self.connectDaemon()
+        
+        """
+        this is implemented in GameServer and PlayerServer respectively
+        this is where the daemon is notified of the types of objects it exposes:
+        either Game objects for the GameServer or Player objects for the
+        PlayerServer
+        """
+        self.connectDaemon() 
 
         self.log('The daemon runs on port: ' + str(self.daemon.port))
         self.log('The server\'s URI is: ' + str(self.uri))

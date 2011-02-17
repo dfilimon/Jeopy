@@ -13,7 +13,7 @@ class PlayerAdminDialog(QDialog):
 
     def setupGui(self):
         layout = QVBoxLayout()
-        table = PlayerTable(['Nickname', 'IP', 'Status', 'Score'], '')
+        table = PlayerTable(['Nickname', 'IP', 'Status', 'Score'], 'ban')        
         layout.addWidget(table)
         button = QPushButton('Start Game')
         button.clicked.connect(self.startGame.emit)
