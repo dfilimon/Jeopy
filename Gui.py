@@ -3,6 +3,14 @@ Defines the base Gui class from which the two versions, ServerGui and PlayerGui
 are derived. PlayerGui inherits Gui with few changes, whereas ServerGui uses a
 different PlayerTable.
 Signals are different and PlayerGui's ButtonGrid doesn't select a question.
+
+    
+display* functions modify the visible widget of the QStackedLayoutswitching between the
+ButtonGrid and QuestionDisplay:
+displayQuestion, displayAnswer
+displayGrid : note that, in case of an update (for going to the next round), a different
+function is called to replace the buttons, but in the end displayGrid switches th QStackedLayout's current widget
+    
 """
 
 from PyQt4.QtCore import *
@@ -32,13 +40,15 @@ class Gui(QWidget):
     def startGame(self):
         raise NotImplementedError('startGame is virtual and must be overridden')
 
-    """
-    The basic layout is the same - a grid layout with a QuestionDisplay / ButtonGrid in a QStackedLayout
-    on the left and a PlayerTable on the right.
-    The label on top displays informative messages and is hidden when not used.
-    - buttonText is the text shown in the QuestionDisplay's button
-    """
     def setupGui(self, buttonText, width, height):
+        """
+        The basic layout is the same - a grid layout with a
+        QuestionDisplay / ButtonGrid in a QStackedLayout
+        on the left and a PlayerTable on the right.
+        The label on top displays informative messages and is hidden when not
+        used.
+          - buttonText is the text shown in the QuestionDisplay's button
+        """
         layout = QGridLayout()
         self.setLayout(layout)
 
@@ -72,21 +82,19 @@ class Gui(QWidget):
         for name in os.listdir(path):
             os.remove(path + '/' + name)
         os.removedirs(path)
-
-    # messages from different components are prefixed with their source, in this case the gui thread; redirect to create log
+ 
     def log(self, message):
+        """
+        messages from different components are prefixed with their source, in this case the gui thread; redirect to create log
+        @param message: the message to log
+        @type message: str
+        """
         print 'Gui: ' + message
 
-    """
-    display* functions modify the visible widget of the QStackedLayoutswitching between the
-    ButtonGrid and QuestionDisplay:
-    displayQuestion, displayAnswer
-    displayGrid : note that, in case of an update (for going to the next round), a different
-    function is called to replace the buttons, but in the end displayGrid switches the QStackedLayout's
-    current widget
-    """
-    # displays the current question's statement
     def displayQuestion(self, i):
+        """
+        displays the current question's statement
+        """
         self.getGrid().layout().itemAt(i).widget().setEnabled(False)
         self.log('displaying question ' + str(i))
         
@@ -120,11 +128,11 @@ class Gui(QWidget):
         del oldGrid
         self.getStack().insertWidget(0, ButtonGrid(self.getRound(), width = self.width, height = self.height))
 
-    """
-    Displays the plot drawn by the PlotRenderer. The pixmap getPixmap() returns
-    is always scaled down to the appropriate width and height.
-    """
     def displayEndGame(self):
+        """
+        Displays the plot drawn by the PlotRenderer. The pixmap getPixmap() returns
+        is always scaled down to the appropriate width and height.
+        """
         self.getLabel().hide()
         w = QLabel()
         w.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
@@ -163,7 +171,8 @@ class Gui(QWidget):
         self.getLabel().setText(message)
 
     """
-    Getter functions for the different UI elements.
+    Getter functions for the different UI elements
+    ----------------------------------------------
     Accessing them manualy would have been awkward and error-prone because of the layout indices.
     """
     def getLabel(self):
@@ -190,19 +199,21 @@ class Gui(QWidget):
     def getPlot(self):
         return self.getStack().itemAt(2).widget()
 
-    """
-    Each player is associated a color by dividing the hue range by the number of
-    players. When there are lots of players, there is going to be a 'rainbow'
-    effect and some colors might be very similar and quite hard to distinguish.
-    Perhaps try changing saturation and value as well...?
-    """
     def getColors(self):
+        """
+        Each player is associated a color by dividing the hue range by the number of
+        players. When there are lots of players, there is going to be a 'rainbow'
+        effect and some colors might be very similar and quite hard to distinguish.
+        Perhaps try changing saturation and value as well...?
+        """
         return dict([ (player[0], player[1][1])
                       for player in
                       self.getScores().items() ])
     
     """
-    These functions get game related data, which is typically obtained differently for the client and server guis.
+    These functions get game related data
+    -------------------------------------
+    This is typically obtained differently for the client and server guis.
     This is why these functions are virtual and their specific implementation is in the derived classes.
     """
     def getRound(self):
@@ -220,11 +231,12 @@ class Gui(QWidget):
     def getScores(self):
         raise NotImplementedError('getScores is virtual and must be overridden')
 
-    """
-    Helper function, for the case where a question defines a custom html template which needs to be read.
-    Is in practice always called, because finding custom templates is not the job of the display{Question,Answer} methods.
-    """
+    
     def getTemplateFromQuestion(self, question):
+        """
+        Helper function, for the case where a question defines a custom html template which needs to be read.
+        Is in practice always called, because finding custom templates is not the job of the display{Question,Answer} methods.
+        """
         if 'template' not in question or question == None: 
             return self.getTemplate()
         templateFile = open(self.getTempPath() + '/' + question['template'])

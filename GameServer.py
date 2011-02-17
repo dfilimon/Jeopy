@@ -3,6 +3,7 @@ GameServer is the class responsible for spawning Pyro threads of the Game object
 Game objects themselves have an extremely limited lifetime as instances are
 created whenever needed. That means that any data that needs to be stored must be
 somewhere else. In this case, the Server object.
+
 The GameServer is also responsible of relaying messages from the Game Pyro object
 that is exposed to clients to the AdminGui. This works through QThreads.
 """
@@ -24,10 +25,12 @@ from PyQt4.QtGui import QColor
 
 class GameServer(Server):
     """
+    GameServer class derived from Server. This is where most of the game's logic is implemented.
+
     Signals used to communicate with Gui. Do not update interface elements, or
     perform non reentrant operations:
-    calling self.gui.displayGrid() can possibly cause a SIGSEGV
-    use self.gridDisplayed.emit() since inter-thread communication is sure to work
+    calling B{self.gui.displayGrid()}can possibly cause a SIGSEGV
+    use B{self.gridDisplayed.emit()} since inter-thread communication is sure to work
     """
     playerConnected = pyqtSignal(tuple)
     playerReconnected = pyqtSignal(tuple)
@@ -93,23 +96,26 @@ class GameServer(Server):
         self.uri = self.daemon.connect(Game(self), self.name)
 
     """
-       ***GAME FUNCTIONS*** 
-    """
-    """
+    ***GAME FUNCTIONS***
     Methods for starting a new game.
-    Gui signals are not connected when this function is called.
     """
+
     def startGame(self):
+        """
+        Gui signals are not connected when this function is called.
+        """        
         for name in self.players.keys():
             self.startPlayerGame((name, 0))
         self.setupGuiSignals()
 
-    """
-    Starting a player's client gui means:
-    - sending over the resources needed for the questions (image files, html templates, etc.)
-    - actually calling a startGame method so that the guis are loaded
-    """
     def startPlayerGame(self, player):
+        """
+        Starting a player's client gui means:
+          - sending over the resources needed for the questions (image files, html templates, etc.)
+          - actually calling a startGame method so that the guis are loaded
+        @param player: the name of the player for which to start the game.
+        @type player: str
+        """
         name = player[0]
         try:
             self.players[name][0].loadResources()
@@ -117,21 +123,21 @@ class GameServer(Server):
         except (ConnectionClosedError, ProtocolError):
             self.changeStatus(name, 'Disconnected')
 
-    """
-    Without setting loginEnabled True, nobody is allowed to log in, unless they
-    are marked as 'Disconnected'.
-    """
     def enableLogin(self):
+        """
+        Without setting loginEnabled True, nobody is allowed to log in, unless they
+        are marked as 'Disconnected'.
+         """
         self.log('Login enabled')
         self.loginEnabled = True
 
 
-    """
-    When no answer was given last turn or the answer given was false, a player
-    is chosen at random to select the next question.
-    Muted and disconnected players don't count.
-    """
     def choosePlayer(self):
+        """
+        When no answer was given last turn or the answer given was false, a player
+        is chosen at random to select the next question.
+        Muted and disconnected players don't count.
+        """
         numActivePlayers = len(self.players)
         for player in self.players.values():
             if player[2] == 'Muted' or player[2] == 'Disconnected':
@@ -146,14 +152,14 @@ class GameServer(Server):
             else:
                 n -= 1
 
-    """
-    When a question is selected (by the admin, requested by a player)
-    - it's loaded into the question variable to not do any more lookups
-    - the game prepares to recieve a buzz
-    - player statuses are changed to Waiting
-    - player guis are signaled to display the ButtonGrid
-    """
     def selectQuestion(self, i):
+        """
+        When a question is selected (by the admin, requested by a player)
+          - it's loaded into the question variable to not do any more lookups
+          - the game prepares to recieve a buzz
+          - player statuses are changed to Waiting
+          - player guis are signaled to display the ButtonGrid
+        """
         (c, q) = self.toLineCol(self.round, i)
         
         category = self.round['categories'][c]
@@ -173,12 +179,12 @@ class GameServer(Server):
 
         self.questionSelected.emit(i)
    
-    """
-    Once the admin has validated the answer through the messagebox in the AdminGui
-    this function, that calculates the new score is called.
-    Afterwards, the correct answer is displayed.
-    """
     def checkAnswer(self, name, ans):
+        """
+        Once the admin has validated the answer through the messagebox in the AdminGui
+        this function, that calculates the new score is called.
+        Afterwards, the correct answer is displayed.
+        """
         name = str(name)
         player = self.players[name]
        
@@ -195,11 +201,11 @@ class GameServer(Server):
                 
         self.showAnswer()
 
-    """
-    Displays the answer to all players and updates the scores array.
-    The scores array is required to draw the final plot at the end of the game.
-    """
     def showAnswer(self):
+        """
+        Displays the answer to all players and updates the scores array.
+        The scores array is required to draw the final plot at the end of the game.
+        """
         for player in self.players.items():
             try:
                 player[1][0].disableBuzz()
@@ -212,20 +218,13 @@ class GameServer(Server):
         # used to be self.gui.displayAnswer()... I wonder if this caused the SIGSEGV
         self.answerDisplayed.emit()
 
-    """
-    The game continues by waiting for another question to be selected.
-    First,
-    we must find out if there are any more questions this round, or if there are
-    any more questions at all.
-    Second,
-    a player must be chosen to select a question - if the last answer was correct,
-    then the player who gave that answer gets to pick, otherwise, a player is
-    chosen at random.
-    Third,
-    the players are signaled to display the ButtonGrids and the AdminGui itself
-    displays its grid.
-    """
     def nextQuestion(self):
+        """
+        The game continues by waiting for another question to be selected.
+          1. we must find out if there are any more questions this round, or if there are any more questions at all.
+          2. a player must be chosen to select a question - if the last answer was correct, then the player who gave that answer gets to pick, otherwise, a player is chosen at random.
+          3. the players are signaled to display the ButtonGrids and the AdminGui itself displays its grid.
+        """
         if len(self.usedQuestions) == self.numQuestions:
             if not self.nextRound():
                 return
@@ -244,14 +243,14 @@ class GameServer(Server):
 
         self.gridDisplayed.emit()
 
-    """
-    When progressing to the next round:
-    - the round variable of the GameServer needs to be updated
-    - the usedQuestions array needs to be emptied
-    - the numQuestions needs to be recalculated
-    - gui events need to be trigerred to replace the ButtonGrid with a new one
-    """
     def nextRound(self):
+        """
+        When progressing to the next round:
+            - the round variable of the GameServer needs to be updated
+            - the usedQuestions array needs to be emptied
+            - the numQuestions needs to be recalculated
+            - gui events need to be trigerred to replace the ButtonGrid with a new one
+         """
         self.roundNum += 1
         
         if self.roundNum >= self.numRounds:
@@ -275,12 +274,12 @@ class GameServer(Server):
             self.roundChanged.emit()
         return True
 
-    """
-    At the end of the game, when there are no more questions and no more rounds,
-    this function gets called to trigger the drawing of the score plots.
-    Also, assigns a color to each player in the game.
-    """
     def endGame(self):
+        """
+        At the end of the game, when there are no more questions and no more rounds,
+        this function gets called to trigger the drawing of the score plots.
+        Also, assigns a color to each player in the game.
+        """
         hue = 0
         hueInc = 360 / len(self.scores.items())
         
@@ -298,13 +297,13 @@ class GameServer(Server):
     """
        ***UTILITY FUNCTIONS***
     """
-    """
-    When selecting a question through the ButtonGrid, the position of the item in
-    the grid is emitted. That is not however the actual number of the question.
-    From that index, category and question number can be determined.
-    This function supports categories with a different number of questions.
-    """
     def toLineCol(self, round, index):
+        """
+        When selecting a question through the ButtonGrid, the position of the item in
+        the grid is emitted. That is not however the actual number of the question.
+        From that index, category and question number can be determined.
+        This function supports categories with a different number of questions.
+        """
         n = len(round['categories'])
         maxIndex = 0
         for i in range(n):
@@ -314,11 +313,13 @@ class GameServer(Server):
         j = index - (maxIndex - len(round['categories'][i]['questions']))
         return (i, j)
 
-    """
-    Players are muted/unmuted through these functions as long as the players in
-    the names array are not Selecting. A Selecting player cannot be muted.
-    """
     def mutePlayers(self, names):
+        """
+        Players are muted/unmuted through these functions as long as the players in
+        the names array are not Selecting. A Selecting player cannot be muted.
+        @param names: the names of the players to be muted
+        @type names: array
+        """
         for name in names:
             if name == self.selectingPlayer:
                 continue
@@ -332,13 +333,17 @@ class GameServer(Server):
 
     
 
-    """
-    Changing a player's status or score works in pretty much the same way.
-    The player entry in the players table is copied and the required field is
-    modified. The entry is then put back in the dictionary and the proper signals
-    are emitted.
-    """
     def changeStatus(self, name, status):
+        """
+        Changing a player's status or score works in pretty much the same way.
+        The player entry in the players table is copied and the required field is
+        modified. The entry is then put back in the dictionary and the proper signals
+        are emitted.
+        @param name: name of the player whose status is to change
+        @type name: str
+        @param status: the player's new status
+        @type status: str
+        """
         player = self.players[name]
         self.players[name] = (player[0], player[1], status, player[3])
         self.playerStatusChanged.emit((name, player[1], status, player[3]))
@@ -349,6 +354,12 @@ class GameServer(Server):
                 self.changeStatus(name, 'Disconnected')
            
     def changeScore(self, name, score):
+        """
+        @param name: name of the player whose status is to change
+        @type name: str
+        @param score: the player's new score
+        @type score: int
+        """
         player = self.players[name]
         self.players[name] = (player[0], player[1], player[2], score)
         self.playerScoreChanged.emit((name, player[1], player[2], score))

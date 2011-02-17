@@ -23,9 +23,11 @@ from PlotRenderer import PlotRenderer
 
 class AdminGui(Gui):
     """
+    Subclasses Gui and is the interface that provides actual control over question selection and overall game progress. Should be used by game Administrator.
+    
     Signals are used to communicate with the GameServer, which is in a
-    different thread. Any instance where a GameServer method is called
-    directly is a _bug_. Please report it.
+    different thread. B{Any instance where a GameServer method is called
+    directly is a bug}. Please report it.
     """    
     answerShown = pyqtSignal()
     answerChecked = pyqtSignal(str, bool)
@@ -35,6 +37,7 @@ class AdminGui(Gui):
     
     def __init__(self, parent=None):    
         super(AdminGui, self).__init__(parent)
+        self.game = None # if something goes wrong with the game server, we'll have a nice cleanup
         self.game = GameServer(self, 'jeopardy')
 
         self.loadRules()
@@ -55,13 +58,13 @@ class AdminGui(Gui):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.displayTime)
 
-    """
-    loadRules is where the user selects a game file (*.jeop) and where it is
-    validated by the RuleLoader module. After (if) this function finishes, the
-    GameServer object, self.game will contain the rules read from the file.
-    The RuleLoader may be used on its own to test the validity of .jeop files.
-    """
-    def loadRules(self): 
+    def loadRules(self):
+        """
+        loadRules is where the user selects a game file (*.jeop) and where it is
+        validated by the RuleLoader module. After (if) this function finishes, the
+        GameServer object, self.game will contain the rules read from the file.
+        The RuleLoader may be used on its own to test the validity of .jeop files.
+        """
         fileName = ''
         while fileName == '':  
             fileName = QFileDialog.getOpenFileName(self,
@@ -83,11 +86,11 @@ class AdminGui(Gui):
             else:
                 self.log('Loaded ' + fileName)
 
-    """
-    The actual game ui is set up and the AdminGui instructs the GameServer to
-    startGames for all players
-    """
     def startGame(self):
+        """
+        The actual game ui is set up and the AdminGui instructs the GameServer to
+        startGames for all players.
+        """
         self.playerAdmin.close()
         self.game.loginEnabled = False
         
@@ -119,28 +122,28 @@ class AdminGui(Gui):
     def getScores(self):
         return self.game.scores
 
-    """
-    Custom table used in the AdminGui.
-    Players can be muted and their Status is displayed. Use it to determine who
-    can select a question, who can answer and who is disconnected.
-    """
     def setupTable(self):
+        """
+        Custom table used in the AdminGui.
+        Players can be muted and their Status is displayed. Use it to determine who
+        can select a question, who can answer and who is disconnected.
+        """
         table = PlayerTable(['Nickname', 'IP', 'Status', 'Score'], 'mute')
         for player in self.game.players.items():
             table.addPlayer((player[0], player[1][1], player[1][2], player[1][3]))
         return table
 
-    """
-    Communication between AdminGui and GameServer is setup here. The actual logic
-    behind most operations pertaining players is in the GameServer.
-    - player Mute/Unmute, from table buttons
-    - answerChecked, for score modification
-    - showing the answer to everyone from QuestionDisplay button;
-      note: this signal is not always connected as that button is also used
-      for progressing to the next question in addition to showing the answer
-    - question selection from ButtonGrid
-    """
     def setupSignals(self):
+        """
+        Communication between AdminGui and GameServer is setup here. The actual logic
+        behind most operations pertaining players is in the GameServer.
+          - player Mute/Unmute, from table buttons
+          - answerChecked, for score modification
+          - showing the answer to everyone from QuestionDisplay button;
+            note: this signal is not always connected as that button is also used
+            for progressing to the next question in addition to showing the answer
+          - question selection from ButtonGrid
+    """
         self.gameStarted.connect(self.game.startGame)
         self.getTable().playersMuted.connect(self.game.mutePlayers)
         self.getTable().playersUnmuted.connect(self.game.unmutePlayers)
@@ -148,21 +151,25 @@ class AdminGui(Gui):
         self.getDisplay().buttonClicked.connect(self.game.showAnswer)
         self.getGrid().buttonClicked.connect(self.game.selectQuestion)
         
-
-    """
-    The admin user decides whether a question is correct or not regardless of the
-    actual answer's formulation.
-    """
+    
     def playerBuzzed(self, name):
-         ans = QMessageBox.information(self, '', 'Player ' + name + ' is answering.\nIs the answer correct?', QMessageBox.Yes | QMessageBox.No)
-         if ans == QMessageBox.Yes:
-             add = True
-         else:
-             add = False
-         self.answerChecked.emit(name, add)
+        """
+        The admin user decides whether a question is correct or not regardless of the
+        actual answer's formulation.
+        @param name: The buzzing player's name, used to search in dictionary for URI
+        @type name: str
+        """
+        ans = QMessageBox.information(self, '', 'Player ' + name + ' is answering.\nIs the answer correct?', QMessageBox.Yes | QMessageBox.No)
+        if ans == QMessageBox.Yes:
+            add = True
+        else:
+            add = False
+        self.answerChecked.emit(name, add)
 
-    # refreshes the timer every second
     def displayTime(self):
+        """
+        Refreshes the timer every second
+        """
         self.time = self.time.addSecs(1)
         self.getLabel().setText(self.time.toString())
 
@@ -170,8 +177,13 @@ class AdminGui(Gui):
     Same functions as in Gui class, but also handling the double-use button
     """
     def displayQuestion(self, i):
+        """
+        This only adds the I{Show Answer} button to the widget. Check to see how
+        the index i is interpreted in L{ButtonGridWidget.ButtonGrid.emitButtonClicked}. It's really just the position of the button in the grid layout of the ButtonGrid widget.
+        """
         Gui.displayQuestion(self, i)
-        Gui.displayAnswer(self)
+        # this is commented out just for presentation mode!
+        # Gui.displayAnswer(self)
         self.displayShowAnswerButton()
         
     def displayAnswer(self):
@@ -188,23 +200,29 @@ class AdminGui(Gui):
         self.getDisplayButton().setText('Show Answer')
         self.getDisplayButton().clicked.connect(self.game.showAnswer)
         
-    """
-    Since the ButtonGrid is used for question selection, when a new one is created,
-    because of a change of round, the buttonClicked signal must be reconnected.
-    """
     def updateGrid(self):
+        """
+        Since the ButtonGrid is used for question selection, when a new one is created,
+        because of a change of round, the buttonClicked signal must be reconnected.
+        This is what this function does.
+    """
         self.getGrid().buttonClicked.disconnect()
         Gui.updateGrid(self)
         self.getGrid().buttonClicked.connect(self.game.selectQuestion)
 
-    """
-    The AdminGui can also save the scores in addition to displaying them.
-    """
     def displayEndGame(self):
+        """
+        Prepare for displaying the plot at the end of the game.
+        """
         self.getTable().hideButtons()
         Gui.displayEndGame(self)
 
     def displayPlot(self, path):
+        """
+        The AdminGui can also save the scores in addition to displaying them.
+        @param path: This is the path to the plot rendered in a different thread by PlotRendered. This method is the slot the L{PlotRenderer.PlotRenderer.finishedPlot} signal from PlotRenderer connects to.
+        @type path: str
+        """
         Gui.displayPlot(self, path)
         
         w = QPushButton('Save scores as PNG')
@@ -229,6 +247,9 @@ class AdminGui(Gui):
         self.plotThread.start()        
     
 def main():
+    """
+    Basic main() to start application when invoked from the terminal.
+    """
     app = QApplication(sys.argv)
     gui = AdminGui()    
     app.exec_()

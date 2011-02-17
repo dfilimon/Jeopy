@@ -1,3 +1,8 @@
+"""
+The ButtonGrid widget is reponsible for displaying the grid of buttons that correspond to questions in the game as well as the labels for each category.
+
+It supports custom canvas sizes, and reads the size of the fonts to be used from the L{ButtonGrid.round} dictionary that contains the subset of the configuration file required for the current round.
+"""
 import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -9,7 +14,10 @@ class ButtonGrid(QWidget):
     
     def __init__(self, round,
                  width = 800, height = 600, parent = None):
-        
+        """
+        @param round: Dictionary corresponding to the current round. Should contain the round's title (although it's not currently used) and the array of categories, with each category containing an array of questions.
+        @type round: dict
+        """
         super(ButtonGrid, self).__init__(parent)
 
         self.round = round
@@ -20,7 +28,9 @@ class ButtonGrid(QWidget):
 
 
     def setupGui(self, round):
-
+        """
+        If there is no font size information available in the dictionary, default to size 12 everywhere.        
+        """
         if 'buttonFontSize' not in round:
             buttonFontSize = 12
         else:
@@ -55,41 +65,22 @@ class ButtonGrid(QWidget):
                 w.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 w.clicked.connect(self.emitButtonClicked)
 
-        #self.buttonClicked.connect(self.sayHi)
-
     
     def setFontSize(self, widget, fontSize):
+        """
+        Sets the font size for the specified widget.
+        @param widget: widget whose font size is to be set
+        @type widget: QWidget
+        @param fontSize: new font size
+        @type fontSize: int
+        """
         widget.setFont(QFont(QFont.defaultFamily(widget.font()), fontSize))
-
-
+    
     def emitButtonClicked(self):
-        round = self.round
+        """
+        @return: Not exactly returns, but rather emits the index of the selected question
+        """
         print 'emitting', self.sender()
         index = self.layout().indexOf(self.sender())
 
         self.buttonClicked.emit(index)
-            
-        #n = self.layout().columnCount()
-
-        #print index, index // n, index % n
-        #self.buttonClicked.emit(index // n - 1, index % n)
-
-
-    def sayHi(self, i, j):
-        print 'Question selected: ', i, j
-
-"""
-def main():
-    app = QApplication(sys.argv)
-
-    q = QuestionGrid(m=3, n=3, categoryLabels=['cookies', 'milk', 'crayons'], scores=[[10, 10, 10], [20, 20, 20], [30, 30, 30]], labelFontSize = 32, scoreFontSize=24)
-
-    win = QMainWindow()
-    win.setCentralWidget(q)
-    win.show()
-    
-    app.exec_()
-
-if __name__ == '__main__':
-    main()
-"""

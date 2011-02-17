@@ -10,6 +10,24 @@ certain size and the table needs to know that its holding ints, otherwise when
 enabling sorting it will do a lexicographic sort, which makes no sense for numbers.
 """
 
+"""
+When adding and updating players from a PlayerTable with add() or update(),
+the table expects a tuple, that resembles the one used in the GameServer's player
+dictionary. Instead of the first element of the tuple being _uri_, it is _name_.
+
+AdminGui:
+(name, ip, status, score)
+ [0]  [1]   [2]    [3]
+
+PlayerGui:
+(name, score)
+  [0]   [1]
+
+Invariant:
+If our tuple is called player, the sorting is always done after
+player[len(player) - 1] which is always the score and contains an int!
+"""
+
 class PlayerTable(QWidget):
 
     playersMuted = pyqtSignal(list)
@@ -96,6 +114,8 @@ class PlayerTable(QWidget):
 
     """
     set the appropriate table width! needs to work properly!
+    currently works but doesn't display sort indicator... maybe I'll come up with
+    something better when I stop hating it.
     """
     def getTableWidth(self):
         table = self.getTable()
