@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>GameServer.GameServer</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="GameServer-module.html">Module&nbsp;GameServer</a> ::
+        Class&nbsp;GameServer
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="GameServer.GameServer-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class GameServer</h1><p class="nomargin-top"><span class="codelink"><a href="GameServer-pysrc.html#GameServer">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+       object --+                    
+                |                    
+sip.simplewrapper --+                
+                    |                
+          sip.wrapper --+            
+                        |            
+     PyQt4.QtCore.QObject --+        
+                            |        
+         PyQt4.QtCore.QThread --+    
+                                |    
+                    <a href="Server.Server-class.html">Server.Server</a> --+
+                                    |
+                                   <strong class="uidshort">GameServer</strong>
+</pre>
+
+<hr />
+<p>GameServer class derived from Server. This is where most of the game's
+  logic is implemented.</p>
+  <p>Signals used to communicate with Gui. Do not update interface 
+  elements, or perform non reentrant operations: calling 
+  <b>self.gui.displayGrid()</b>can possibly cause a SIGSEGV use 
+  <b>self.gridDisplayed.emit()</b> since inter-thread communication is sure
+  to work</p>
+
+<!-- ==================== NESTED CLASSES ==================== -->
+<a name="section-NestedClasses"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Nested Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-NestedClasses"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>PyQt4.QtCore.QThread</code></b>:
+      <code><a href="PyQt4.QtCore.QThread.Priority-class.html">Priority</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="playerConnected"></a><span class="summary-sig-name">playerConnected</span>(<span class="summary-sig-arg">...</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.playerConnected">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="playerReconnected"></a><span class="summary-sig-name">playerReconnected</span>(<span class="summary-sig-arg">...</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.playerReconnected">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="playerStatusChanged"></a><span class="summary-sig-name">playerStatusChanged</span>(<span class="summary-sig-arg">...</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.playerStatusChanged">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="playerBuzzed"></a><span class="summary-sig-name">playerBuzzed</span>(<span class="summary-sig-arg">...</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.playerBuzzed">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="questionSelected"></a><span class="summary-sig-name">questionSelected</span>(<span class="summary-sig-arg">...</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.questionSelected">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="labelTextSet"></a><span class="summary-sig-name">labelTextSet</span>(<span class="summary-sig-arg">...</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.labelTextSet">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#allGamesStarted" class="summary-sig-name">allGamesStarted</a>(<span class="summary-sig-arg">...</span>)</span><br />
+      Concurrent access to the player table for modification (at login) 
+      could lead to a corrupt data structure.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.allGamesStarted">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">gui</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">parent</span>=<span class="summary-sig-default">None</span>)</span><br />
+      x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#setupSignals" class="summary-sig-name">setupSignals</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.setupSignals">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#setupGuiSignals" class="summary-sig-name">setupGuiSignals</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.setupGuiSignals">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#connectDaemon" class="summary-sig-name">connectDaemon</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.connectDaemon">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="startGame"></a><span class="summary-sig-name">startGame</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Gui signals are not connected when this function is called.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.startGame">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#startPlayerGame" class="summary-sig-name">startPlayerGame</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">player</span>)</span><br />
+      Starting a player's client gui means:</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.startPlayerGame">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="enableLogin"></a><span class="summary-sig-name">enableLogin</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Without setting loginEnabled True, nobody is allowed to log in, 
+      unless they are marked as 'Disconnected'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.enableLogin">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#choosePlayer" class="summary-sig-name">choosePlayer</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      When no answer was given last turn or the answer given was false, a 
+      player is chosen at random to select the next question.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.choosePlayer">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#selectQuestion" class="summary-sig-name">selectQuestion</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">i</span>)</span><br />
+      When a question is selected (by the admin, requested by a player)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.selectQuestion">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#checkAnswer" class="summary-sig-name">checkAnswer</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">ans</span>)</span><br />
+      Once the admin has validated the answer through the messagebox in the
+      AdminGui this function, that calculates the new score is called.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.checkAnswer">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#showAnswer" class="summary-sig-name">showAnswer</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Displays the answer to all players and updates the scores array.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.showAnswer">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#nextQuestion" class="summary-sig-name">nextQuestion</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      The game continues by waiting for another question to be selected.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.nextQuestion">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#nextRound" class="summary-sig-name">nextRound</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      When progressing to the next round:</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.nextRound">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#endGame" class="summary-sig-name">endGame</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      At the end of the game, when there are no more questions and no more 
+      rounds, this function gets called to trigger the drawing of the score
+      plots.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.endGame">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#toLineCol" class="summary-sig-name">toLineCol</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">round</span>,
+        <span class="summary-sig-arg">index</span>)</span><br />
+      When selecting a question through the ButtonGrid, the position of the
+      item in the grid is emitted.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.toLineCol">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#mutePlayers" class="summary-sig-name">mutePlayers</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">names</span>)</span><br />
+      Players are muted/unmuted through these functions as long as the 
+      players in the names array are not Selecting.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.mutePlayers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="unmutePlayers"></a><span class="summary-sig-name">unmutePlayers</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">names</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.unmutePlayers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#changeStatus" class="summary-sig-name">changeStatus</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">status</span>)</span><br />
+      Changing a player's status or score works in pretty much the same 
+      way.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.changeStatus">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="GameServer.GameServer-class.html#changeScore" class="summary-sig-name">changeScore</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">score</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GameServer-pysrc.html#GameServer.changeScore">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="Server.Server-class.html">Server.Server</a></code></b>:
+      <code><a href="Server.Server-class.html#answerDisplayed">answerDisplayed</a></code>,
+      <code><a href="Server.Server-class.html#close">close</a></code>,
+      <code><a href="Server.Server-class.html#gameEnded">gameEnded</a></code>,
+      <code><a href="Server.Server-class.html#gridDisplayed">gridDisplayed</a></code>,
+      <code><a href="Server.Server-class.html#log">log</a></code>,
+      <code><a href="Server.Server-class.html#playerScoreChanged">playerScoreChanged</a></code>,
+      <code><a href="Server.Server-class.html#questionDisplayed">questionDisplayed</a></code>,
+      <code><a href="Server.Server-class.html#roundChanged">roundChanged</a></code>,
+      <code><a href="Server.Server-class.html#run">run</a></code>,
+      <code><a href="Server.Server-class.html#serverStarted">serverStarted</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>PyQt4.QtCore.QThread</code></b>:
+      <code>currentThread</code>,
+      <code>currentThreadId</code>,
+      <code>exec_</code>,
+      <code>exit</code>,
+      <code>finished</code>,
+      <code>idealThreadCount</code>,
+      <code>isFinished</code>,
+      <code>isRunning</code>,
+      <code>msleep</code>,
+      <code>priority</code>,
+      <code>quit</code>,
+      <code>setPriority</code>,
+      <code>setStackSize</code>,
+      <code>setTerminationEnabled</code>,
+      <code>sleep</code>,
+      <code>stackSize</code>,
+      <code>start</code>,
+      <code>started</code>,
+      <code>terminate</code>,
+      <code>terminated</code>,
+      <code>usleep</code>,
+      <code>wait</code>,
+      <code>yieldCurrentThread</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>PyQt4.QtCore.QObject</code></b>:
+      <code>blockSignals</code>,
+      <code>childEvent</code>,
+      <code>children</code>,
+      <code>connect</code>,
+      <code>connectNotify</code>,
+      <code>customEvent</code>,
+      <code>deleteLater</code>,
+      <code>destroyed</code>,
+      <code>disconnect</code>,
+      <code>disconnectNotify</code>,
+      <code>dumpObjectInfo</code>,
+      <code>dumpObjectTree</code>,
+      <code>dynamicPropertyNames</code>,
+      <code>emit</code>,
+      <code>event</code>,
+      <code>eventFilter</code>,
+      <code>findChild</code>,
+      <code>findChildren</code>,
+      <code>inherits</code>,
+      <code>installEventFilter</code>,
+      <code>isWidgetType</code>,
+      <code>killTimer</code>,
+      <code>metaObject</code>,
+      <code>moveToThread</code>,
+      <code>objectName</code>,
+      <code>parent</code>,
+      <code>property</code>,
+      <code>pyqtConfigure</code>,
+      <code>receivers</code>,
+      <code>removeEventFilter</code>,
+      <code>sender</code>,
+      <code>setObjectName</code>,
+      <code>setParent</code>,
+      <code>setProperty</code>,
+      <code>signalsBlocked</code>,
+      <code>startTimer</code>,
+      <code>thread</code>,
+      <code>timerEvent</code>,
+      <code>tr</code>,
+      <code>trUtf8</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>sip.simplewrapper</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__new__</code>,
+      <code>__setattr__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__format__</code>,
+      <code>__hash__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="playerMutex"></a><span class="summary-name">playerMutex</span> = <code title="QMutex()">QMutex()</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="buzzMutex"></a><span class="summary-name">buzzMutex</span> = <code title="QMutex()">QMutex()</code><br />
+      ***REIMPLEMENTED METHODS FROM BASECLASS***
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>PyQt4.QtCore.QThread</code></b>:
+      <code>HighPriority</code>,
+      <code>HighestPriority</code>,
+      <code>IdlePriority</code>,
+      <code>InheritPriority</code>,
+      <code>LowPriority</code>,
+      <code>LowestPriority</code>,
+      <code>NormalPriority</code>,
+      <code>TimeCriticalPriority</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>PyQt4.QtCore.QObject</code></b>:
+      <code>staticMetaObject</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== INSTANCE VARIABLES ==================== -->
+<a name="section-InstanceVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="uri"></a><span class="summary-name">uri</span><br />
+      ***GAME FUNCTIONS*** Methods for starting a new game.
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="allGamesStarted"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">allGamesStarted</span>(<span class="sig-arg">...</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.allGamesStarted">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Concurrent access to the player table for modification (at login) 
+  could lead to a corrupt data structure. That's why a mutex must be 
+  obtained before modifying it.</p>
+  <p>As for buzzing, since only one player can be the first to buzz, a lock
+  is obtained immediately after the first buzz was recieved to prevent 
+  having multiple people answering at the same time.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">gui</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">parent</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
+  signature</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setupSignals"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setupSignals</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.setupSignals">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="Server.Server-class.html#setupSignals">Server.Server.setupSignals</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setupGuiSignals"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setupGuiSignals</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.setupGuiSignals">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="Server.Server-class.html#setupGuiSignals">Server.Server.setupGuiSignals</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="connectDaemon"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">connectDaemon</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.connectDaemon">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="Server.Server-class.html#connectDaemon">Server.Server.connectDaemon</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="startPlayerGame"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">startPlayerGame</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">player</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.startPlayerGame">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Starting a player's client gui means:</p>
+  <ul>
+    <li>
+      sending over the resources needed for the questions (image files, 
+      html templates, etc.)
+    </li>
+    <li>
+      actually calling a startGame method so that the guis are loaded
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>player</code></strong> (str) - the name of the player for which to start the game.</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="choosePlayer"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">choosePlayer</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.choosePlayer">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>When no answer was given last turn or the answer given was false, a 
+  player is chosen at random to select the next question. Muted and 
+  disconnected players don't count.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="selectQuestion"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">selectQuestion</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">i</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.selectQuestion">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>When a question is selected (by the admin, requested by a player)</p>
+  <ul>
+    <li>
+      it's loaded into the question variable to not do any more lookups
+    </li>
+    <li>
+      the game prepares to recieve a buzz
+    </li>
+    <li>
+      player statuses are changed to Waiting
+    </li>
+    <li>
+      player guis are signaled to display the ButtonGrid
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="checkAnswer"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">checkAnswer</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">ans</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.checkAnswer">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Once the admin has validated the answer through the messagebox in the 
+  AdminGui this function, that calculates the new score is called. 
+  Afterwards, the correct answer is displayed.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="showAnswer"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">showAnswer</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.showAnswer">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Displays the answer to all players and updates the scores array. The 
+  scores array is required to draw the final plot at the end of the 
+  game.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="nextQuestion"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nextQuestion</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.nextQuestion">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>The game continues by waiting for another question to be selected.</p>
+  <ol start="1">
+    <li>
+      we must find out if there are any more questions this round, or if 
+      there are any more questions at all.
+    </li>
+    <li>
+      a player must be chosen to select a question - if the last answer was
+      correct, then the player who gave that answer gets to pick, 
+      otherwise, a player is chosen at random.
+    </li>
+    <li>
+      the players are signaled to display the ButtonGrids and the AdminGui 
+      itself displays its grid.
+    </li>
+  </ol>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="nextRound"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nextRound</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.nextRound">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>When progressing to the next round:</p>
+  <ul>
+    <li>
+      the round variable of the GameServer needs to be updated
+    </li>
+    <li>
+      the usedQuestions array needs to be emptied
+    </li>
+    <li>
+      the numQuestions needs to be recalculated
+    </li>
+    <li>
+      gui events need to be trigerred to replace the ButtonGrid with a new 
+      one
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="endGame"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">endGame</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.endGame">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>At the end of the game, when there are no more questions and no more 
+  rounds, this function gets called to trigger the drawing of the score 
+  plots. Also, assigns a color to each player in the game.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="toLineCol"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">toLineCol</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">round</span>,
+        <span class="sig-arg">index</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.toLineCol">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>When selecting a question through the ButtonGrid, the position of the 
+  item in the grid is emitted. That is not however the actual number of the
+  question. From that index, category and question number can be 
+  determined. This function supports categories with a different number of 
+  questions.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="mutePlayers"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">mutePlayers</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">names</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.mutePlayers">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Players are muted/unmuted through these functions as long as the 
+  players in the names array are not Selecting. A Selecting player cannot 
+  be muted.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>names</code></strong> (array) - the names of the players to be muted</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="changeStatus"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">changeStatus</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">status</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.changeStatus">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Changing a player's status or score works in pretty much the same way.
+  The player entry in the players table is copied and the required field is
+  modified. The entry is then put back in the dictionary and the proper 
+  signals are emitted.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (str) - name of the player whose status is to change</li>
+        <li><strong class="pname"><code>status</code></strong> (str) - the player's new status</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="changeScore"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">changeScore</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">score</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GameServer-pysrc.html#GameServer.changeScore">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (str) - name of the player whose status is to change</li>
+        <li><strong class="pname"><code>score</code></strong> (int) - the player's new score</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Feb 19 22:11:11 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

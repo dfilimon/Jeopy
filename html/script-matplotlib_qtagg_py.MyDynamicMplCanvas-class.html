@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>script-matplotlib_qtagg_py.MyDynamicMplCanvas</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="script-matplotlib_qtagg_py-module.html">Script&nbsp;matplotlib_qtagg_py</a> ::
+        Class&nbsp;MyDynamicMplCanvas
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="script-matplotlib_qtagg_py.MyDynamicMplCanvas-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class MyDynamicMplCanvas</h1><p class="nomargin-top"><span class="codelink"><a href="script-matplotlib_qtagg_py-pysrc.html#MyDynamicMplCanvas">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+                         PyQt4.QtGui.QWidget --+            
+                                               |            
+   matplotlib.backend_bases.FigureCanvasBase --+            
+                                               |            
+  matplotlib.backends.backend_qt4.FigureCanvasQT --+        
+                                                   |        
+   matplotlib.backend_bases.FigureCanvasBase --+   |        
+                                               |   |        
+ matplotlib.backends.backend_agg.FigureCanvasAgg --+        
+                                                   |        
+matplotlib.backends.backend_qt4agg.FigureCanvasQTAgg --+    
+                                                       |    
+                                             <a href="script-matplotlib_qtagg_py.MyMplCanvas-class.html">MyMplCanvas</a> --+
+                                                           |
+                                                          <strong class="uidshort">MyDynamicMplCanvas</strong>
+</pre>
+
+<hr />
+<p>A canvas that updates itself every second with a new plot.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="script-matplotlib_qtagg_py.MyDynamicMplCanvas-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="script-matplotlib_qtagg_py-pysrc.html#MyDynamicMplCanvas.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="script-matplotlib_qtagg_py.MyDynamicMplCanvas-class.html#compute_initial_figure" class="summary-sig-name">compute_initial_figure</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="script-matplotlib_qtagg_py-pysrc.html#MyDynamicMplCanvas.compute_initial_figure">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="update_figure"></a><span class="summary-sig-name">update_figure</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="script-matplotlib_qtagg_py-pysrc.html#MyDynamicMplCanvas.update_figure">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>matplotlib.backends.backend_qt4agg.FigureCanvasQTAgg</code></b>:
+      <code>blit</code>,
+      <code>draw</code>,
+      <code>drawRectangle</code>,
+      <code>paintEvent</code>,
+      <code>print_figure</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>matplotlib.backends.backend_qt4.FigureCanvasQT</code></b>:
+      <code>draw_idle</code>,
+      <code>enterEvent</code>,
+      <code>flush_events</code>,
+      <code>keyPressEvent</code>,
+      <code>keyReleaseEvent</code>,
+      <code>leaveEvent</code>,
+      <code>minumumSizeHint</code>,
+      <code>mouseMoveEvent</code>,
+      <code>mousePressEvent</code>,
+      <code>mouseReleaseEvent</code>,
+      <code>new_timer</code>,
+      <code>resizeEvent</code>,
+      <code>sizeHint</code>,
+      <code>start_event_loop</code>,
+      <code>stop_event_loop</code>,
+      <code>wheelEvent</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>matplotlib.backends.backend_qt4.FigureCanvasQT</code></b> (private):
+      <code>_get_key</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>matplotlib.backend_bases.FigureCanvasBase</code></b>:
+      <code>button_press_event</code>,
+      <code>button_release_event</code>,
+      <code>close_event</code>,
+      <code>draw_cursor</code>,
+      <code>draw_event</code>,
+      <code>enter_notify_event</code>,
+      <code>get_default_filetype</code>,
+      <code>get_supported_filetypes</code>,
+      <code>get_supported_filetypes_grouped</code>,
+      <code>get_width_height</code>,
+      <code>grab_mouse</code>,
+      <code>idle_event</code>,
+      <code>key_press_event</code>,
+      <code>key_release_event</code>,
+      <code>leave_notify_event</code>,
+      <code>motion_notify_event</code>,
+      <code>mpl_connect</code>,
+      <code>mpl_disconnect</code>,
+      <code>onHilite</code>,
+      <code>onRemove</code>,
+      <code>pick</code>,
+      <code>pick_event</code>,
+      <code>print_bmp</code>,
+      <code>print_emf</code>,
+      <code>print_eps</code>,
+      <code>print_pdf</code>,
+      <code>print_png</code>,
+      <code>print_ps</code>,
+      <code>print_raw</code>,
+      <code>print_rgb</code>,
+      <code>print_svg</code>,
+      <code>print_svgz</code>,
+      <code>release_mouse</code>,
+      <code>resize</code>,
+      <code>resize_event</code>,
+      <code>scroll_event</code>,
+      <code>set_window_title</code>,
+      <code>start_event_loop_default</code>,
+      <code>stop_event_loop_default</code>,
+      <code>switch_backends</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>matplotlib.backend_bases.FigureCanvasBase</code></b> (private):
+      <code>_get_print_method</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>matplotlib.backends.backend_agg.FigureCanvasAgg</code></b>:
+      <code>buffer_rgba</code>,
+      <code>copy_from_bbox</code>,
+      <code>get_renderer</code>,
+      <code>print_rgba</code>,
+      <code>restore_region</code>,
+      <code>tostring_argb</code>,
+      <code>tostring_rgb</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>matplotlib.backends.backend_qt4.FigureCanvasQT</code></b>:
+      <code>buttond</code>,
+      <code>keyvald</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>matplotlib.backend_bases.FigureCanvasBase</code></b>:
+      <code>events</code>,
+      <code>filetypes</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="script-matplotlib_qtagg_py-pysrc.html#MyDynamicMplCanvas.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        matplotlib.backend_bases.FigureCanvasBase.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="compute_initial_figure"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">compute_initial_figure</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="script-matplotlib_qtagg_py-pysrc.html#MyDynamicMplCanvas.compute_initial_figure">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="script-matplotlib_qtagg_py.MyMplCanvas-class.html#compute_initial_figure">MyMplCanvas.compute_initial_figure</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Feb 17 21:35:44 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

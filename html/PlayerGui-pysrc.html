@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>PlayerGui</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;PlayerGui
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="PlayerGui-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="PlayerGui-module.html">Module PlayerGui</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#! /usr/bin/env python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">PlayerGui is the main player interface class. It also launches LoginDialog to get</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">a name. The main gui actually appears after startGame is called from the server.</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">This class must be instantiated after having chosen a jeop game file. Otherwise,</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">it will silently fail.</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">PyQt4</tt><tt class="py-op">.</tt><tt class="py-name">QtCore</tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">PyQt4</tt><tt class="py-op">.</tt><tt class="py-name">QtGui</tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module Gui=Gui-module.html,Class Gui.Gui=Gui.Gui-class.html"><a title="Gui
+Gui.Gui" class="py-name" href="#" onclick="return doclink('link-0', 'Gui', 'link-0');">Gui</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name"><a title="Gui
+Gui.Gui" class="py-name" href="#" onclick="return doclink('link-1', 'Gui', 'link-0');">Gui</a></tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module PlayerServer=PlayerServer-module.html,Class PlayerServer.PlayerServer=PlayerServer.PlayerServer-class.html"><a title="PlayerServer
+PlayerServer.PlayerServer" class="py-name" href="#" onclick="return doclink('link-2', 'PlayerServer', 'link-2');">PlayerServer</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name"><a title="PlayerServer
+PlayerServer.PlayerServer" class="py-name" href="#" onclick="return doclink('link-3', 'PlayerServer', 'link-2');">PlayerServer</a></tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Module PlayerTableWidget=PlayerTableWidget-module.html"><a title="PlayerTableWidget" class="py-name" href="#" onclick="return doclink('link-4', 'PlayerTableWidget', 'link-4');">PlayerTableWidget</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Class PlayerTableWidget.PlayerTable=PlayerTableWidget.PlayerTable-class.html"><a title="PlayerTableWidget.PlayerTable" class="py-name" href="#" onclick="return doclink('link-5', 'PlayerTable', 'link-5');">PlayerTable</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-6" class="py-name" targets="Module LoginDialog=LoginDialog-module.html,Class LoginDialog.LoginDialog=LoginDialog.LoginDialog-class.html"><a title="LoginDialog
+LoginDialog.LoginDialog" class="py-name" href="#" onclick="return doclink('link-6', 'LoginDialog', 'link-6');">LoginDialog</a></tt> <tt class="py-keyword">import</tt> <tt id="link-7" class="py-name"><a title="LoginDialog
+LoginDialog.LoginDialog" class="py-name" href="#" onclick="return doclink('link-7', 'LoginDialog', 'link-6');">LoginDialog</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui"></a><div id="PlayerGui-def"><a name="L21"></a><tt class="py-lineno"> 21</tt> <a class="py-toggle" href="#" id="PlayerGui-toggle" onclick="return toggle('PlayerGui');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html">PlayerGui</a><tt class="py-op">(</tt><tt class="py-base-class">Gui</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PlayerGui-expanded"><a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">    <tt id="link-8" class="py-name" targets="Method PlayerGui.PlayerGui.buzzed()=PlayerGui.PlayerGui-class.html#buzzed"><a title="PlayerGui.PlayerGui.buzzed" class="py-name" href="#" onclick="return doclink('link-8', 'buzzed', 'link-8');">buzzed</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pyqtSignal</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">     </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-string">       ***REIMPLEMENTED METHODS FROM BASECLASS***</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-string">       These work similarly to the ones in AdminGui. For more information, check</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-string">       those.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+<a name="PlayerGui.__init__"></a><div id="PlayerGui.__init__-def"><a name="L29"></a><tt class="py-lineno"> 29</tt> <a class="py-toggle" href="#" id="PlayerGui.__init__-toggle" onclick="return toggle('PlayerGui.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.__init__-expanded"><a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-9" class="py-name" targets="Module PlayerGui=PlayerGui-module.html,Class PlayerGui.PlayerGui=PlayerGui.PlayerGui-class.html"><a title="PlayerGui
+PlayerGui.PlayerGui" class="py-name" href="#" onclick="return doclink('link-9', 'PlayerGui', 'link-9');">PlayerGui</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method AdminGui.AdminGui.__init__()=AdminGui.AdminGui-class.html#__init__,Method ButtonGridWidget.ButtonGrid.__init__()=ButtonGridWidget.ButtonGrid-class.html#__init__,Method Game.Game.__init__()=Game.Game-class.html#__init__,Method GameServer.GameServer.__init__()=GameServer.GameServer-class.html#__init__,Method Gui.Gui.__init__()=Gui.Gui-class.html#__init__,Method LoginDialog.LoginDialog.__init__()=LoginDialog.LoginDialog-class.html#__init__,Method Player.Player.__init__()=Player.Player-class.html#__init__,Method PlayerAdminDialog.PlayerAdminDialog.__init__()=PlayerAdminDialog.PlayerAdminDialog-class.html#__init__,Method PlayerData.PlayerData.__init__()=PlayerData.PlayerData-class.html#__init__,Method PlayerGui.PlayerGui.__init__()=PlayerGui.PlayerGui-class.html#__init__,Method PlayerServer.PlayerServer.__init__()=PlayerServer.PlayerServer-class.html#__init__,Method PlayerTableWidget.PlayerTable.__init__()=PlayerTableWidget.PlayerTable-class.html#__init__,Method PlotRenderer.PlotRenderer.__init__()=PlotRenderer.PlotRenderer-class.html#__init__,Method QuestionDisplayWidget.QuestionDisplay.__init__()=QuestionDisplayWidget.QuestionDisplay-class.html#__init__,Method RuleLoader.ResourceValidator.__init__()=RuleLoader.ResourceValidator-class.html#__init__,Method Server.Server.__init__()=Server.Server-class.html#__init__"><a title="AdminGui.AdminGui.__init__
+ButtonGridWidget.ButtonGrid.__init__
+Game.Game.__init__
+GameServer.GameServer.__init__
+Gui.Gui.__init__
+LoginDialog.LoginDialog.__init__
+Player.Player.__init__
+PlayerAdminDialog.PlayerAdminDialog.__init__
+PlayerData.PlayerData.__init__
+PlayerGui.PlayerGui.__init__
+PlayerServer.PlayerServer.__init__
+PlayerTableWidget.PlayerTable.__init__
+PlotRenderer.PlotRenderer.__init__
+QuestionDisplayWidget.QuestionDisplay.__init__
+RuleLoader.ResourceValidator.__init__
+Server.Server.__init__" class="py-name" href="#" onclick="return doclink('link-10', '__init__', 'link-10');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">loginDialog</tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="LoginDialog
+LoginDialog.LoginDialog" class="py-name" href="#" onclick="return doclink('link-11', 'LoginDialog', 'link-6');">LoginDialog</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">loginDialog</tt><tt class="py-op">.</tt><tt class="py-name">show</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.setupGui"></a><div id="PlayerGui.setupGui-def"><a name="L35"></a><tt class="py-lineno"> 35</tt> <a class="py-toggle" href="#" id="PlayerGui.setupGui-toggle" onclick="return toggle('PlayerGui.setupGui');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#setupGui">setupGui</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">buttonText</tt><tt class="py-op">,</tt> <tt class="py-param">width</tt><tt class="py-op">,</tt> <tt class="py-param">height</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.setupGui-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.setupGui-expanded"><a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt id="link-12" class="py-name"><a title="Gui
+Gui.Gui" class="py-name" href="#" onclick="return doclink('link-12', 'Gui', 'link-0');">Gui</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method ButtonGridWidget.ButtonGrid.setupGui()=ButtonGridWidget.ButtonGrid-class.html#setupGui,Method Gui.Gui.setupGui()=Gui.Gui-class.html#setupGui,Method LoginDialog.LoginDialog.setupGui()=LoginDialog.LoginDialog-class.html#setupGui,Method PlayerAdminDialog.PlayerAdminDialog.setupGui()=PlayerAdminDialog.PlayerAdminDialog-class.html#setupGui,Method PlayerGui.PlayerGui.setupGui()=PlayerGui.PlayerGui-class.html#setupGui,Method PlayerTableWidget.PlayerTable.setupGui()=PlayerTableWidget.PlayerTable-class.html#setupGui,Method QuestionDisplayWidget.QuestionDisplay.setupGui()=QuestionDisplayWidget.QuestionDisplay-class.html#setupGui"><a title="ButtonGridWidget.ButtonGrid.setupGui
+Gui.Gui.setupGui
+LoginDialog.LoginDialog.setupGui
+PlayerAdminDialog.PlayerAdminDialog.setupGui
+PlayerGui.PlayerGui.setupGui
+PlayerTableWidget.PlayerTable.setupGui
+QuestionDisplayWidget.QuestionDisplay.setupGui" class="py-name" href="#" onclick="return doclink('link-13', 'setupGui', 'link-13');">setupGui</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">buttonText</tt><tt class="py-op">,</tt> <tt class="py-name">width</tt><tt class="py-op">,</tt> <tt class="py-name">height</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method Gui.Gui.setLabelText()=Gui.Gui-class.html#setLabelText"><a title="Gui.Gui.setLabelText" class="py-name" href="#" onclick="return doclink('link-14', 'setLabelText', 'link-14');">setLabelText</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.startGame"></a><div id="PlayerGui.startGame-def"><a name="L39"></a><tt class="py-lineno"> 39</tt> <a class="py-toggle" href="#" id="PlayerGui.startGame-toggle" onclick="return toggle('PlayerGui.startGame');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#startGame">startGame</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.startGame-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.startGame-expanded"><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">loginDialog</tt><tt class="py-op">.</tt><tt class="py-name">player</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">loginDialog</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method Server.Server.close()=Server.Server-class.html#close"><a title="Server.Server.close" class="py-name" href="#" onclick="return doclink('link-15', 'close', 'link-15');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="ButtonGridWidget.ButtonGrid.setupGui
+Gui.Gui.setupGui
+LoginDialog.LoginDialog.setupGui
+PlayerAdminDialog.PlayerAdminDialog.setupGui
+PlayerGui.PlayerGui.setupGui
+PlayerTableWidget.PlayerTable.setupGui
+QuestionDisplayWidget.QuestionDisplay.setupGui" class="py-name" href="#" onclick="return doclink('link-16', 'setupGui', 'link-13');">setupGui</a></tt><tt class="py-op">(</tt><tt class="py-string">'Buzz'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method Game.Game.getWidth()=Game.Game-class.html#getWidth"><a title="Game.Game.getWidth" class="py-name" href="#" onclick="return doclink('link-17', 'getWidth', 'link-17');">getWidth</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method Game.Game.getHeight()=Game.Game-class.html#getHeight"><a title="Game.Game.getHeight" class="py-name" href="#" onclick="return doclink('link-18', 'getHeight', 'link-18');">getHeight</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method Game.Game.getUsedQuestions()=Game.Game-class.html#getUsedQuestions"><a title="Game.Game.getUsedQuestions" class="py-name" href="#" onclick="return doclink('link-19', 'getUsedQuestions', 'link-19');">getUsedQuestions</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method Gui.Gui.getGridButton()=Gui.Gui-class.html#getGridButton"><a title="Gui.Gui.getGridButton" class="py-name" href="#" onclick="return doclink('link-20', 'getGridButton', 'link-20');">getGridButton</a></tt><tt class="py-op">(</tt><tt class="py-name">i</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">setEnabled</tt><tt class="py-op">(</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">             </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">show</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method Game.Game.gameStarted()=Game.Game-class.html#gameStarted,Method Gui.Gui.gameStarted()=Gui.Gui-class.html#gameStarted,Method LoginDialog.LoginDialog.gameStarted()=LoginDialog.LoginDialog-class.html#gameStarted,Method PlayerServer.PlayerServer.gameStarted()=PlayerServer.PlayerServer-class.html#gameStarted"><a title="Game.Game.gameStarted
+Gui.Gui.gameStarted
+LoginDialog.LoginDialog.gameStarted
+PlayerServer.PlayerServer.gameStarted" class="py-name" href="#" onclick="return doclink('link-21', 'gameStarted', 'link-21');">gameStarted</a></tt><tt class="py-op">.</tt><tt class="py-name">emit</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="Game.Game.gameStarted
+Gui.Gui.gameStarted
+LoginDialog.LoginDialog.gameStarted
+PlayerServer.PlayerServer.gameStarted" class="py-name" href="#" onclick="return doclink('link-22', 'gameStarted', 'link-21');">gameStarted</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.setupTable"></a><div id="PlayerGui.setupTable-def"><a name="L51"></a><tt class="py-lineno"> 51</tt> <a class="py-toggle" href="#" id="PlayerGui.setupTable-toggle" onclick="return toggle('PlayerGui.setupTable');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#setupTable">setupTable</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.setupTable-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.setupTable-expanded"><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-name">table</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name"><a title="PlayerTableWidget.PlayerTable" class="py-name" href="#" onclick="return doclink('link-23', 'PlayerTable', 'link-5');">PlayerTable</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-string">'Nickname'</tt><tt class="py-op">,</tt> <tt class="py-string">'Score'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">player</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method Game.Game.getPlayers()=Game.Game-class.html#getPlayers"><a title="Game.Game.getPlayers" class="py-name" href="#" onclick="return doclink('link-24', 'getPlayers', 'link-24');">getPlayers</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">            <tt class="py-name">table</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Method PlayerAdminDialog.PlayerAdminDialog.addPlayer()=PlayerAdminDialog.PlayerAdminDialog-class.html#addPlayer,Method PlayerTableWidget.PlayerTable.addPlayer()=PlayerTableWidget.PlayerTable-class.html#addPlayer"><a title="PlayerAdminDialog.PlayerAdminDialog.addPlayer
+PlayerTableWidget.PlayerTable.addPlayer" class="py-name" href="#" onclick="return doclink('link-25', 'addPlayer', 'link-25');">addPlayer</a></tt><tt class="py-op">(</tt><tt class="py-name">player</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">table</tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">     </tt>
+<a name="PlayerGui.setupSignals"></a><div id="PlayerGui.setupSignals-def"><a name="L57"></a><tt class="py-lineno"> 57</tt> <a class="py-toggle" href="#" id="PlayerGui.setupSignals-toggle" onclick="return toggle('PlayerGui.setupSignals');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#setupSignals">setupSignals</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.setupSignals-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.setupSignals-expanded"><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="Game.Game.gameStarted
+Gui.Gui.gameStarted
+LoginDialog.LoginDialog.gameStarted
+PlayerServer.PlayerServer.gameStarted" class="py-name" href="#" onclick="return doclink('link-26', 'gameStarted', 'link-21');">gameStarted</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Method Game.Game.connect()=Game.Game-class.html#connect,Method PlayerServer.PlayerServer.connect()=PlayerServer.PlayerServer-class.html#connect"><a title="Game.Game.connect
+PlayerServer.PlayerServer.connect" class="py-name" href="#" onclick="return doclink('link-27', 'connect', 'link-27');">connect</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method GameServer.GameServer.setupGuiSignals()=GameServer.GameServer-class.html#setupGuiSignals,Method PlayerServer.PlayerServer.setupGuiSignals()=PlayerServer.PlayerServer-class.html#setupGuiSignals,Method Server.Server.setupGuiSignals()=Server.Server-class.html#setupGuiSignals"><a title="GameServer.GameServer.setupGuiSignals
+PlayerServer.PlayerServer.setupGuiSignals
+Server.Server.setupGuiSignals" class="py-name" href="#" onclick="return doclink('link-28', 'setupGuiSignals', 'link-28');">setupGuiSignals</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Method Gui.Gui.getDisplayButton()=Gui.Gui-class.html#getDisplayButton"><a title="Gui.Gui.getDisplayButton" class="py-name" href="#" onclick="return doclink('link-29', 'getDisplayButton', 'link-29');">getDisplayButton</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">clicked</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="Game.Game.connect
+PlayerServer.PlayerServer.connect" class="py-name" href="#" onclick="return doclink('link-30', 'connect', 'link-27');">connect</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method Game.Game.buzz()=Game.Game-class.html#buzz,Method PlayerServer.PlayerServer.buzz()=PlayerServer.PlayerServer-class.html#buzz"><a title="Game.Game.buzz
+PlayerServer.PlayerServer.buzz" class="py-name" href="#" onclick="return doclink('link-31', 'buzz', 'link-31');">buzz</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.displayQuestion"></a><div id="PlayerGui.displayQuestion-def"><a name="L61"></a><tt class="py-lineno"> 61</tt> <a class="py-toggle" href="#" id="PlayerGui.displayQuestion-toggle" onclick="return toggle('PlayerGui.displayQuestion');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#displayQuestion">displayQuestion</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">i</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.displayQuestion-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.displayQuestion-expanded"><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt id="link-32" class="py-name"><a title="Gui
+Gui.Gui" class="py-name" href="#" onclick="return doclink('link-32', 'Gui', 'link-0');">Gui</a></tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method AdminGui.AdminGui.displayQuestion()=AdminGui.AdminGui-class.html#displayQuestion,Method Gui.Gui.displayQuestion()=Gui.Gui-class.html#displayQuestion,Method Player.Player.displayQuestion()=Player.Player-class.html#displayQuestion,Method PlayerGui.PlayerGui.displayQuestion()=PlayerGui.PlayerGui-class.html#displayQuestion"><a title="AdminGui.AdminGui.displayQuestion
+Gui.Gui.displayQuestion
+Player.Player.displayQuestion
+PlayerGui.PlayerGui.displayQuestion" class="py-name" href="#" onclick="return doclink('link-33', 'displayQuestion', 'link-33');">displayQuestion</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">i</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method Game.Game.getStatus()=Game.Game-class.html#getStatus"><a title="Game.Game.getStatus" class="py-name" href="#" onclick="return doclink('link-34', 'getStatus', 'link-34');">getStatus</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt class="py-string">'Muted'</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="Gui.Gui.getDisplayButton" class="py-name" href="#" onclick="return doclink('link-35', 'getDisplayButton', 'link-29');">getDisplayButton</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">setEnabled</tt><tt class="py-op">(</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.getRound"></a><div id="PlayerGui.getRound-def"><a name="L66"></a><tt class="py-lineno"> 66</tt> <a class="py-toggle" href="#" id="PlayerGui.getRound-toggle" onclick="return toggle('PlayerGui.getRound');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#getRound">getRound</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.getRound-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.getRound-expanded"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Method AdminGui.AdminGui.getRound()=AdminGui.AdminGui-class.html#getRound,Method Game.Game.getRound()=Game.Game-class.html#getRound,Method Gui.Gui.getRound()=Gui.Gui-class.html#getRound,Method PlayerGui.PlayerGui.getRound()=PlayerGui.PlayerGui-class.html#getRound"><a title="AdminGui.AdminGui.getRound
+Game.Game.getRound
+Gui.Gui.getRound
+PlayerGui.PlayerGui.getRound" class="py-name" href="#" onclick="return doclink('link-36', 'getRound', 'link-36');">getRound</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.getQuestion"></a><div id="PlayerGui.getQuestion-def"><a name="L69"></a><tt class="py-lineno"> 69</tt> <a class="py-toggle" href="#" id="PlayerGui.getQuestion-toggle" onclick="return toggle('PlayerGui.getQuestion');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#getQuestion">getQuestion</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.getQuestion-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.getQuestion-expanded"><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name" targets="Method AdminGui.AdminGui.getQuestion()=AdminGui.AdminGui-class.html#getQuestion,Method Game.Game.getQuestion()=Game.Game-class.html#getQuestion,Method Gui.Gui.getQuestion()=Gui.Gui-class.html#getQuestion,Method PlayerGui.PlayerGui.getQuestion()=PlayerGui.PlayerGui-class.html#getQuestion"><a title="AdminGui.AdminGui.getQuestion
+Game.Game.getQuestion
+Gui.Gui.getQuestion
+PlayerGui.PlayerGui.getQuestion" class="py-name" href="#" onclick="return doclink('link-37', 'getQuestion', 'link-37');">getQuestion</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.getTemplate"></a><div id="PlayerGui.getTemplate-def"><a name="L72"></a><tt class="py-lineno"> 72</tt> <a class="py-toggle" href="#" id="PlayerGui.getTemplate-toggle" onclick="return toggle('PlayerGui.getTemplate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#getTemplate">getTemplate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.getTemplate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.getTemplate-expanded"><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">template</tt> </tt>
+</div><a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.getTempPath"></a><div id="PlayerGui.getTempPath-def"><a name="L75"></a><tt class="py-lineno"> 75</tt> <a class="py-toggle" href="#" id="PlayerGui.getTempPath-toggle" onclick="return toggle('PlayerGui.getTempPath');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#getTempPath">getTempPath</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.getTempPath-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.getTempPath-expanded"><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">tempPath</tt> </tt>
+</div><a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.getScores"></a><div id="PlayerGui.getScores-def"><a name="L78"></a><tt class="py-lineno"> 78</tt> <a class="py-toggle" href="#" id="PlayerGui.getScores-toggle" onclick="return toggle('PlayerGui.getScores');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#getScores">getScores</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.getScores-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.getScores-expanded"><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">game</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Method AdminGui.AdminGui.getScores()=AdminGui.AdminGui-class.html#getScores,Method Game.Game.getScores()=Game.Game-class.html#getScores,Method Gui.Gui.getScores()=Gui.Gui-class.html#getScores,Method PlayerGui.PlayerGui.getScores()=PlayerGui.PlayerGui-class.html#getScores"><a title="AdminGui.AdminGui.getScores
+Game.Game.getScores
+Gui.Gui.getScores
+PlayerGui.PlayerGui.getScores" class="py-name" href="#" onclick="return doclink('link-38', 'getScores', 'link-38');">getScores</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-string">    The player's status is displayed above the PlayerTable. {Waiting,Selecting,</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"><tt class="py-string">    Answering} -&gt; [:-3]</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+<a name="PlayerGui.updateStatus"></a><div id="PlayerGui.updateStatus-def"><a name="L85"></a><tt class="py-lineno"> 85</tt> <a class="py-toggle" href="#" id="PlayerGui.updateStatus-toggle" onclick="return toggle('PlayerGui.updateStatus');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#updateStatus">updateStatus</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">status</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.updateStatus-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.updateStatus-expanded"><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name" targets="Method Gui.Gui.log()=Gui.Gui-class.html#log,Method Server.Server.log()=Server.Server-class.html#log"><a title="Gui.Gui.log
+Server.Server.log" class="py-name" href="#" onclick="return doclink('link-39', 'log', 'link-39');">log</a></tt><tt class="py-op">(</tt><tt class="py-string">'Updating '</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt class="py-name">name</tt> <tt class="py-op">+</tt> <tt class="py-string">' status to '</tt> <tt class="py-op">+</tt> <tt id="link-40" class="py-name" targets="Variable PlayerData.PlayerData.status=PlayerData.PlayerData-class.html#status,Function RuleLoader.status()=RuleLoader-module.html#status"><a title="PlayerData.PlayerData.status
+RuleLoader.status" class="py-name" href="#" onclick="return doclink('link-40', 'status', 'link-40');">status</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="PlayerData.PlayerData.status
+RuleLoader.status" class="py-name" href="#" onclick="return doclink('link-41', 'status', 'link-40');">status</a></tt> <tt class="py-op">=</tt> <tt id="link-42" class="py-name"><a title="PlayerData.PlayerData.status
+RuleLoader.status" class="py-name" href="#" onclick="return doclink('link-42', 'status', 'link-40');">status</a></tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-43" class="py-name"><a title="PlayerData.PlayerData.status
+RuleLoader.status" class="py-name" href="#" onclick="return doclink('link-43', 'status', 'link-40');">status</a></tt> <tt class="py-op">==</tt> <tt class="py-string">'Muted'</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="Gui.Gui.setLabelText" class="py-name" href="#" onclick="return doclink('link-44', 'setLabelText', 'link-14');">setLabelText</a></tt><tt class="py-op">(</tt><tt class="py-string">'Muted'</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="Gui.Gui.setLabelText" class="py-name" href="#" onclick="return doclink('link-45', 'setLabelText', 'link-14');">setLabelText</a></tt><tt class="py-op">(</tt><tt id="link-46" class="py-name"><a title="PlayerData.PlayerData.status
+RuleLoader.status" class="py-name" href="#" onclick="return doclink('link-46', 'status', 'link-40');">status</a></tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"> </tt>
+<a name="PlayerGui.disableBuzz"></a><div id="PlayerGui.disableBuzz-def"><a name="L94"></a><tt class="py-lineno"> 94</tt> <a class="py-toggle" href="#" id="PlayerGui.disableBuzz-toggle" onclick="return toggle('PlayerGui.disableBuzz');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui.PlayerGui-class.html#disableBuzz">disableBuzz</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PlayerGui.disableBuzz-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PlayerGui.disableBuzz-expanded"><a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="Gui.Gui.getDisplayButton" class="py-name" href="#" onclick="return doclink('link-47', 'getDisplayButton', 'link-29');">getDisplayButton</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">setEnabled</tt><tt class="py-op">(</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"> </tt>
+<a name="main"></a><div id="main-def"><a name="L97"></a><tt class="py-lineno"> 97</tt> <a class="py-toggle" href="#" id="main-toggle" onclick="return toggle('main');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="PlayerGui-module.html#main">main</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="main-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="main-expanded"><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-name">app</tt> <tt class="py-op">=</tt> <tt class="py-name">QApplication</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-name">gui</tt> <tt class="py-op">=</tt> <tt id="link-48" class="py-name"><a title="PlayerGui
+PlayerGui.PlayerGui" class="py-name" href="#" onclick="return doclink('link-48', 'PlayerGui', 'link-9');">PlayerGui</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">    <tt class="py-name">app</tt><tt class="py-op">.</tt><tt class="py-name">exec_</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">gui</tt><tt class="py-op">.</tt><tt class="py-name">player</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">gui</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name" targets="Method Gui.Gui.deleteTempFiles()=Gui.Gui-class.html#deleteTempFiles"><a title="Gui.Gui.deleteTempFiles" class="py-name" href="#" onclick="return doclink('link-49', 'deleteTempFiles', 'link-49');">deleteTempFiles</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-name">gui</tt><tt class="py-op">.</tt><tt class="py-name">player</tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="Server.Server.close" class="py-name" href="#" onclick="return doclink('link-50', 'close', 'link-15');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt id="link-51" class="py-name" targets="Function AdminGui.main()=AdminGui-module.html#main,Function PlayerGui.main()=PlayerGui-module.html#main,Function RuleLoader.main()=RuleLoader-module.html#main"><a title="AdminGui.main
+PlayerGui.main
+RuleLoader.main" class="py-name" href="#" onclick="return doclink('link-51', 'main', 'link-51');">main</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Feb 19 22:11:12 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
