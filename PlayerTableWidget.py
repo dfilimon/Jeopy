@@ -1,6 +1,3 @@
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
 """
 PlayerTable class contains the table displayed at various times throughout Jeopy.
 One of these tables is displayed in the PlayerAdminDialog and the others in the Gui (both Player and Admin) and finally it supports colors when drawing the plot at the end.
@@ -27,6 +24,8 @@ Invariant:
 If our tuple is called player, the sorting is always done after
 player[len(player) - 1] which is always the score and contains an int!
 """
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 class PlayerTable(QWidget):
 
@@ -66,7 +65,7 @@ class PlayerTable(QWidget):
         name = player[0]
         print 'admintable updating', player
         table.setSortingEnabled(False)
-        
+
         for r in range(table.rowCount()):
             #print table.itemAt(r, 0).text()
             if table.item(r, 0).text() == name:
@@ -91,16 +90,16 @@ class PlayerTable(QWidget):
 
         table.setColumnCount(len(labels))
         table.setHorizontalHeaderLabels(labels)
-        
+
         table.setSortingEnabled(True)
         table.setShowGrid(False)
         table.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        
+
         table.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
- 
+
         table.horizontalHeader().setSortIndicatorShown(True)
         self.updateTableWidth()
-        
+
         if buttonText != '':
             if buttonText != 'ban':
                 layout.addWidget(QPushButton(buttonText.title()), 1, 0)
@@ -112,12 +111,12 @@ class PlayerTable(QWidget):
     def getTable(self):
         return self.layout().itemAt(0).widget()
 
-    """
-    set the appropriate table width! needs to work properly!
-    currently works but doesn't display sort indicator... maybe I'll come up with
-    something better when I stop hating it.
-    """
     def getTableWidth(self):
+        """
+        set the appropriate table width! needs to work properly!
+        currently works but doesn't display sort indicator... maybe I'll come up with
+        something better when I stop hating it.
+        """
         table = self.getTable()
         width = 0
         table.resizeColumnsToContents()
@@ -128,7 +127,7 @@ class PlayerTable(QWidget):
             width += max(table.columnWidth(c),
                          table.horizontalHeader().sectionSize(c))
             print table.columnWidth(c), table.horizontalHeader().sectionSize(c)
-            
+
         return width
 
     def updateTableWidth(self):
@@ -148,6 +147,11 @@ class PlayerTable(QWidget):
         self.layout().itemAt(2).widget().hide()
 
     def showColors(self, colors):
+        """
+        add a column for colors computed according to the colors array.
+        @param colors: each tuple contains red green blue alpha information
+        @type colors: dictionary of names to tuples
+        """
         table = self.getTable()
         table.setColumnCount(table.columnCount() + 1)
         c = table.columnCount() - 1
@@ -155,9 +159,9 @@ class PlayerTable(QWidget):
 
         if c == 4:
             table.horizontalHeader().hideSection(1)
-            table.horizontalHeader().hideSection(2)            
+            table.horizontalHeader().hideSection(2)
 
-        color = QColor()            
+        color = QColor()
         for row in range(table.rowCount()):
             (r, g, b, a) = colors[str(table.item(row, 0).text())]
             color.setRgbF(r, g, b, a)
