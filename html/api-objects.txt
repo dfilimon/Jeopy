@@ -106,8 +106,6 @@ PlayerAdminDialog.QT_VERSION	PlayerAdminDialog-module.html#QT_VERSION
 PlayerAdminDialog.__package__	PlayerAdminDialog-module.html#__package__
 PlayerAdminDialog.bin	PlayerAdminDialog-module.html#bin
 PlayerAdminDialog.hex	PlayerAdminDialog-module.html#hex
-PlayerData	PlayerData-module.html
-PlayerData.__package__	PlayerData-module.html#__package__
 PlayerGui	PlayerGui-module.html
 PlayerGui.QtSystemMsg	PlayerGui-module.html#QtSystemMsg
 PlayerGui.PYQT_VERSION_STR	PlayerGui-module.html#PYQT_VERSION_STR
@@ -391,12 +389,6 @@ PlayerAdminDialog.PlayerAdminDialog.addPlayer	PlayerAdminDialog.PlayerAdminDialo
 PlayerAdminDialog.PlayerAdminDialog.startGame	PlayerAdminDialog.PlayerAdminDialog-class.html#startGame
 PlayerAdminDialog.PlayerAdminDialog.__init__	PlayerAdminDialog.PlayerAdminDialog-class.html#__init__
 PyQt4.QtGui.QDialog.DialogCode	PyQt4.QtGui.QDialog.DialogCode-class.html
-PlayerData.PlayerData	PlayerData.PlayerData-class.html
-PlayerData.PlayerData.status	PlayerData.PlayerData-class.html#status
-PlayerData.PlayerData.ip	PlayerData.PlayerData-class.html#ip
-PlayerData.PlayerData.score	PlayerData.PlayerData-class.html#score
-PlayerData.PlayerData.uri	PlayerData.PlayerData-class.html#uri
-PlayerData.PlayerData.__init__	PlayerData.PlayerData-class.html#__init__
 PlayerGui.PlayerGui	PlayerGui.PlayerGui-class.html
 PlayerGui.PlayerGui.getTemplate	PlayerGui.PlayerGui-class.html#getTemplate
 Gui.Gui.updateGrid	Gui.Gui-class.html#updateGrid
