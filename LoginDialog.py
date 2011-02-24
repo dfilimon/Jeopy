@@ -1,3 +1,8 @@
+"""
+Small dialog the player sees when starting the PlayerGui.
+It only allows login. The actual start of the game is determined by the GameServer.
+"""
+
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
@@ -8,7 +13,7 @@ from PlayerServer import PlayerServer
 class LoginDialog(QDialog):
     gameStarted = pyqtSignal((type(PlayerServer)))
     playerConnected = pyqtSignal()
-    
+
     def __init__(self, parent=None):
         super(LoginDialog, self).__init__(parent)
         self.setupGui()
@@ -17,14 +22,18 @@ class LoginDialog(QDialog):
 
         self.button.clicked.connect(self.login)
         self.player.playerConnected.connect(self.disableLogin)
-        
+
     def login(self):
+        """
+        Enable login with the selected name.
+        Fix: Pop up message saying that the lineEdit is empty!
+        """
         name = str(self.lineEdit.text())
         if name == '':
             return
 
         canConnect = self.player.game.canConnect(name)
-        
+
         if canConnect == False or name == 'jeopardy':
              QMessageBox.warning(self, '', 'The selected nickname is taken.\nPlease choose a different one.', QMessageBox.Ok)
         else:
@@ -36,7 +45,7 @@ class LoginDialog(QDialog):
 
     def setupGui(self):
         layout = QHBoxLayout()
-        
+
         w = QLabel()
         w.setText('Nickname:')
         layout.addWidget(w)
