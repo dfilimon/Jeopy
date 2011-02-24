@@ -27,7 +27,7 @@ class GameServer(Server):
     """
     GameServer class derived from Server. This is where most of the game's logic is implemented.
 
-    Signals used to communicate with Gui. Do not update interface elements, or
+    Signals used to with Gui. Do not update interface elements, or
     perform non reentrant operations:
     calling B{self.gui.displayGrid()}can possibly cause a SIGSEGV
     use B{self.gridDisplayed.emit()} since inter-thread communication is sure to work

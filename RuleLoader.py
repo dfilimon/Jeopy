@@ -1,3 +1,8 @@
+"""
+Nasty module that valides .jeop files.
+Don't poke around the code too much. You might break it and there are too many ifs to
+count.
+"""
 import sys, tempfile
 import re
 import htmllib
@@ -17,13 +22,13 @@ def status(type_, message = None, obj = None):
         print 'File not found in archive:', message, 'referenced by:', obj
     else:
         print 'Validation succeeded'
-    
+
 def validateFile(game, fileName):
     if is_zipfile(fileName) == False: # file not a zip archive
         status('jeop', 'is not a zip archive')
         return False
 
-    
+
     z = ZipFile(str(fileName), 'r')
 
     if z.testzip() != None: # corrupted file
@@ -40,7 +45,7 @@ def validateFile(game, fileName):
         return False
 
     # print game.rules
-    
+
     if validateRules(game, z) == False: # rule file not logical
         status('jeop', 'does not describe a valid game')
         return False
@@ -52,7 +57,7 @@ def validateFile(game, fileName):
             if resourceName != 'rules.json':
                 game.resources[resourceName] = z.read(resourceName)
         #resources = [z.read(x) for x in z.namelist() if x != 'rules.json']
-        
+
     game.tempPath = tempfile.mkdtemp()
     z.extractall(game.tempPath)
     z.close()
@@ -81,11 +86,11 @@ def validateRules(game, z):
     if not isDict(rules):
         status('json', 'not a dictionary:', rules)
         return False
-    
+
     if 'type' not in rules or rules['type'] not in ['html', 'image']:
         status('json', 'no type specified [html/image]', rules)
-        return False   
-    
+        return False
+
     type_ = rules['type']
     if type_ == 'html':
         if 'template' not in rules:
@@ -119,7 +124,7 @@ def validateRules(game, z):
         game.width = 800
         game.height = 600
 
-    
+
     if 'rounds' not in rules:
         status('json', 'no rounds', rules)
         return False
@@ -130,10 +135,10 @@ def validateRules(game, z):
         numRounds = len(rules['rounds'])
         numQuestions = [ [] for _ in range(numRounds) ]
         numCategories = [ 0 for _ in range(numRounds) ]
-        
+
         for i in range(numRounds):
             round_ = rules['rounds'][i]
-            
+
             if not isDict(round_):
                 status('json', 'not a dictionary:', round_)
                 return False
@@ -143,27 +148,27 @@ def validateRules(game, z):
 
             if 'labelFontSize' in round_ and not isInt(round_['labelFontSize']):
                 status('json', 'not an int:', round_['labelFontSize'])
-            
+
             if 'categories' not in round_:
                 status('json', 'no categories, round:', round_)
                 return False
             elif not isList(round_['categories']):
                 status('json', 'not a list:', round_['categories'])
                 return False
-            
+
             if 'title' in round_ and not isStr(round_['title']):
                 status('json', 'not a string:', round_['title'])
                 return False
-            
+
             numCategories[i] = len(round_['categories'])
             numQuestions[i] = [ 0 for _ in range(numCategories[i]) ]
-            
+
             for j in range(numCategories[i]):
                 category = round_['categories'][j]
                 if not isDict(category):
                     status('json', 'not a dictionary:', category)
                     return False
-                
+
                 if 'title' not in category:
                     status('json', 'no title, category:', category)
                     return False
@@ -175,10 +180,10 @@ def validateRules(game, z):
                     return False
                 elif not isList(category['questions']):
                     status('json', 'not a list:', category['questions'])
-                    
+
                 numQuestions[i][j] = len(category['questions'])
                 #print numQuestions[i][j]
-                
+
                 for question in category['questions']:
                     if 'statement' not in question:
                         status('json', 'no statement, question:', question)
@@ -205,7 +210,7 @@ def validateRules(game, z):
                     except TypeError:
                         status('json', 'value not convertible to int, question:', question['value'])
                         return False
-                    
+
                     if type_ == 'html' and 'template' in question:
                         if not isStr(question['template']):
                             status('json', 'not a string:', question['template'])
@@ -220,8 +225,8 @@ def validateRules(game, z):
                         if question['answer'] not in resources:
                             status('file', question['answer'], question)
                             return False
-    
-    game.type = type_                        
+
+    game.type = type_
     game.numRounds = numRounds
     game.numCategories = numCategories
     game.numQuestions = numQuestions
@@ -232,10 +237,10 @@ import HTMLParser
 class ResourceValidator(HTMLParser.HTMLParser):
     def __init__(self, zip_):
         #super(ResourceValidator, self).__init__()
-        
+
         self.fileList = zip_.namelist()
         htmlPattern = re.compile('\.html$', re.IGNORECASE)
-        self.htmlFileList = [resourceName 
+        self.htmlFileList = [resourceName
 for resourceName in self.fileList
 if htmlPattern.search(resourceName) != None]
         HTMLParser.HTMLParser.__init__(self)
@@ -247,7 +252,7 @@ if htmlPattern.search(resourceName) != None]
             except HTMLParser.HTMLParseError:
                 self.valid = False
                 return
-            
+
     def handle_starttag(self, tag, attributeList):
         #print tag, attributeList
         #if not self.valid:
@@ -261,11 +266,11 @@ if htmlPattern.search(resourceName) != None]
 def validateResources(zip_):
     validator = ResourceValidator(zip_)
     return validator.valid
-        
+
 
 def main():
     if len(sys.argv) != 2:
-        print 'Usage: ./Validator.py <filename>'
+        print 'Usage: ./RuleLoader.py <filename>'
     class Game:
         pass
     game = Game()

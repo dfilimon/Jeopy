@@ -1,3 +1,9 @@
+"""
+Baseclass for a Pyro server. It communicates with the rest of the app via
+signals and slots. Note that it is a QThread!
+
+This sets up common functionality.
+"""
 import sys
 from time import sleep
 import socket
@@ -29,7 +35,7 @@ class Server(QThread):
     gameEnded = pyqtSignal()
 
     roundChanged = pyqtSignal()
-    
+
     def __init__(self, gui, name, parent=None):
         super(Server, self).__init__(parent)
         self.daemon = None
@@ -47,17 +53,17 @@ class Server(QThread):
         self.setupSignals()
         Pyro.core.initServer()
         ns = Pyro.naming.NameServerLocator().getNS()
-        
+
         self.daemon = Pyro.core.Daemon('PYRO', self.ip)
         self.daemon.useNameServer(ns)
-        
+
         """
         this is implemented in GameServer and PlayerServer respectively
         this is where the daemon is notified of the types of objects it exposes:
         either Game objects for the GameServer or Player objects for the
         PlayerServer
         """
-        self.connectDaemon() 
+        self.connectDaemon()
 
         self.log('The daemon runs on port: ' + str(self.daemon.port))
         self.log('The server\'s URI is: ' + str(self.uri))
@@ -65,7 +71,7 @@ class Server(QThread):
 
         self.serverStarted.emit(self.name)
         while True:
-            QAbstractEventDispatcher.instance(self).processEvents(QEventLoop.AllEvents)            
+            QAbstractEventDispatcher.instance(self).processEvents(QEventLoop.AllEvents)
             self.daemon.handleRequests(0)
             sleep(0.01)
 
@@ -74,17 +80,17 @@ class Server(QThread):
 
     def setupGuiSignals(self):
         self.playerScoreChanged.connect(self.gui.getTable().updatePlayer)
-        
+
         self.questionDisplayed.connect(self.gui.displayQuestion)
         self.answerDisplayed.connect(self.gui.displayAnswer)
         self.gridDisplayed.connect(self.gui.displayGrid)
         self.gameEnded.connect(self.gui.displayEndGame)
-        
+
         self.roundChanged.connect(self.gui.updateGrid)
-    
+
     def connectDaemon(self):
         raise NotImplementedError('connectDaemon is a virtual method and must be overridden')
 
     def log(self, message):
         print self.name + ': ' + message
-        
+
