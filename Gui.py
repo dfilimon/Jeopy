@@ -151,8 +151,12 @@ class Gui(QWidget):
     def renderPlot(self):
         # generate a random plot path!
         plotPath = tempfile.mkstemp(suffix = '.png', dir = self.getTempPath())[1]
-        
-        self.plotThread = PlotRenderer(self.getScores(), plotPath, False, 100, self)
+
+        # 100   <=>   600/800 = 0.75 resolution
+        # dpi   <=>   height/width
+        dpi = float(self.height) / self.width * 100 / 0.75
+        print "current dpi calculated at", dpi ###### -- debug -- ######
+        self.plotThread = PlotRenderer(self.getScores(), plotPath, False, dpi, self)
         self.plotThread.finishedPlot.connect(self.displayPlot)
         self.plotThread.start()
         self.log('Renering plot')
@@ -166,6 +170,7 @@ class Gui(QWidget):
         self.resize(self.minimumSize())
         self.adjustSize()
         self.plotThread.exit()
+        print path ################ -- debug -- ################
 
     def setLabelText(self, message):
         self.getLabel().setText(message)

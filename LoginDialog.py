@@ -30,6 +30,7 @@ class LoginDialog(QDialog):
         """
         name = str(self.lineEdit.text())
         if name == '':
+            QMessageBox.warning(self, '', 'Please enter a name!', QMessageBox.Ok)
             return
 
         canConnect = self.player.game.canConnect(name)
@@ -58,4 +59,3 @@ class LoginDialog(QDialog):
         layout.addWidget(self.button)
 
         self.setLayout(layout)
-
