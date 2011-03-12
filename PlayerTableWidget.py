@@ -52,7 +52,12 @@ class PlayerTable(QWidget):
         table.insertRow(0)
 
         for i in range(len(player)):
-            table.setItem(0, i, QTableWidgetItem(str(player[i])))
+		if i != len(player)-1:
+			table.setItem(0, i, QTableWidgetItem(str(player[i])))
+		else:
+			newItem=QTableWidgetItem()
+			newItem.setData(0, (player[i]))
+			table.setItem(0, i, newItem)
 
         table.sortItems(len(player) - 1, Qt.DescendingOrder)
 
@@ -70,7 +75,12 @@ class PlayerTable(QWidget):
             #print table.itemAt(r, 0).text()
             if table.item(r, 0).text() == name:
                 for i in range(1, len(player)):
-                    table.setItem(r, i, QTableWidgetItem(str(player[i])))
+			if i != len(player)-1:
+				table.setItem(r, i, QTableWidgetItem(str(player[i])))
+			else:
+                    		newItem=QTableWidgetItem()
+				newItem.setData(0, (player[i]))
+				table.setItem(r , i, newItem)
                 break
 
         table.setSortingEnabled(True)
