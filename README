@@ -3,6 +3,10 @@ TODO:
 	- http://pypi.python.org/pypi/netifaces/0.4
 	netifaces.ifaddresses('vmnet8')[netifaces.AF_INET][0]['addr']
 
+Observation:
+	- the width/height ratio in rules.json must be roughly 1.33,
+	otherwise the plot may not fit in QStackedWidget (left Gui side)
+	
 Requires:
 	- Python > 2.6
 	- PyQt > 4.6

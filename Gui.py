@@ -5,11 +5,11 @@ different PlayerTable.
 Signals are different and PlayerGui's ButtonGrid doesn't select a question.
 
     
-display* functions modify the visible widget of the QStackedLayoutswitching between the
+display* functions modify the visible widget of the QStackedWidget switching between the
 ButtonGrid and QuestionDisplay:
 displayQuestion, displayAnswer
 displayGrid : note that, in case of an update (for going to the next round), a different
-function is called to replace the buttons, but in the end displayGrid switches th QStackedLayout's current widget
+function is called to replace the buttons, but in the end displayGrid switches the QStackedWidget's current widget
     
 """
 
@@ -43,7 +43,7 @@ class Gui(QWidget):
     def setupGui(self, buttonText, width, height):
         """
         The basic layout is the same - a grid layout with a
-        QuestionDisplay / ButtonGrid in a QStackedLayout
+        QuestionDisplay / ButtonGrid in a QStackedWidget
         on the left and a PlayerTable on the right.
         The label on top displays informative messages and is hidden when not
         used.
@@ -55,8 +55,12 @@ class Gui(QWidget):
         w = QLabel()
         w.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
         w.setFont(QFont(QFont.defaultFamily(w.font()), 28))
+
+        stack = QStackedWidget()
+        stack.setFixedSize(width, height)
+        
         layout.addWidget(w, 0, 1)
-        layout.addLayout(QStackedLayout(), 1, 0)
+        layout.addWidget(stack, 1, 0)
         layout.addWidget(self.setupTable(), 1, 1)
 
         # width and height of the QuestionDisplay are specified via the 'size' structure in the 'rules.json' file
@@ -124,8 +128,7 @@ class Gui(QWidget):
 
     def updateGrid(self):
         self.log('updating grid')
-        oldGrid = self.getStack().takeAt(0).widget() # the old grid is removed from the QStackedLayout
-        del oldGrid
+        oldGrid = self.getStack().removeWidget(self.getStack().widget(0)) # the old grid is removed from the QStackedWidget ######
         self.getStack().insertWidget(0, ButtonGrid(self.getRound(), width = self.width, height = self.height))
 
     def displayEndGame(self):
@@ -155,7 +158,7 @@ class Gui(QWidget):
         # 100   <=>   600/800 = 0.75 resolution
         # dpi   <=>   height/width
         dpi = float(self.height) / self.width * 100 / 0.75
-        print "current dpi calculated at", dpi ###### -- debug -- ######
+
         self.plotThread = PlotRenderer(self.getScores(), plotPath, False, dpi, self)
         self.plotThread.finishedPlot.connect(self.displayPlot)
         self.plotThread.start()
@@ -170,7 +173,7 @@ class Gui(QWidget):
         self.resize(self.minimumSize())
         self.adjustSize()
         self.plotThread.exit()
-        print path ################ -- debug -- ################
+        print path #path where picture is saved, platform independent
 
     def setLabelText(self, message):
         self.getLabel().setText(message)
@@ -184,16 +187,18 @@ class Gui(QWidget):
         return self.layout().itemAtPosition(0, 1).widget()
 
     def getStack(self):
-        return self.layout().itemAtPosition(1, 0).layout()
+        return self.layout().itemAtPosition(1, 0).widget()
 
     def getTable(self):
         return self.layout().itemAtPosition(1, 1).widget()
 
     def getGrid(self):
-        return self.getStack().itemAt(0).widget()
+        print "widget 0: ", self.getStack().widget(0)
+        print "widget 1: ", self.getStack().widget(1)
+        return self.getStack().widget(0)
 
     def getDisplay(self):
-        return self.getStack().itemAt(1).widget()
+        return self.getStack().widget(1)
 
     def getDisplayButton(self):
         return self.getDisplay().layout().itemAt(1).widget()
@@ -202,7 +207,7 @@ class Gui(QWidget):
         return self.getGrid().layout().itemAt(i).widget()
 
     def getPlot(self):
-        return self.getStack().itemAt(2).widget()
+        return self.getStack().widget(2)
 
     def getColors(self):
         """
