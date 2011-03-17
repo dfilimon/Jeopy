@@ -91,7 +91,14 @@ class AdminGui(Gui):
         The actual game ui is set up and the AdminGui instructs the GameServer to
         startGames for all players.
         """
-        self.playerAdmin.close()
+
+	if len(self.game.players) == 0:
+		alertMsg=QMessageBox(self.playerAdmin)
+                alertMsg.setText("Please wait for the players to connect")
+                alertMsg.exec_()
+		return
+	
+	self.playerAdmin.close()
         self.game.loginEnabled = False
         
         self.game.nextRound()

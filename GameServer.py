@@ -104,7 +104,8 @@ class GameServer(Server):
         """
         Gui signals are not connected when this function is called.
         """        
-        for name in self.players.keys():
+
+	for name in self.players.keys():
             self.startPlayerGame((name, 0))
         self.setupGuiSignals()
 
@@ -142,7 +143,17 @@ class GameServer(Server):
         for player in self.players.values():
             if player[2] == 'Muted' or player[2] == 'Disconnected':
                 numActivePlayers -= 1
-        n = random.randint(0, numActivePlayers - 1)
+	
+	#numActivePlayers now holds the number of unmuted players still ingame
+
+	if numActivePlayers > 0:
+		pass
+	else:
+		alertMsg = QMessageBox()
+		alertMsg.setText("Please wait for the players to reconnect or unmute existing players")
+		alertMsg.exec_()
+        
+	n = random.randint(0, numActivePlayers - 1)
         for player in self.players.items():
             if player[1][2] == 'Muted' or player[1][2] == 'Disconnected':
                 continue
@@ -167,8 +178,6 @@ class GameServer(Server):
         self.question['category'] = category['title']
         self.buzzed = False
 
-        self.usedQuestions.add(i)
-        
         for player in self.players.items():
             if player[1][2] == 'Selecting':
                 self.changeStatus(player[0], 'Waiting')
@@ -177,8 +186,19 @@ class GameServer(Server):
             except (ConnectionClosedError, ProtocolError):
                 self.changeStatus(player[0], 'Disconnected')
 
-        self.questionSelected.emit(i)
-   
+	numActivePlayers = len(self.players)
+        for player in self.players.values():
+            if player[2] == 'Muted' or player[2] == 'Disconnected':
+                numActivePlayers -= 1
+
+        if numActivePlayers > 0:
+       		self.usedQuestions.add(i)
+	     	self.questionSelected.emit(i)
+        else:
+        	alertMsg=QMessageBox()
+            	alertMsg.setText("Please wait for the players to reconnect or unmute existing players")
+       		alertMsg.exec_()
+	
     def checkAnswer(self, name, ans):
         """
         Once the admin has validated the answer through the messagebox in the AdminGui
@@ -228,7 +248,7 @@ class GameServer(Server):
         if len(self.usedQuestions) == self.numQuestions:
             if not self.nextRound():
                 return
-            
+
         if self.selectingPlayer == '' or self.players[self.selectingPlayer][2] == 'Disconnected':
             self.choosePlayer()
         else:

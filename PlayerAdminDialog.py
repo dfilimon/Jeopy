@@ -26,7 +26,7 @@ class PlayerAdminDialog(QDialog):
         table = PlayerTable(['Nickname', 'IP', 'Status', 'Score'], 'ban')
         layout.addWidget(table)
         button = QPushButton('Start Game')
-        button.clicked.connect(self.startGame.emit)
+    	button.clicked.connect(self.startGame.emit)
         layout.addWidget(button)
         self.setLayout(layout)
 
