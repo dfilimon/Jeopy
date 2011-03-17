@@ -195,7 +195,7 @@ class GameServer(Server):
        		self.usedQuestions.add(i)
 	     	self.questionSelected.emit(i)
         else:
-        	alertMsg=QMessageBox()
+        	alertMsg = QMessageBox()
             	alertMsg.setText("Please wait for the players to reconnect or unmute existing players")
        		alertMsg.exec_()
 	
