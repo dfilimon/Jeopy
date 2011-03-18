@@ -49,7 +49,7 @@ class PlayerServer(Server):
         self.buzzDisabled.connect(self.gui.disableBuzz)
 
     def connectDaemon(self):
-        self.uri = self.daemon.connectPersistent(Player(self), self.name)
+        self.uri = self.daemon.connectPersistent(Player(self), str(hash(self.name))) ######
 
     """
        ***GAME FUNCTIONS*** 
