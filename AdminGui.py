@@ -150,7 +150,7 @@ class AdminGui(Gui):
             note: this signal is not always connected as that button is also used
             for progressing to the next question in addition to showing the answer
           - question selection from ButtonGrid
-    """
+        """
         self.gameStarted.connect(self.game.startGame)
         self.getTable().playersMuted.connect(self.game.mutePlayers)
         self.getTable().playersUnmuted.connect(self.game.unmutePlayers)
@@ -166,6 +166,7 @@ class AdminGui(Gui):
         @param name: The buzzing player's name, used to search in dictionary for URI
         @type name: str
         """
+
         ans = QMessageBox.information(self, '', 'Player ' + name + ' is answering.\nIs the answer correct?', QMessageBox.Yes | QMessageBox.No)
         if ans == QMessageBox.Yes:
             add = True
@@ -189,8 +190,7 @@ class AdminGui(Gui):
         the index i is interpreted in L{ButtonGridWidget.ButtonGrid.emitButtonClicked}. It's really just the position of the button in the grid layout of the ButtonGrid widget.
         """
         Gui.displayQuestion(self, i)
-        # this is commented out just for presentation mode!
-        # Gui.displayAnswer(self)
+        Gui.displayAnswer(self)
         self.displayShowAnswerButton()
         
     def displayAnswer(self):

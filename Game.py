@@ -72,7 +72,7 @@ class Game(Pyro.core.ObjBase):
         """
         name = str(name)
         print 'Game: Connection from:', name
-        player = Pyro.core.getProxyForURI('PYRONAME://' + name)
+        player = Pyro.core.getProxyForURI('PYRONAME://' + str(hash(name)))
         ip = player.getIp()
         
         self.server.playerMutex.lock()
