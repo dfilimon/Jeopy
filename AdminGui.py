@@ -181,6 +181,14 @@ class AdminGui(Gui):
         self.time = self.time.addSecs(1)
         self.getLabel().setText(self.time.toString())
 
+    #################################
+    def acceptQuestion(self, i):
+        message =  'Question:\n' + self.getQuestion()['statement']
+        ans = QMessageBox.warning(self, '', message, QMessageBox.Ok, QMessageBox.Cancel)
+        print 'intrebarea a fost acceptata prin warning.. debugging what do you want?'
+        if ans == QMessageBox.Ok:
+            self.getGrid().buttonClicked.emit(i)
+
     """
     Same functions as in Gui class, but also handling the double-use button
     """

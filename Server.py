@@ -41,7 +41,8 @@ class Server(QThread):
         self.daemon = None
         self.gui = gui
         self.name = name
-        self.ip = [ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][0]
+        # if not ip.startswith("127.") <- put this back :)
+        self.ip = [ip for ip in socket.gethostbyname_ex(socket.gethostname())[2]][0]
 
     # When closing the app, its name must be unregistered from the NameServer
     def close(self):

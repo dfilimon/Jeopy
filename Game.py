@@ -199,3 +199,11 @@ class Game(Pyro.core.ObjBase):
         """
         return deepcopy(self.server.scores)
 
+    ###################################
+    def acceptQuestion(self, i):
+        """
+        This function gets called when the player selects a Question
+        The admin is required to accept the Question (or not) for the actual question to be displayed to all players.
+        """
+        print 'question is', i
+        self.server.accQuestion.emit(i)
