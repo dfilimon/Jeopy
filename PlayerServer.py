@@ -21,6 +21,8 @@ class PlayerServer(Server):
     
     gameStarted = pyqtSignal()
     buzzDisabled = pyqtSignal()
+    
+    buttonClicked = pyqtSignal(int) ####################
 
     """
        ***REIMPLEMENTED METHODS FROM BASECLASS***
@@ -43,10 +45,12 @@ class PlayerServer(Server):
         self.serverStarted.connect(self.connect)
         self.gameStarted.connect(self.gui.startGame)
 
+
     def setupGuiSignals(self):
         Server.setupGuiSignals(self)
         self.playerStatusChanged.connect(self.gui.updateStatus)
         self.buzzDisabled.connect(self.gui.disableBuzz)
+        self.gui.getGrid().buttonClicked.connect(self.pickQuestion)############
 
     def connectDaemon(self):
         self.uri = self.daemon.connectPersistent(Player(self), str(hash(self.name))) ######
@@ -71,4 +75,9 @@ class PlayerServer(Server):
     # buzzes the game server (could have been called in the gui, but need name)
     def buzz(self):
         self.game.buzz(self.name)
+
+    ###################
+    def pickQuestion(self, i):
+        print 'question picked is', i
+        self.game.acceptQuestion(i)
 

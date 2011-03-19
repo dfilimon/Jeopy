@@ -38,6 +38,7 @@ class GameServer(Server):
 
     playerBuzzed = pyqtSignal(str)
     questionSelected = pyqtSignal(int)
+    accQuestion = pyqtSignal(int) ###########
 
     labelTextSet = pyqtSignal(str)
     allGamesStarted = pyqtSignal()
@@ -89,6 +90,9 @@ class GameServer(Server):
 
         self.playerBuzzed.connect(self.gui.playerBuzzed)
         self.questionSelected.connect(self.gui.displayQuestion)
+        self.accQuestion.connect(self.nameQuestion) ################
+        self.accQuestion.connect(self.gui.acceptQuestion) ###############
+
 
         self.labelTextSet.connect(self.gui.setLabelText)
 
@@ -163,6 +167,13 @@ class GameServer(Server):
             else:
                 n -= 1
 
+    def nameQuestion(self, i):
+        (c,q) = self.toLineCol(self.round, i)
+        category = self.round['categories'][c]
+        self.question = deepcopy(category['questions'][q])
+        self.question['category'] = category['title']
+        print 'dsadsadsaadasdas'
+
     def selectQuestion(self, i):
         """
         When a question is selected (by the admin, requested by a player)
@@ -171,11 +182,12 @@ class GameServer(Server):
           - player statuses are changed to Waiting
           - player guis are signaled to display the ButtonGrid
         """
-        (c, q) = self.toLineCol(self.round, i)
+        self.nameQuestion(i)
+        #(c, q) = self.toLineCol(self.round, i)
         
-        category = self.round['categories'][c]
-        self.question = deepcopy(category['questions'][q])
-        self.question['category'] = category['title']
+        #category = self.round['categories'][c]
+        #self.question = deepcopy(category['questions'][q])
+        #self.question['category'] = category['title']
         self.buzzed = False
 
         for player in self.players.items():
@@ -185,6 +197,7 @@ class GameServer(Server):
                 player[1][0].displayQuestion(i)
             except (ConnectionClosedError, ProtocolError):
                 self.changeStatus(player[0], 'Disconnected')
+    
 
 	numActivePlayers = len(self.players)
         for player in self.players.values():
