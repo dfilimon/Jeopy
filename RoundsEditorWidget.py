@@ -133,8 +133,12 @@ class RoundsEditor(QWidget):
         aux = str(self.getLineEdit(row).text()) # adding round to list
 
         self.rounds[row]["title"] = aux
-
+        self.size["width"] = int(self.widthSpin.value())
+        self.size["height"] = int(self.heightSpin.value())
+        
         print "button is on row: ", row
+        print self.rounds
+        
         round_ =  mainWindow(self.rounds[row]['title'], self.size["width"], self.size["height"])
         round_.show()
 
