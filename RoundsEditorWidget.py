@@ -2,7 +2,7 @@ import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from gameEditor import mainWindow
-
+from QuestionEditorWidget import QuestionEditor
 class RoundsEditor(QWidget):
 
     buttonClicked = pyqtSignal(int)
@@ -15,7 +15,7 @@ class RoundsEditor(QWidget):
         self.template = "template.html"
         self.size = {}
         self.rounds = []
-
+	
     def setupGui(self):
         self.frame = QGridLayout()
         self.setLayout(self.frame)
