@@ -9,6 +9,8 @@ class questionGrid(QWidget):
 		self.buttons = []
 		self.layout = QGridLayout()	
 		self.setLayout(self.layout)
+		
+		self.isOpen = False
 
 		self.setupGui(rows, cols)
 	def setupGui(self, rows, cols):	
@@ -23,7 +25,9 @@ class questionGrid(QWidget):
 
 				self.layout.addWidget(widget, i, j)
 				widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-	                        self.connect(widget, SIGNAL("clicked()"), lambda clickedWidget = self.buttons.index(widget): self.showQEditor(clickedWidget))
+	                        #self.connect(widget, SIGNAL("clicked()"), self.showQEditor)
+				#self.updateWidgetIndex(rows, cols)
+				widget.clicked.connect(self.showQEditor)				
 
 	def addRow(self, rows, cols):
 		for j in range(cols):
@@ -61,19 +65,23 @@ class questionGrid(QWidget):
 			self.buttons.remove(self.buttons[cols+(i * (cols + 1))])
 		self.updateWidgetIndex(rows, cols)
 
-	def showQEditor(self, widget):
-		QEditor = QuestionEditor()
-		QEditor.show()
-		print widget
+	def showQEditor(self):
+		if self.isOpen == False:
+			self.QEditor = QuestionEditor(parent = self)
+			self.isOpen = True
+			self.QEditor.show()
+			widget = self.sender()
+			print widget
+		else:	
+			print "not doing anything"
 
 	def updateWidgetIndex(self, rows, cols):
 		for i in range(rows * cols):
 			widget = self.buttons[i]
 			widget.setText(str(self.buttons.index(widget)))
                         try: 
-				self.disconnect(widget, 0, 0, 0)
+				widget.clicked.disconnect()#, SIGNAL("clicked()"))
 			except:
+				#self.connect(widget, SIGNAL("clicked()"), self.showQEditor)
 				pass
-		for i in range(rows * cols):	
-			widget = self.buttons[i]
-			self.connect(widget, SIGNAL("clicked()"), lambda clickedWidget = self.buttons.index(widget): self.showQEditor(clickedWidget))
+			widget.clicked.connect(self.showQEditor)

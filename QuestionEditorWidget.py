@@ -2,20 +2,22 @@ import sys, os
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-class QuestionEditor(QWidget):
+class QuestionEditor(QDialog):
 
-    def __init__(self, number = -1, round_ = "default", parent = None):
+    def __init__(self, number = -1, round_ = "default", value = 100, parent = None):
 
         super(QuestionEditor, self).__init__(parent)
-        
-        self.statement = ''
+
+        self.defaultValue = value
+	self.statement = ''
         self.answer = ''
         self.value = ''
         self.type = 'html'
         self.template = ''
 
         self.setupGui(number, round_)
-         
+        #print self.parent()
+ 
     def setupGui(self, number, round_):
         
         frame = QGridLayout()
@@ -50,7 +52,8 @@ class QuestionEditor(QWidget):
         valueSpinBox.setSingleStep(100)
         valueSpinBox.setDecimals(0)
         valueSpinBox.setFixedWidth(80)
-        valueSpinBox.setValue(100)
+	
+	valueSpinBox.setValue(self.defaultValue)
         #valueSpinBox.setSuffix(" p")
 
         templateLayout = QGridLayout()
@@ -96,7 +99,7 @@ class QuestionEditor(QWidget):
 
         templateButton.clicked.connect(self.getTemplate)
         saveButton.clicked.connect(self.saveQuestion)
-        cancelButton.clicked.connect(self.closeWindow)
+        cancelButton.clicked.connect(self.closeEvent)
 
 
     def getTemplate(self):
@@ -119,9 +122,12 @@ class QuestionEditor(QWidget):
         print self.value
         print self.type
         print self.template
-        self.closeWindow()
+	self.parent().isOpen = False
+        self.close()
+	return self.value	
 
-    def closeWindow(self):
+    def closeEvent(self, event):
+	self.parent().isOpen = False
         self.close()
 
 
