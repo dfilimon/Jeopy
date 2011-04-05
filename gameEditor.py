@@ -3,10 +3,10 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from grid import questionGrid
 from categories import categoryGrid
-from QuestionEditorWidget import QuestionEditor
+
 class mainWindow(QWidget):
 	def __init__(self, title = 'default', width = 600, height = 400, parent = None):
-		super(mainWindow, self).__init__(parent)
+		super(mainWindow, self).__init__(None)
 		
 		self.setMinimumSize(width, height)
 		self.setWindowTitle(title)
@@ -33,7 +33,7 @@ class mainWindow(QWidget):
 		self.cols = 2
 		
 		self.categories = categoryGrid(self.cols)	
-		self.questions = questionGrid(self.rows, self.cols)
+		self.questions = questionGrid(self.rows, self.cols, parent = self.parent())
 
 		layout = QGridLayout()
 		
@@ -46,9 +46,6 @@ class mainWindow(QWidget):
 		
 		self.setLayout(layout)
 		
-		q = QuestionEditor()
-		q.show()
-
 		self.connect(self.remColumn, SIGNAL("clicked()"), lambda action="remColumn": self.updateUI(action))
 		self.connect(self.addColumn, SIGNAL("clicked()"), lambda action = "addColumn": self.updateUI(action))
 		self.connect(self.addRow, SIGNAL("clicked()"), lambda action = "addRow": self.updateUI(action))

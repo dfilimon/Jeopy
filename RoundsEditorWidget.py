@@ -15,6 +15,8 @@ class RoundsEditor(QWidget):
         self.template = "template.html"
         self.size = {}
         self.rounds = []
+        
+        self.isOpen = False
 	
     def setupGui(self):
         self.frame = QGridLayout()
@@ -139,8 +141,13 @@ class RoundsEditor(QWidget):
         print "button is on row: ", row
         print self.rounds
         
-        round_ =  mainWindow(self.rounds[row]['title'], self.size["width"], self.size["height"])
-        round_.show()
+        if self.isOpen == False:
+            round_ =  mainWindow(self.rounds[row]['title'], self.size["width"], self.size["height"], self)
+            self.isOpen = True
+            round_.show()
+        else:
+            print "cannot open other editor, current window still running"
+            #maybe add a warning
 
     def saveGame(self):
         self.rounds = self.rounds[:-1]

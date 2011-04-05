@@ -3,7 +3,7 @@ from PyQt4.QtGui import *
 from QuestionEditorWidget import QuestionEditor
 
 class questionGrid(QWidget):
-	def __init__(self, rows, cols):
+	def __init__(self, rows, cols, parent = None):
 		QWidget.__init__(self)
 		
 		self.buttons = []
@@ -72,8 +72,9 @@ class questionGrid(QWidget):
 			self.QEditor.show()
 			widget = self.sender()
 			print widget
-		else:	
+		else:
 			print "not doing anything"
+			#maybe add a warning
 
 	def updateWidgetIndex(self, rows, cols):
 		for i in range(rows * cols):
@@ -85,3 +86,8 @@ class questionGrid(QWidget):
 				#self.connect(widget, SIGNAL("clicked()"), self.showQEditor)
 				pass
 			widget.clicked.connect(self.showQEditor)
+
+	def closeEvent(self, event):
+		self.parent().isOpen = False
+		self.close()
+

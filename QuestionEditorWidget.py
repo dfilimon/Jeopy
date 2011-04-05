@@ -9,7 +9,7 @@ class QuestionEditor(QDialog):
         super(QuestionEditor, self).__init__(parent)
 
         self.defaultValue = value
-	self.statement = ''
+        self.statement = ''
         self.answer = ''
         self.value = ''
         self.type = 'html'
@@ -53,7 +53,7 @@ class QuestionEditor(QDialog):
         valueSpinBox.setDecimals(0)
         valueSpinBox.setFixedWidth(80)
 	
-	valueSpinBox.setValue(self.defaultValue)
+        valueSpinBox.setValue(self.defaultValue)
         #valueSpinBox.setSuffix(" p")
 
         templateLayout = QGridLayout()
@@ -121,13 +121,12 @@ class QuestionEditor(QDialog):
         print self.answer
         print self.value
         print self.type
-        print self.template
-	self.parent().isOpen = False
+        print self.templatep
         self.close()
-	return self.value	
+        return self.value	
 
     def closeEvent(self, event):
-	self.parent().isOpen = False
+        self.parent().isOpen = False
         self.close()
 
 
