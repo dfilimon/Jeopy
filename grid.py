@@ -67,7 +67,7 @@ class questionGrid(QWidget):
 
 	def showQEditor(self):
 		if self.isOpen == False:
-			self.QEditor = QuestionEditor(parent = self)
+			self.QEditor = QuestionEditor(0,"shiny unicorns", self)
 			self.isOpen = True
 			self.QEditor.show()
 			widget = self.sender()
