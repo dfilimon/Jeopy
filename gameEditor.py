@@ -72,6 +72,11 @@ class mainWindow(QWidget):
 		if action == "addRow":
 			self.rows = self.rows + 1
 			self.questions.addRow(self.rows, self.cols)
+
+    def saveRound(self):
+       for c ... :
+            self.d[c]["title"] = ...
+       self.pred["rounds"][self.r]["categories"] = self.d
             
 def main():
 	app = QApplication(sys.argv)

@@ -128,6 +128,11 @@ class QuestionEditor(QWidget):
         return self.layout().itemAt(1).layout()
     
     def saveQuestion(self):
+        self.d["statement"] = "";
+        self.d["answer"] = ""
+        self.d["value"] = 0
+        self.pred.d[self.c]["questions"][self.q] = self.d
+
         self.statement = str(self.getCenterLayout().itemAtPosition(0, 1).widget().text())
         self.answer = str(self.getCenterLayout().itemAtPosition(1, 1).widget().text())
         self.value = str(self.getCenterLayout().itemAtPosition(2, 1).widget().text())
