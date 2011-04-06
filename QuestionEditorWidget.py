@@ -99,7 +99,7 @@ class QuestionEditor(QDialog):
 
         templateButton.clicked.connect(self.getTemplate)
         saveButton.clicked.connect(self.saveQuestion)
-        cancelButton.clicked.connect(self.closeEvent)
+        cancelButton.clicked.connect(self.close)
 
 
     def getTemplate(self):
@@ -121,13 +121,14 @@ class QuestionEditor(QDialog):
         print self.answer
         print self.value
         print self.type
-        print self.templatep
+        print self.template
         self.close()
         return self.value	
 
     def closeEvent(self, event):
+        print "is this being closed on close / x / save?"
         self.parent().isOpen = False
-        self.close()
+        #event.accept()
 
 
 
