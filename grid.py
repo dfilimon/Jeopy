@@ -86,8 +86,3 @@ class questionGrid(QWidget):
 				#self.connect(widget, SIGNAL("clicked()"), self.showQEditor)
 				pass
 			widget.clicked.connect(self.showQEditor)
-
-	def closeEvent(self, event):
-		self.parent().isOpen = False
-		self.close()
-

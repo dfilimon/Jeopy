@@ -21,7 +21,6 @@ class categoryGrid(QWidget):
 			#w.setMaximumWidth(100)
 			self.layout.addWidget(widget, 0, j)
 			self.connect(widget, SIGNAL("clicked()"), self.click1)
-
 	def add(self, cols):
 		widget = QLineEdit()
 		self.layout.addWidget(widget, 0, cols)
@@ -33,7 +32,3 @@ class categoryGrid(QWidget):
 		self.layout.removeWidget(self.buttons[-1])
 		self.buttons.remove(self.buttons[-1])
 		#del self.buttons[-1:]
-
-	def click1(self,):
-		o = QuestionEditor(4, "m")
-
