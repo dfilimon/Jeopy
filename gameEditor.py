@@ -1,13 +1,17 @@
 import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from grid import questionGrid
 from categories import categoryGrid
+from grid import questionGrid
 
 class mainWindow(QWidget):
-	def __init__(self, title = 'default', width = 600, height = 400, parent = None):
+	def __init__(self, title , width , height , pred, parent = None):
 		super(mainWindow, self).__init__(None)
 		
+		self.pred = pred
+		
+			
+	
 		self.setMinimumSize(width, height)
 		self.setWindowTitle(title)
 		
@@ -34,6 +38,9 @@ class mainWindow(QWidget):
 		
 		self.categories = categoryGrid(self.cols)	
 		self.questions = questionGrid(self.rows, self.cols, parent = self.parent())
+		
+		self.saveButton = QPushButton("Save")
+       		self.cancelButton = QPushButton("Cancel")
 
 		layout = QGridLayout()
 		
@@ -43,7 +50,9 @@ class mainWindow(QWidget):
 		layout.addWidget(self.questions, 1, 1)
 		layout.addWidget(self.remRow, 0, 2)
 		layout.addWidget(self.addRow, 1, 2, Qt.AlignTop)
-		
+		layout.addWidget(self.saveButton, 2, 1, Qt.AlignRight)
+		layout.addWidget(self.cancelButton, 2, 2)
+ 
 		self.setLayout(layout)
 		
 		self.connect(self.remColumn, SIGNAL("clicked()"), lambda action="remColumn": self.updateUI(action))
@@ -72,7 +81,10 @@ class mainWindow(QWidget):
 		if action == "addRow":
 			self.rows = self.rows + 1
 			self.questions.addRow(self.rows, self.cols)
-            
+	
+	def closeEvent(self, event):
+		self.pred.isOpen = False
+    
 def main():
 	app = QApplication(sys.argv)
 	form =  mainWindow()
