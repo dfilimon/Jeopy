@@ -81,19 +81,16 @@ class mainWindow(QWidget):
 		if action == "addRow":
 			self.rows = self.rows + 1
 			self.questions.addRow(self.rows, self.cols)
-<<<<<<< HEAD
 
     def saveRound(self):
        for c ... :
             self.d[c]["title"] = ...
        self.pred["rounds"][self.r]["categories"] = self.d
             
-=======
-	
+
 	def closeEvent(self, event):
 		self.pred.isOpen = False
     
->>>>>>> 6841cb5c3998b41c67cefcce39307c4440faf0ad
 def main():
 	app = QApplication(sys.argv)
 	form =  mainWindow()
