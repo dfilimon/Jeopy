@@ -12,6 +12,7 @@ class QuestionEditor(QWidget):
 
         self.setupGui(number, category)
         self.pred = pred
+        self.d = {}
         #print self.parent()
  
     def setupGui(self, number, category):
@@ -134,7 +135,7 @@ class QuestionEditor(QWidget):
         print self.d["value"]
         print self.d["template"]
         self.close()
-        return self.value
+        #return self.value
 
     def closeEvent(self, event):
         print "is this being closed on close / x / save?"
