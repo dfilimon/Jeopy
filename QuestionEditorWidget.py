@@ -8,11 +8,6 @@ class QuestionEditor(QWidget):
 
         super(QuestionEditor, self).__init__(parent)
 
-        self.defaultValue = 100
-        self.statement = ''
-        self.answer = ''
-        self.value = ''
-        self.type = 'html'
         self.template = ''
 
         self.setupGui(number, category)
@@ -50,7 +45,7 @@ class QuestionEditor(QWidget):
         valueSpinBox.setDecimals(0)
         valueSpinBox.setFixedWidth(80)
 
-        valueSpinBox.setValue(self.defaultValue)
+        valueSpinBox.setValue(100)
         #valueSpinBox.setSuffix(" p")
 
         self.template = 'template.html'
@@ -115,34 +110,31 @@ class QuestionEditor(QWidget):
 
 
     def getTemplate(self):
-        self.file = ''
-        self.file = str(QFileDialog.getOpenFileName(self,
+        file_ = ''
+        file_ = str(QFileDialog.getOpenFileName(self,
             'Select a question template', 'template.html', 'Question template (*.html)'))
-        print self.file
-        if self.file != '':
-            self.templateBrowse.setText(self.file)
-            self.template = self.file[self.file.rfind('/')+1:]
+        print file_
+        if file_ != '':
+            self.templateBrowse.setText(file_)
+            self.template = file_[file_.rfind('/')+1:]
             
-    
     def getCenterLayout(self):
         return self.layout().itemAt(1).layout()
     
     def saveQuestion(self):
-        self.d["statement"] = "";
-        self.d["answer"] = ""
-        self.d["value"] = 0
+        self.d["statement"] = str(self.getCenterLayout().itemAtPosition(0, 1).widget().text());
+        self.d["answer"] = str(self.getCenterLayout().itemAtPosition(1, 1).widget().text())
+        self.d["value"] = int(self.getCenterLayout().itemAtPosition(2, 1).widget().text())
+        self.d["template"] = self.template
         self.pred.d[self.c]["questions"][self.q] = self.d
 
-        self.statement = str(self.getCenterLayout().itemAtPosition(0, 1).widget().text())
-        self.answer = str(self.getCenterLayout().itemAtPosition(1, 1).widget().text())
-        self.value = str(self.getCenterLayout().itemAtPosition(2, 1).widget().text())
-        print self.statement
-        print self.answer
-        print self.value
-        print self.type
-        print self.template
+        
+        print self.d["statement"]
+        print self.d["answer"]
+        print self.d["value"]
+        print self.d["template"]
         self.close()
-        return self.value	
+        return self.value
 
     def closeEvent(self, event):
         print "is this being closed on close / x / save?"

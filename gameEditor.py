@@ -83,9 +83,9 @@ class mainWindow(QWidget):
 			self.questions.addRow(self.rows, self.cols)
 
     def saveRound(self):
-       for c ... :
+        for c ... :
             self.d[c]["title"] = ...
-       self.pred["rounds"][self.r]["categories"] = self.d
+        self.pred["rounds"][self.r]["categories"] = self.d
             
 
 	def closeEvent(self, event):
