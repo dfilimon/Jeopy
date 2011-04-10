@@ -20,7 +20,6 @@ class categoryGrid(QWidget):
 			widget.setMaxLength(30)
 			#w.setMaximumWidth(100)
 			self.layout.addWidget(widget, 0, j)
-			self.connect(widget, SIGNAL("clicked()"), self.click1)
 	def add(self, cols):
 		widget = QLineEdit()
 		self.layout.addWidget(widget, 0, cols)
