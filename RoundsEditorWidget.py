@@ -15,6 +15,9 @@ class RoundsEditor(QWidget):
         self.template = "template.html"
         self.size = {}
         self.rounds = []
+        self.jsondict = {}
+        self.jsondict["type"] = "html"
+        self.jsondict["template"] = "template.html"
         
         self.isOpen = False
 	
@@ -150,8 +153,17 @@ class RoundsEditor(QWidget):
             #maybe add a warning
 
     def saveGame(self):
+
+        # if any changes are made tot the rounds names after 'edit'
+        # they will be updated in the self.rounds list
+        for i in range(self.count):
+            aux = str(self.getLineEdit(i).text())
+            self.rounds[i]["title"] = aux
+        
         self.rounds = self.rounds[:-1]
-        print self.rounds
+        self.jsondict["size"] = self.size
+        self.jsondict["rounds"] = self.rounds
+        print self.jsondict
         self.close()
         
     def getLabelNumber(self, i):
@@ -163,7 +175,7 @@ class RoundsEditor(QWidget):
     def getButton(self, i):
         return self.layout.itemAtPosition(i, 2).widget()
 
-                
+
 def main():
     app = QApplication(sys.argv)
     gui = RoundsEditor()

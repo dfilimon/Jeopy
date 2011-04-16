@@ -128,6 +128,8 @@ class QuestionEditor(QWidget):
         self.d["value"] = int(self.getCenterLayout().itemAtPosition(2, 1).widget().text())
         self.d["template"] = self.template
         self.pred.d[self.c]["questions"][self.q] = self.d
+        # where self.c is the category number [in the "categories" list]
+        # and self.q is the question number [in the "questions" list] self.q
 
         
         print self.d["statement"]
@@ -138,7 +140,7 @@ class QuestionEditor(QWidget):
         #return self.value
 
     def closeEvent(self, event):
-        print "is this being closed on close / x / save?"
+        print "QuestionEdutir is being closed on 'x, save or cancel'"
         self.pred.isOpen = False
 
                 
