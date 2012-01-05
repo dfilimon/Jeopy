@@ -42,7 +42,9 @@ class Server(QThread):
         self.gui = gui
         self.name = name
         # if not ip.startswith("127.") <- put this back :)
-        self.ip = [ip for ip in socket.gethostbyname_ex(socket.gethostname())[2]][0]
+        #self.ip = [ip for ip in socket.gethostbyname_ex(socket.gethostname())[2]][0]
+        self.ip = subprocess.Popen(args="ip a | grep 'inet ' | grep 'eth' | awk -F ' ' '{print $2}' | awk -F / '{print $1}'", shell=True, stdout=subprocess.PIPE).communicate()[0][:-1]
+
 
     # When closing the app, its name must be unregistered from the NameServer
     def close(self):
