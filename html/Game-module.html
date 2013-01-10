@@ -52,13 +52,13 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module Game</h1><p class="nomargin-top"><span class="codelink"><a href="Game-pysrc.html">source&nbsp;code</a></span></p>
-<p>This is the Game Pyro object. Multiple instances of this class can be 
-  active at the same time retrieving information at the same time from the 
+<p>This is the Game Pyro object. Multiple instances of this class can be
+  active at the same time retrieving information at the same time from the
   GameServer. Game does not hold state as it is destroyed immediately after
   the remote method invoked finishes execution.</p>
-  <p>It can only communicate to the rest of the 'Admin' program by calling 
+  <p>It can only communicate to the rest of the 'Admin' program by calling
   emit on its server's (GameServer) signals.</p>
-  <p>Players are represented by using a dictionary from player names to 
+  <p>Players are represented by using a dictionary from player names to
   player tuples. These tuples have a FIXED format:</p>
 <pre class="literalblock">
  (uri, ip, status, score)
@@ -87,7 +87,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="Game.Game-class.html" class="summary-name">Game</a><br />
-      This class does not implement anything QObject based since it does 
+      This class does not implement anything QObject based since it does
         not emit its own signals.
     </td>
   </tr>

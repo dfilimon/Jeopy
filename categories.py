@@ -4,13 +4,13 @@ from PyQt4.QtGui import *
 class categoryGrid(QWidget):
 	def __init__(self, cols):
 		super(categoryGrid, self).__init__()
-		
+
 		self.layout = QGridLayout()
 		self.layout.setHorizontalSpacing(5)
 		self.setLayout(self.layout)
-	
+
 		self.buttons = []
-		
+
 		self.setupGui(cols)
 
 	def setupGui(self, cols):

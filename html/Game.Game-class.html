@@ -64,7 +64,7 @@ Pyro.core.ObjBase --+
 <hr />
 <p>This class does not implement anything QObject based since it does not
   emit its own signals. That would have been too much of a hassle to create
-  new connections every time such a temporary object is instantiated. 
+  new connections every time such a temporary object is instantiated.
   Instead it uses the GameServer.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -96,11 +96,11 @@ Pyro.core.ObjBase --+
       x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.__init__">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -111,15 +111,15 @@ Pyro.core.ObjBase --+
         <tr>
           <td><span class="summary-sig"><a href="Game.Game-class.html#canConnect" class="summary-sig-name">canConnect</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>)</span><br />
-      When attempting to register with the server, a client first calls 
+      When attempting to register with the server, a client first calls
       this method to see whether or not its name is reserved.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.canConnect">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -133,11 +133,11 @@ Pyro.core.ObjBase --+
       This is the actual method where the login takes place.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.connect">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -147,15 +147,15 @@ Pyro.core.ObjBase --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="Game.Game-class.html#getPlayers" class="summary-sig-name">getPlayers</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      In order to display the player list in each table for the PlayerGui, 
+      In order to display the player list in each table for the PlayerGui,
       the player list needs to be obtained.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getPlayers">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -170,11 +170,11 @@ Pyro.core.ObjBase --+
       the status for the player whose nickname is <b>name</b> (str)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getStatus">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -189,11 +189,11 @@ Pyro.core.ObjBase --+
       the score for the player whose nickname is <b>name</b> (int)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getScore">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -204,15 +204,15 @@ Pyro.core.ObjBase --+
         <tr>
           <td><span class="summary-sig"><a href="Game.Game-class.html#getResources" class="summary-sig-name">getResources</a>(<span class="summary-sig-arg">self</span>)</span><br />
       When parsing the .jeop files, there are also resources like images or
-      html templates that need to be transferred to every player after 
+      html templates that need to be transferred to every player after
       login so that they're not downloaded when actually playing the game.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getResources">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -226,11 +226,11 @@ Pyro.core.ObjBase --+
       a deep copy of the current round array</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getRound">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -244,11 +244,11 @@ Pyro.core.ObjBase --+
       a deep copy of the current question</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getQuestion">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -259,15 +259,15 @@ Pyro.core.ObjBase --+
         <tr>
           <td><span class="summary-sig"><a href="Game.Game-class.html#getUsedQuestions" class="summary-sig-name">getUsedQuestions</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Returns:
-      a deep copy of the usedQuestions array (so that the buttons on the 
+      a deep copy of the usedQuestions array (so that the buttons on the
       grid can be marked accordingly)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getUsedQuestions">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -278,15 +278,15 @@ Pyro.core.ObjBase --+
         <tr>
           <td><span class="summary-sig"><a href="Game.Game-class.html#getTemplate" class="summary-sig-name">getTemplate</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Returns:
-      string containing the html template that should be used to display 
+      string containing the html template that should be used to display
       the question</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getTemplate">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -300,11 +300,11 @@ Pyro.core.ObjBase --+
       width of canvas on the server</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getWidth">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -318,11 +318,11 @@ Pyro.core.ObjBase --+
       height of canvas on the server</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getHeight">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -336,11 +336,11 @@ Pyro.core.ObjBase --+
       This function gets called when a player presses Buzz.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.buzz">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -350,15 +350,15 @@ Pyro.core.ObjBase --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="Game.Game-class.html#gameStarted" class="summary-sig-name">gameStarted</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      This function gets called whenever a client finished transfering the 
+      This function gets called whenever a client finished transfering the
       required resources and displaying the PlayerGui.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.gameStarted">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
 <tr>
@@ -371,11 +371,11 @@ Pyro.core.ObjBase --+
       Possibly obsolete?</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="Game-pysrc.html#Game.getScores">source&nbsp;code</a></span>
-            
+
           </td>
         </tr>
       </table>
-      
+
     </td>
   </tr>
   <tr>
@@ -476,8 +476,8 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
+
+  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for
   signature</p>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -504,12 +504,12 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.canConnect">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
+
   <p>When attempting to register with the server, a client first calls this
   method to see whether or not its name is reserved.</p>
-  <p>If a player already exists in the server's <code 
-  class="link">GameServer.GameServer.players</code> dictionary, it will 
-  only allow connnections if the player has previously registered before 
+  <p>If a player already exists in the server's <code
+  class="link">GameServer.GameServer.players</code> dictionary, it will
+  only allow connnections if the player has previously registered before
   the game started.</p>
   <p>This way, players cannot arbitrarily join the game.</p>
   <dl class="fields">
@@ -536,9 +536,9 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.connect">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
+
   <p>This is the actual method where the login takes place.</p>
-  <p>Each player already has an entry inside the  <code 
+  <p>Each player already has an entry inside the  <code
   class="link">GameServer.GameServer.players</code> dictionary, but now the
   GameServer needs to know which URI to keep to be able to communicate with
   the Player Pyro objects.</p>
@@ -563,8 +563,8 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getPlayers">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  <p>In order to display the player list in each table for the PlayerGui, 
+
+  <p>In order to display the player list in each table for the PlayerGui,
   the player list needs to be obtained.</p>
   <dl class="fields">
     <dt>Returns:</dt>
@@ -586,8 +586,8 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getStatus">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>the status for the player whose nickname is <b>name</b> (str)</dd>
@@ -608,8 +608,8 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getScore">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>the score for the player whose nickname is <b>name</b> (int)</dd>
@@ -629,12 +629,12 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getResources">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  <p>When parsing the .jeop files, there are also resources like images or 
+
+  <p>When parsing the .jeop files, there are also resources like images or
   html templates that need to be transferred to every player after login so
   that they're not downloaded when actually playing the game.</p>
-  <p>Every file from the .jeop archive is returned in the resources array 
-  <b>except for rules.json</b>, the file that contains the questions and 
+  <p>Every file from the .jeop archive is returned in the resources array
+  <b>except for rules.json</b>, the file that contains the questions and
   answers.</p>
   <dl class="fields">
     <dt>Returns:</dt>
@@ -655,8 +655,8 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getRound">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>a deep copy of the current round array</dd>
@@ -676,8 +676,8 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getQuestion">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>a deep copy of the current question</dd>
@@ -697,11 +697,11 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getUsedQuestions">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Returns:</dt>
-        <dd>a deep copy of the usedQuestions array (so that the buttons on 
+        <dd>a deep copy of the usedQuestions array (so that the buttons on
           the grid can be marked accordingly)</dd>
   </dl>
 </td></tr></table>
@@ -719,11 +719,11 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getTemplate">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Returns:</dt>
-        <dd>string containing the html template that should be used to 
+        <dd>string containing the html template that should be used to
           display the question</dd>
   </dl>
 </td></tr></table>
@@ -741,8 +741,8 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getWidth">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>width of canvas on the server</dd>
@@ -762,8 +762,8 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getHeight">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  
+
+
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>height of canvas on the server</dd>
@@ -784,9 +784,9 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.buzz">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
+
   <p>This function gets called when a player presses Buzz.</p>
-  <p>The first player to call it obtains a lock on a mutex that ensures 
+  <p>The first player to call it obtains a lock on a mutex that ensures
   that only one player may answer at a time. After obtaining the lock:</p>
   <ul>
     <li>
@@ -816,9 +816,9 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.gameStarted">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
-  <p>This function gets called whenever a client finished transfering the 
-  required resources and displaying the PlayerGui. When all of the clients 
+
+  <p>This function gets called whenever a client finished transfering the
+  required resources and displaying the PlayerGui. When all of the clients
   are done, the game can start.</p>
   <dl class="fields">
   </dl>
@@ -837,7 +837,7 @@ Pyro.core.ObjBase --+
     ><span class="codelink"><a href="Game-pysrc.html#Game.getScores">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
-  
+
   <p>Possibly obsolete?</p>
   <dl class="fields">
     <dt>Returns:</dt>
