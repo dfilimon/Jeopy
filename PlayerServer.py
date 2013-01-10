@@ -18,10 +18,10 @@ class PlayerServer(Server):
 
     playerConnected = pyqtSignal()
     playerStatusChanged = pyqtSignal(str)
-    
+
     gameStarted = pyqtSignal()
     buzzDisabled = pyqtSignal()
-    
+
     buttonClicked = pyqtSignal(int) ####################
 
     """
@@ -56,7 +56,7 @@ class PlayerServer(Server):
         self.uri = self.daemon.connectPersistent(Player(self), str(hash(self.name))) ######
 
     """
-       ***GAME FUNCTIONS*** 
+       ***GAME FUNCTIONS***
     """
     def startGame(self):
         self.setupGuiSignals()

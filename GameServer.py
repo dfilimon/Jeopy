@@ -60,7 +60,7 @@ class GameServer(Server):
     """
     def __init__(self, gui, name, parent = None):
         Server.__init__(self, gui, name)
-        
+
         self.rules = ''
         self.resources = []
         self.type = ''
@@ -85,7 +85,7 @@ class GameServer(Server):
     def setupGuiSignals(self):
         Server.setupGuiSignals(self)
         self.playerReconnected.connect(self.gui.getTable().updatePlayer)
-        self.playerReconnected.connect(self.startPlayerGame) 
+        self.playerReconnected.connect(self.startPlayerGame)
         self.playerStatusChanged.connect(self.gui.getTable().updatePlayer)
 
         self.playerBuzzed.connect(self.gui.playerBuzzed)
@@ -107,7 +107,7 @@ class GameServer(Server):
     def startGame(self):
         """
         Gui signals are not connected when this function is called.
-        """        
+        """
 
 	for name in self.players.keys():
             self.startPlayerGame((name, 0))
@@ -147,7 +147,7 @@ class GameServer(Server):
         for player in self.players.values():
             if player[2] == 'Muted' or player[2] == 'Disconnected':
                 numActivePlayers -= 1
-	
+
 	#numActivePlayers now holds the number of unmuted players still ingame
 
 	if numActivePlayers > 0:
@@ -156,7 +156,7 @@ class GameServer(Server):
 		alertMsg = QMessageBox()
 		alertMsg.setText("Please wait for the players to reconnect or unmute existing players")
 		alertMsg.exec_()
-        
+
 	n = random.randint(0, numActivePlayers - 1)
         for player in self.players.items():
             if player[1][2] == 'Muted' or player[1][2] == 'Disconnected':
@@ -184,7 +184,7 @@ class GameServer(Server):
         """
         self.nameQuestion(i)
         #(c, q) = self.toLineCol(self.round, i)
-        
+
         #category = self.round['categories'][c]
         #self.question = deepcopy(category['questions'][q])
         #self.question['category'] = category['title']
@@ -197,7 +197,7 @@ class GameServer(Server):
                 player[1][0].displayQuestion(i)
             except (ConnectionClosedError, ProtocolError):
                 self.changeStatus(player[0], 'Disconnected')
-    
+
 
 	numActivePlayers = len(self.players)
         for player in self.players.values():
@@ -211,7 +211,7 @@ class GameServer(Server):
         	alertMsg = QMessageBox()
             	alertMsg.setText("Please wait for the players to reconnect or unmute existing players")
        		alertMsg.exec_()
-	
+
     def checkAnswer(self, name, ans):
         """
         Once the admin has validated the answer through the messagebox in the AdminGui
@@ -220,7 +220,7 @@ class GameServer(Server):
         """
         name = str(name)
         player = self.players[name]
-       
+
         score = player[3]
         if ans == True:
             score += self.question['value']
@@ -231,7 +231,7 @@ class GameServer(Server):
             self.selectingPlayer = ''
             self.changeScore(name, score)
         self.changeStatus(name, 'Waiting')
-                
+
         self.showAnswer()
 
     def showAnswer(self):
@@ -245,7 +245,7 @@ class GameServer(Server):
                 player[1][0].displayAnswer()
             except (ConnectionClosedError, ProtocolError):
                 self.changeStatus(player[0], 'Disconnected')
-                
+
             self.scores[player[0]][0].append(player[1][3])
 
         # used to be self.gui.displayAnswer()... I wonder if this caused the SIGSEGV
@@ -267,7 +267,7 @@ class GameServer(Server):
         else:
             self.changeStatus(self.selectingPlayer, 'Selecting')
             self.selectingPlayer = ''
-            
+
         for player in self.players.items():
             try:
                 player[1][0].displayGrid()
@@ -285,7 +285,7 @@ class GameServer(Server):
             - gui events need to be trigerred to replace the ButtonGrid with a new one
          """
         self.roundNum += 1
-        
+
         if self.roundNum >= self.numRounds:
             self.endGame()
             return False
@@ -315,7 +315,7 @@ class GameServer(Server):
         """
         hue = 0
         hueInc = 360 / len(self.scores.items())
-        
+
         for e in self.scores.items():
             color = QColor()
             color.setHsv(hue, 255, 240)
@@ -364,7 +364,7 @@ class GameServer(Server):
             if name in self.players.keys() and self.players[name][2] == 'Muted':
                 self.changeStatus(name, 'Waiting')
 
-    
+
 
     def changeStatus(self, name, status):
         """
@@ -385,7 +385,7 @@ class GameServer(Server):
                 player[0].changeStatus(status)
             except (ConnectionClosedError, ProtocolError):
                 self.changeStatus(name, 'Disconnected')
-           
+
     def changeScore(self, name, score):
         """
         @param name: name of the player whose status is to change
@@ -402,4 +402,4 @@ class GameServer(Server):
             except (ConnectionClosedError, ProtocolError):
                 self.changeStatus(player[0], 'Disconnected')
 
-    
+

@@ -4,13 +4,13 @@ are derived. PlayerGui inherits Gui with few changes, whereas ServerGui uses a
 different PlayerTable.
 Signals are different and PlayerGui's ButtonGrid doesn't select a question.
 
-    
+
 display* functions modify the visible widget of the QStackedWidget switching between the
 ButtonGrid and QuestionDisplay:
 displayQuestion, displayAnswer
 displayGrid : note that, in case of an update (for going to the next round), a different
 function is called to replace the buttons, but in the end displayGrid switches the QStackedWidget's current widget
-    
+
 """
 
 from PyQt4.QtCore import *
@@ -36,7 +36,7 @@ class Gui(QWidget):
         self.width = None
         self.height = None
         self.pixmap = None # used for score plot at the end of the game
-        
+
     def startGame(self):
         raise NotImplementedError('startGame is virtual and must be overridden')
 
@@ -58,7 +58,7 @@ class Gui(QWidget):
 
         stack = QStackedWidget()
         stack.setFixedSize(width, height)
-        
+
         layout.addWidget(w, 0, 1)
         layout.addWidget(stack, 1, 0)
         layout.addWidget(self.setupTable(), 1, 1)
@@ -66,7 +66,7 @@ class Gui(QWidget):
         # width and height of the QuestionDisplay are specified via the 'size' structure in the 'rules.json' file
         self.width = width
         self.height = height
-        
+
         w = ButtonGrid(self.getRound(), width = self.width, height = self.height)
         self.getStack().addWidget(w) # the ButtonGrid will always have index 0
 
@@ -80,13 +80,13 @@ class Gui(QWidget):
 
     def setupSignals(self):
         raise NotImplementedError('setupSignals is virtual and must be overridden')
-        
+
     def deleteTempFiles(self):
         path = self.getTempPath()
         for name in os.listdir(path):
             os.remove(path + '/' + name)
         os.removedirs(path)
- 
+
     def log(self, message):
         """
         messages from different components are prefixed with their source, in this case the gui thread; redirect to create log
@@ -101,7 +101,7 @@ class Gui(QWidget):
         """
         self.getGrid().layout().itemAt(i).widget().setEnabled(False)
         self.log('displaying question ' + str(i))
-        
+
         question = self.getQuestion()
         template = self.getTemplateFromQuestion(question)
 
@@ -219,7 +219,7 @@ class Gui(QWidget):
         return dict([ (player[0], player[1][1])
                       for player in
                       self.getScores().items() ])
-    
+
     """
     These functions get game related data
     -------------------------------------
@@ -234,20 +234,20 @@ class Gui(QWidget):
 
     def getTempPath(self):
         raise NotImplementedError('getTmpPath is virtual and must be overridden')
-    
+
     def getTemplate(self):
         raise NotImplementedError('getTemplate is virtual and must be overridden')
 
     def getScores(self):
         raise NotImplementedError('getScores is virtual and must be overridden')
 
-    
+
     def getTemplateFromQuestion(self, question):
         """
         Helper function, for the case where a question defines a custom html template which needs to be read.
         Is in practice always called, because finding custom templates is not the job of the display{Question,Answer} methods.
         """
-        if 'template' not in question or question == None: 
+        if 'template' not in question or question == None:
             return self.getTemplate()
         templateFile = open(self.getTempPath() + '/' + question['template'])
         return ''.join([ line for line in templateFile.readlines() ])

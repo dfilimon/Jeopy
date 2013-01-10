@@ -14,9 +14,9 @@ class QuestionEditor(QWidget):
         self.pred = pred
         self.d = {}
         #print self.parent()
- 
+
     def setupGui(self, number, category):
-        
+
         frame = QVBoxLayout()
 
         info = QHBoxLayout()
@@ -33,7 +33,7 @@ class QuestionEditor(QWidget):
         questionL.setAlignment(Qt.AlignCenter)
         questionL.setFont(QFont(font, 10))
 
-        
+
 
         # editing all Labels and LineEdit widgets
         statementLine = QLineEdit("Dennis Ritchie")
@@ -99,7 +99,7 @@ class QuestionEditor(QWidget):
         statementLine.setAlignment(Qt.AlignCenter)
         answerLine.setAlignment(Qt.AlignCenter)
         valueSpinBox.setAlignment(Qt.AlignCenter)
-        
+
         statementLine.setFocus()
         statementLine.selectAll()
 
@@ -118,10 +118,10 @@ class QuestionEditor(QWidget):
         if file_ != '':
             self.templateBrowse.setText(file_)
             self.template = file_[file_.rfind('/')+1:]
-            
+
     def getCenterLayout(self):
         return self.layout().itemAt(1).layout()
-    
+
     def saveQuestion(self):
         self.d["statement"] = str(self.getCenterLayout().itemAtPosition(0, 1).widget().text());
         self.d["answer"] = str(self.getCenterLayout().itemAtPosition(1, 1).widget().text())
@@ -131,7 +131,7 @@ class QuestionEditor(QWidget):
         # where self.c is the category number [in the "categories" list]
         # and self.q is the question number [in the "questions" list] self.q
 
-        
+
         print self.d["statement"]
         print self.d["answer"]
         print self.d["value"]
@@ -143,7 +143,7 @@ class QuestionEditor(QWidget):
         print "QuestionEdutir is being closed on 'x, save or cancel'"
         self.pred.isOpen = False
 
-                
+
 def main():
     app = QApplication(sys.argv)
     gui = QuestionEditor()

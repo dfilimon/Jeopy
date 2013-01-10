@@ -20,7 +20,7 @@ from LoginDialog import LoginDialog
 
 class PlayerGui(Gui):
     buzzed = pyqtSignal()
-    
+
     """
        ***REIMPLEMENTED METHODS FROM BASECLASS***
        These work similarly to the ones in AdminGui. For more information, check
@@ -43,7 +43,7 @@ class PlayerGui(Gui):
         self.setupGui('Buzz', self.player.game.getWidth(), self.player.game.getHeight())
         for i in self.player.game.getUsedQuestions():
             self.getGridButton(i).setEnabled(False)
-            
+
         self.show()
         self.gameStarted.emit()
         self.player.game.gameStarted()
@@ -53,7 +53,7 @@ class PlayerGui(Gui):
         for player in self.player.game.getPlayers():
             table.addPlayer(player)
         return table
-    
+
     def setupSignals(self):
         self.gameStarted.connect(self.player.setupGuiSignals)
         self.getDisplayButton().clicked.connect(self.player.buzz)
@@ -105,4 +105,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
+

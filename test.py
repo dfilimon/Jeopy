@@ -11,9 +11,9 @@ def main():
     login.setButtonText(1, 'notok')
     if( login.buttons()[0].clicked.connect(go) != None ):
         print 'cholera'
-    
+
     login.show()
     app.exec_()
-    
+
 main()
-    
+

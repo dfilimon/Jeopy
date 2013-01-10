@@ -17,28 +17,28 @@ class QuestionDisplay(QWidget):
                  path = '',
                  buttonText = 'Buzz',
                  width = 800, height = 600, parent = None):
-        
+
         super(QuestionDisplay, self).__init__(parent)
 
         self.type = type_
         self.buttonText = buttonText
         self.width = width
         self.height = height
-        
-        self.setupGui(resource, path)       
+
+        self.setupGui(resource, path)
 
     def setupGui(self, resource, path):
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         if self.type == 'image':
             w = QLabel()
         else: # 'html' theoretically; can also set type to 'peanuts' [ps: don't]
             w = QWebView()
         layout.addWidget(w)
-        
+
         self.updateGui(resource, path)
-        
+
         layout.addWidget(QPushButton(self.buttonText))
         self.layout().itemAt(1).widget().clicked.connect(self.buttonClicked.emit)
         self.setFixedSize(self.width, self.height)
@@ -47,11 +47,11 @@ class QuestionDisplay(QWidget):
     It is essential to pass a full path to setHtml because otherwise images
     and really, any kind of separate file, won't work.
     """
-    def updateGui(self, resource, path):        
+    def updateGui(self, resource, path):
         w = self.layout().itemAt(0).widget()
-        
+
         if self.type == 'image':
             w.setPixmap(resource.scaled(QSize(self.width, self.height)))
         else:
             w.setHtml(resource, QUrl('file://' + path + '/'))
-  
+

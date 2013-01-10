@@ -11,7 +11,7 @@ class ButtonGrid(QWidget):
 
     buttonClicked = pyqtSignal(int)
 
-    
+
     def __init__(self, round,
                  width = 800, height = 600, parent = None):
         """
@@ -23,13 +23,13 @@ class ButtonGrid(QWidget):
         self.round = round
         self.width = width
         self.height = height
-        
+
         self.setupGui(self.round)
 
 
     def setupGui(self, round):
         """
-        If there is no font size information available in the dictionary, default to size 12 everywhere.        
+        If there is no font size information available in the dictionary, default to size 12 everywhere.
         """
         if 'buttonFontSize' not in round:
             buttonFontSize = 12
@@ -40,16 +40,16 @@ class ButtonGrid(QWidget):
             labelFontSize = 12
         else:
             labelFontSize = round['labelFontSize']
-        
+
         layout = QGridLayout()
         self.setLayout(layout)
-        
-        layout.setHorizontalSpacing(5)        
+
+        layout.setHorizontalSpacing(5)
         self.setFixedSize(self.width, self.height)
 
-        
+
         n = len(round['categories'])
-        
+
         for i in range(n):
             w = QLabel(round['categories'][i]['title'])
             self.setFontSize(w, labelFontSize)
@@ -65,7 +65,7 @@ class ButtonGrid(QWidget):
                 w.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 w.clicked.connect(self.emitButtonClicked)
 
-    
+
     def setFontSize(self, widget, fontSize):
         """
         Sets the font size for the specified widget.
@@ -75,7 +75,7 @@ class ButtonGrid(QWidget):
         @type fontSize: int
         """
         widget.setFont(QFont(QFont.defaultFamily(widget.font()), fontSize))
-    
+
     def emitButtonClicked(self):
         """
         @return: Not exactly returns, but rather emits the index of the selected question

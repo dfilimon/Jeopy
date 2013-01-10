@@ -24,18 +24,18 @@ from PlotRenderer import PlotRenderer
 class AdminGui(Gui):
     """
     Subclasses Gui and is the interface that provides actual control over question selection and overall game progress. Should be used by game Administrator.
-    
+
     Signals are used to communicate with the GameServer, which is in a
     different thread. B{Any instance where a GameServer method is called
     directly is a bug}. Please report it.
-    """    
+    """
     answerShown = pyqtSignal()
     answerChecked = pyqtSignal(str, bool)
 
     mutePlayers = pyqtSignal(list)
     unmutePlayers = pyqtSignal(list)
-    
-    def __init__(self, parent=None):    
+
+    def __init__(self, parent=None):
         super(AdminGui, self).__init__(parent)
         self.game = None # if something goes wrong with the game server, we'll have a nice cleanup
         self.game = GameServer(self, 'jeopardy')
@@ -46,13 +46,13 @@ class AdminGui(Gui):
         Setup the player table, and wait for players to login before
         the game may be started.
         """
-        self.playerAdmin = PlayerAdminDialog(self)        
+        self.playerAdmin = PlayerAdminDialog(self)
         self.playerAdmin.startGame.connect(self.startGame)
         self.playerAdmin.show() # does not block thread, __init__ continues
-        
+
         # starts the GameServer thread
         self.game.start()
-        
+
         # prepare to tell the time elapsed since the game started
         self.time = QTime(0, 0, 0)
         self.timer = QTimer(self)
@@ -66,7 +66,7 @@ class AdminGui(Gui):
         The RuleLoader may be used on its own to test the validity of .jeop files.
         """
         fileName = ''
-        while fileName == '':  
+        while fileName == '':
             fileName = QFileDialog.getOpenFileName(self,
                                                    'Select a Jeopardy game file',
                                                    'example.jeop',
@@ -74,7 +74,7 @@ class AdminGui(Gui):
             if fileName == '':
                 sys.exit()
             self.log('Validating ' + fileName)
-            
+
             # validateFile is the actual function from RuleLoader that is called
             if validateFile(self.game, fileName) == False:
                 ans = QMessageBox.warning(self, '',
@@ -97,10 +97,10 @@ class AdminGui(Gui):
                 alertMsg.setText("Please wait for the players to connect")
                 alertMsg.exec_()
 		return
-	
+
 	self.playerAdmin.close()
         self.game.loginEnabled = False
-        
+
         self.game.nextRound()
         self.setupGui('Show Answer', self.game.width, self.game.height)
         self.getDisplayButton().clicked.connect(self.game.showAnswer)
@@ -157,8 +157,8 @@ class AdminGui(Gui):
         self.answerChecked.connect(self.game.checkAnswer)
         self.getDisplay().buttonClicked.connect(self.game.showAnswer)
         self.getGrid().buttonClicked.connect(self.game.selectQuestion)
-        
-    
+
+
     def playerBuzzed(self, name):
         """
         The admin user decides whether a question is correct or not regardless of the
@@ -200,7 +200,7 @@ class AdminGui(Gui):
         Gui.displayQuestion(self, i)
         Gui.displayAnswer(self)
         self.displayShowAnswerButton()
-        
+
     def displayAnswer(self):
         Gui.displayAnswer(self)
         self.displayNextQuestionButton()
@@ -214,7 +214,7 @@ class AdminGui(Gui):
         self.getDisplayButton().clicked.disconnect()
         self.getDisplayButton().setText('Show Answer')
         self.getDisplayButton().clicked.connect(self.game.showAnswer)
-        
+
     def updateGrid(self):
         """
         Since the ButtonGrid is used for question selection, when a new one is created,
@@ -239,11 +239,11 @@ class AdminGui(Gui):
         @type path: str
         """
         Gui.displayPlot(self, path)
-        
+
         w = QPushButton('Save scores as PNG')
         w.clicked.connect(self.saveScoresPng)
         self.layout().addWidget(w, 2, 0)
-        
+
         w = QPushButton('Save scores as text file')
         w.clicked.connect(self.saveScoresText)
         self.layout().addWidget(w, 2, 1)
@@ -259,20 +259,20 @@ class AdminGui(Gui):
         fileName = QFileDialog.getSaveFileName(self, 'Save Scores', 'scores.png', 'Images (*.png)')
 
         self.plotThread = PlotRenderer(self.getScores(), str(fileName), True, 300, self)
-        self.plotThread.start()        
-    
+        self.plotThread.start()
+
 def main():
     """
     Basic main() to start application when invoked from the terminal.
     """
     app = QApplication(sys.argv)
-    gui = AdminGui()    
+    gui = AdminGui()
     app.exec_()
 
     if gui.game != None:
         gui.deleteTempFiles()
         gui.game.close()
-        
+
 if __name__ == '__main__':
     main()
 

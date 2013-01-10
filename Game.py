@@ -19,14 +19,14 @@ import Pyro.core
 import Pyro.naming
 from Pyro.errors import *
 
-Pyro.config.PYRO_ONEWAY_THREADED = True	
+Pyro.config.PYRO_ONEWAY_THREADED = True
 
 class Game(Pyro.core.ObjBase):
     """
     This class does not implement anything QObject based since it does not emit its own signals. That would have been too much of a hassle to create new connections every time such a temporary object is instantiated.
     Instead it uses the GameServer.
     """
-    
+
     def __init__(self, server, parent = None):
         """
         @param server: the reference to the GameServer object (its Pyro server)
@@ -38,7 +38,7 @@ class Game(Pyro.core.ObjBase):
     def canConnect(self, name):
         """
         When attempting to register with the server, a client first calls this method to see whether or not its name is reserved.
-        
+
         If a player already exists in the server's L{GameServer.GameServer.players} dictionary, it will only allow connnections if the player has previously registered before the game started.
 
         This way, players cannot arbitrarily join the game.
@@ -60,7 +60,7 @@ class Game(Pyro.core.ObjBase):
             ans = False
         self.server.playerMutex.unlock()
         return ans
-        
+
     def connect(self, name):
         """
         This is the actual method where the login takes place.
@@ -74,14 +74,14 @@ class Game(Pyro.core.ObjBase):
         print 'Game: Connection from:', name
         player = Pyro.core.getProxyForURI('PYRONAME://' + str(hash(name)))
         ip = player.getIp()
-        
+
         self.server.playerMutex.lock()
         score = self.server.players[name][3]
         status = self.server.players[name][2]
         self.server.players[name] = (player, ip, 'Waiting', score)
         self.server.scores[name] = ([0], None)
         self.server.playerMutex.unlock()
-        
+
         if status != 'Disconnected':
             self.server.playerConnected.emit((name, ip, 'Waiting', score))
             self.server.gamesToStart += 1
@@ -110,7 +110,7 @@ class Game(Pyro.core.ObjBase):
         @return: the score for the player whose nickname is B{name} (int)
         """
         return self.server.players[name][3]
-    
+
     def getResources(self):
         """
         When parsing the .jeop files, there are also resources like images or html templates that need to be transferred to every player after login so that they're not downloaded when actually playing the game.
@@ -172,15 +172,15 @@ class Game(Pyro.core.ObjBase):
             self.server.buzzMutex.unlock()
             return
         self.server.buzzMutex.unlock()
-        
+
         self.server.changeStatus(name, 'Answering')
-        
+
         for player in self.server.players.items():
             try:
                 player[1][0].disableBuzz()
             except (ConnectionClosedError, ProtocolError):
                 self.server.changeStatus(player[0], 'Disconnected')
-                
+
         self.server.playerBuzzed.emit(name)
 
     def gameStarted(self):
@@ -191,7 +191,7 @@ class Game(Pyro.core.ObjBase):
         self.server.gamesToStart -= 1
         if self.server.gamesToStart == 0:
             self.server.allGamesStarted.emit()
-            
+
     def getScores(self):
         """
         Possibly obsolete?

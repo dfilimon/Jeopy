@@ -6,7 +6,7 @@ from QuestionEditorWidget import QuestionEditor
 class RoundsEditor(QWidget):
 
     buttonClicked = pyqtSignal(int)
-    
+
     def __init__(self, parent = None):
 
         super(RoundsEditor, self).__init__(parent)
@@ -18,9 +18,9 @@ class RoundsEditor(QWidget):
         self.jsondict = {}
         self.jsondict["type"] = "html"
         self.jsondict["template"] = "template.html"
-        
+
         self.isOpen = False
-	
+
     def setupGui(self):
         self.frame = QGridLayout()
         self.setLayout(self.frame)
@@ -38,7 +38,7 @@ class RoundsEditor(QWidget):
         self.widthSpin.setDecimals(0)
         self.widthSpin.setFixedWidth(80)
         self.widthSpin.setValue(600)
-        
+
         self.heightSpin = QDoubleSpinBox()
         self.heightSpin.setRange(0, 3000)
         self.heightSpin.setSingleStep(100)
@@ -54,8 +54,8 @@ class RoundsEditor(QWidget):
 
         self.widthSpin.valueChanged.connect(self.values)
         self.heightSpin.valueChanged.connect(self.values)
-        
-        
+
+
         self.layout = QGridLayout()
         self.frame.addLayout(self.layout, 2, 0)
 
@@ -68,7 +68,7 @@ class RoundsEditor(QWidget):
         saveButton.clicked.connect(self.saveGame)
 
         self.count = -1 # number of rounds created
-        
+
         self.addRound()
         self.getLineEdit(self.count).setFocus()
 
@@ -76,10 +76,10 @@ class RoundsEditor(QWidget):
         self.size["width"] = self.widthSpin.value()
         self.size["height"] = self.heightSpin.value()
         print self.size
-        
+
     def addRound(self):
         self.count += 1
-        
+
         lineedit = QLineEdit()
         lineedit.setFixedWidth(200)
         button = QPushButton("Edit")
@@ -92,35 +92,35 @@ class RoundsEditor(QWidget):
         self.layout.addWidget(button, self.count, 2)
 
         self.rounds.append({"buttonFontSize":14, "labelFontSize":18, "title":""})
-    
+
         button.clicked.connect(self.editRound)
         self.getLineEdit(self.count).textChanged.connect(self.enableButton)
-        
+
     def removeRound(self):
         w = self.getLabelNumber(self.count)
         self.layout.removeWidget(w)
         w.setParent(None)
-        
+
         w = self.getLineEdit(self.count)
         self.layout.removeWidget(w)
         w.setParent(None)
-        
+
         w = self.getButton(self.count)
         self.layout.removeWidget(w)
         w.setParent(None)
 
         self.frame.setSizeConstraint(QLayout.SetFixedSize) #resizes window
-        
+
         self.count -= 1
         self.rounds = self.rounds[:-1] #removing last entry from list
         self.getButton(self.count).setEnabled(False)
-        
+
     def enableButton(self, string):
 
         button = self.getButton(self.count) # button -> last made button
         lineedit = self.getLineEdit(self.count) # lineedit -> last made lineedit
 
-        if lineedit.hasFocus() == True:        
+        if lineedit.hasFocus() == True:
             if string == "":
                 button.setEnabled(False)
             else:
@@ -133,17 +133,17 @@ class RoundsEditor(QWidget):
 
     def editRound(self):
         row = (self.layout.indexOf(self.sender())-2) /3
-        
+
         #before editing the round, the round list must be updated
         aux = str(self.getLineEdit(row).text()) # adding round to list
 
         self.rounds[row]["title"] = aux
         self.size["width"] = int(self.widthSpin.value())
         self.size["height"] = int(self.heightSpin.value())
-        
+
         print "button is on row: ", row
         print self.rounds
-        
+
         if self.isOpen == False:
             round_ =  mainWindow(self.rounds[row]['title'], self.size["width"], self.size["height"], self)
             self.isOpen = True
@@ -159,19 +159,19 @@ class RoundsEditor(QWidget):
         for i in range(self.count):
             aux = str(self.getLineEdit(i).text())
             self.rounds[i]["title"] = aux
-        
+
         self.rounds = self.rounds[:-1]
         self.jsondict["size"] = self.size
         self.jsondict["rounds"] = self.rounds
         print self.jsondict
         self.close()
-        
+
     def getLabelNumber(self, i):
         return self.layout.itemAtPosition(i, 0).widget()
 
     def getLineEdit(self, i):
         return self.layout.itemAtPosition(i, 1).widget()
-        
+
     def getButton(self, i):
         return self.layout.itemAtPosition(i, 2).widget()
 
