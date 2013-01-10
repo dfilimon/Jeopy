@@ -2,6 +2,7 @@
 PlayerServer interfaces between the PlayerGui and the remotely accessible Player
 class.
 """
+from __future__ import print_function
 import sys
 from time import sleep
 from socket import gethostbyname, gethostname
@@ -16,68 +17,68 @@ from Player import Player
 
 class PlayerServer(Server):
 
-    playerConnected = pyqtSignal()
-    playerStatusChanged = pyqtSignal(str)
+	playerConnected = pyqtSignal()
+	playerStatusChanged = pyqtSignal(str)
 
-    gameStarted = pyqtSignal()
-    buzzDisabled = pyqtSignal()
+	gameStarted = pyqtSignal()
+	buzzDisabled = pyqtSignal()
 
-    buttonClicked = pyqtSignal(int) ####################
+	buttonClicked = pyqtSignal(int) ####################
 
-    """
-       ***REIMPLEMENTED METHODS FROM BASECLASS***
-    """
-    def __init__(self, gui, name, parent=None):
-        Server.__init__(self, gui, name)
-        ns = Pyro.naming.NameServerLocator().getNS()
-        self.game = Pyro.core.getProxyForURI(ns.resolve('jeopardy'))
-        #    'PYRONAME://' + 'jeopardy')
-        self.running = False
+	"""
+	   ***REIMPLEMENTED METHODS FROM BASECLASS***
+	"""
+	def __init__(self, gui, name, parent=None):
+		Server.__init__(self, gui, name)
+		ns = Pyro.naming.NameServerLocator().getNS()
+		self.game = Pyro.core.getProxyForURI(ns.resolve('jeopardy'))
+		#	'PYRONAME://' + 'jeopardy')
+		self.running = False
 
-        self.name = name
-        #self.ip = gethostbyname(gethostname())
+		self.name = name
+		#self.ip = gethostbyname(gethostname())
 
-    def run(self):
-        self.running = True
-        Server.run(self)
+	def run(self):
+		self.running = True
+		Server.run(self)
 
-    def setupSignals(self):
-        self.serverStarted.connect(self.connect)
-        self.gameStarted.connect(self.gui.startGame)
+	def setupSignals(self):
+		self.serverStarted.connect(self.connect)
+		self.gameStarted.connect(self.gui.startGame)
 
 
-    def setupGuiSignals(self):
-        Server.setupGuiSignals(self)
-        self.playerStatusChanged.connect(self.gui.updateStatus)
-        self.buzzDisabled.connect(self.gui.disableBuzz)
-        self.gui.getGrid().buttonClicked.connect(self.pickQuestion)############
+	def setupGuiSignals(self):
+		Server.setupGuiSignals(self)
+		self.playerStatusChanged.connect(self.gui.updateStatus)
+		self.buzzDisabled.connect(self.gui.disableBuzz)
+		self.gui.getGrid().buttonClicked.connect(self.pickQuestion)############
 
-    def connectDaemon(self):
-        self.uri = self.daemon.connectPersistent(Player(self), str(hash(self.name))) ######
+	def connectDaemon(self):
+		self.uri = self.daemon.connectPersistent(Player(self), str(hash(self.name))) ######
 
-    """
-       ***GAME FUNCTIONS***
-    """
-    def startGame(self):
-        self.setupGuiSignals()
+	"""
+	   ***GAME FUNCTIONS***
+	"""
+	def startGame(self):
+		self.setupGuiSignals()
 
-    # registers with server after having reserved the nickname via the canConnect method
-    def connect(self):
-        self.log('Connecting to server')
-        self.game.connect(self.name)
-        self.playerConnected.emit()
+	# registers with server after having reserved the nickname via the canConnect method
+	def connect(self):
+		self.log('Connecting to server')
+		self.game.connect(self.name)
+		self.playerConnected.emit()
 
-    # sets the player's name; used if the name the user initially selected is taken
-    def setName(self, name):
-        if not self.running:
-            self.name = name
+	# sets the player's name; used if the name the user initially selected is taken
+	def setName(self, name):
+		if not self.running:
+			self.name = name
 
-    # buzzes the game server (could have been called in the gui, but need name)
-    def buzz(self):
-        self.game.buzz(self.name)
+	# buzzes the game server (could have been called in the gui, but need name)
+	def buzz(self):
+		self.game.buzz(self.name)
 
-    ###################
-    def pickQuestion(self, i):
-        print 'question picked is', i
-        self.game.acceptQuestion(i)
+	###################
+	def pickQuestion(self, i):
+		print('question picked is', i)
+		self.game.acceptQuestion(i)
 

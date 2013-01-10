@@ -10,8 +10,6 @@ class mainWindow(QWidget):
 
 		self.pred = pred
 
-
-
 		self.setMinimumSize(width, height)
 		self.setWindowTitle(title)
 
@@ -40,7 +38,7 @@ class mainWindow(QWidget):
 		self.questions = questionGrid(self.rows, self.cols, parent = self.parent())
 
 		self.saveButton = QPushButton("Save")
-       		self.cancelButton = QPushButton("Cancel")
+		self.cancelButton = QPushButton("Cancel")
 
 		layout = QGridLayout()
 
