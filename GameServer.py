@@ -39,8 +39,8 @@ class GameServer(Server):
 	playerStatusChanged = pyqtSignal(tuple)
 
 	playerBuzzed = pyqtSignal(str)
-	questionSelected = pyqtSignal(int) ##########
-	accQuestion = pyqtSignal(int,str) ###########
+	questionSelected = pyqtSignal(int)
+	accQuestion = pyqtSignal(int,str)
 
 	labelTextSet = pyqtSignal(str)
 	allGamesStarted = pyqtSignal()

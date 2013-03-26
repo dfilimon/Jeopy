@@ -37,7 +37,6 @@ class AdminGui(Gui):
 	mutePlayers = pyqtSignal(list)
 	unmutePlayers = pyqtSignal(list)
 
-
 	def __init__(self, parent=None):
 		super(AdminGui, self).__init__(parent)
 		self.game = None # if something goes wrong with the game server, we'll have a nice cleanup
@@ -59,7 +58,7 @@ class AdminGui(Gui):
 		# prepare to tell the time elapsed since the game started
 		self.time = QTime(0, 0, 0)
 		self.timer = QTimer(self)
-                # maintains the picked questions order
+		# maintains the picked questions order
 		self.question_queue = []
 		self.timer.timeout.connect(self.displayTime)
 
@@ -172,7 +171,8 @@ class AdminGui(Gui):
 		@type name: str
 		"""
 
-		ans = QMessageBox.information(self, '', 'Player ' + name + ' is answering.\nIs the answer correct?', QMessageBox.Yes | QMessageBox.No)
+		ans = QMessageBox.information(self, '', 'Player ' + name 
+			+ ' is answering.\nIs the answer correct?', QMessageBox.Yes | QMessageBox.No)
 		if ans == QMessageBox.Yes:
 			add = True
 		else:
@@ -187,16 +187,17 @@ class AdminGui(Gui):
 		self.getLabel().setText(self.time.toString())
 
 	def acceptQuestion(self, i,name):
-		first_message =  'Question selected by ' + name + ':\n' + self.getQuestion()['statement']
-                other_message = 'There already is another question selected, please accept that one!\nQuestion picked by: ' + name
-        	self.question_queue.append(1)
-        	if len(self.question_queue) == 1:
-		    ans = QMessageBox.information(self, '', first_message, QMessageBox.Ok, QMessageBox.Cancel)
-        	else:
-		    ans = QMessageBox.warning(self, '', other_message, QMessageBox.Cancel)
-                self.question_queue.pop()
-                
-		print('intrebarea a fost acceptata prin warning.. debugging what do you want?')
+		first_message =  'Question selected by ' + name + ':\n' 
+				+ self.getQuestion()['statement']
+		other_message = 'There already is another question selected,'
+			+' please accept that one!\nQuestion picked by: ' + name
+		self.question_queue.append(1)
+		if len(self.question_queue) == 1:
+			ans = QMessageBox.information(self, '', first_message, 
+				QMessageBox.Ok, QMessageBox.Cancel)
+		else:
+			ans = QMessageBox.warning(self, '', other_message, QMessageBox.Cancel)
+		self.question_queue.pop()
 		if ans == QMessageBox.Ok:
 			self.getGrid().buttonClicked.emit(i)
 
