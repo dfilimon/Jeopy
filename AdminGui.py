@@ -187,10 +187,10 @@ class AdminGui(Gui):
 		self.getLabel().setText(self.time.toString())
 
 	def acceptQuestion(self, i,name):
-		first_message =  'Question selected by ' + name + ':\n' 
-				+ self.getQuestion()['statement']
-		other_message = 'There already is another question selected,'
-			+' please accept that one!\nQuestion picked by: ' + name
+		first_message =  ('Question selected by ' + name + ':\n' 
+				+ self.getQuestion()['statement'])
+		other_message = ('There already is another question selected,'
+			+' please accept that one!\nQuestion picked by: ' + name)
 		self.question_queue.append(1)
 		if len(self.question_queue) == 1:
 			ans = QMessageBox.information(self, '', first_message, 
