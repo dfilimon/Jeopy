@@ -77,8 +77,8 @@ class PlayerServer(Server):
 	def buzz(self):
 		self.game.buzz(self.name)
 
-	###################
+	# Passes the question and the player's name who picked it
 	def pickQuestion(self, i):
 		print('question picked is', i)
-		self.game.acceptQuestion(i)
+		self.game.acceptQuestion(i, self.name)
 

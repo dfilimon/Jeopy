@@ -40,7 +40,7 @@ class GameServer(Server):
 
 	playerBuzzed = pyqtSignal(str)
 	questionSelected = pyqtSignal(int)
-	accQuestion = pyqtSignal(int) ###########
+	accQuestion = pyqtSignal(int,str)
 
 	labelTextSet = pyqtSignal(str)
 	allGamesStarted = pyqtSignal()
@@ -174,7 +174,7 @@ class GameServer(Server):
 		category = self.round['categories'][c]
 		self.question = deepcopy(category['questions'][q])
 		self.question['category'] = category['title']
-		print('dsadsadsaadasdas')
+		print('Question is chosen')
 
 	def selectQuestion(self, i):
 		"""
