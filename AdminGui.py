@@ -61,7 +61,7 @@ class AdminGui(Gui):
 		self.timer = QTimer(self)
 		# maintains the picked questions order
 		self.question_queue = []
-        	self.timer.timeout.connect(self.displayTime)
+		self.timer.timeout.connect(self.displayTime)
 
 	def loadRules(self):
 		"""
@@ -73,8 +73,8 @@ class AdminGui(Gui):
 		fileName = ''
 		while fileName == '':
 			fileName = QFileDialog.getOpenFileName(self, 
-			'Select a Jeopardy game file', 'example.jeop',
-			'Jeopardy game files (*.jeop)')
+				'Select a Jeopardy game file', 'example.jeop',
+				'Jeopardy game files (*.jeop)')
 			if fileName == '':
 				sys.exit()
 			self.log('Validating ' + fileName)
