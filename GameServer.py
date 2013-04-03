@@ -75,6 +75,7 @@ class GameServer(Server):
 		self.gamesToStart = 0
 
 		self.selectingPlayer = ''
+		self.showAnsSender = ''
 
 		self.roundNum = -1
 		self.usedQuestions = set()
@@ -92,8 +93,8 @@ class GameServer(Server):
 
 		self.playerBuzzed.connect(self.gui.playerBuzzed)
 		self.questionSelected.connect(self.gui.displayQuestion)
-		self.accQuestion.connect(self.nameQuestion) ################
-		self.accQuestion.connect(self.gui.acceptQuestion) ###############
+		self.accQuestion.connect(self.nameQuestion) 
+		self.accQuestion.connect(self.gui.acceptQuestion) 
 
 
 		self.labelTextSet.connect(self.gui.setLabelText)
@@ -141,40 +142,36 @@ class GameServer(Server):
 
 	def choosePlayer(self):
 		"""
-		When no answer was given last turn or the answer given was false, a player
-		is chosen at random to select the next question.
+		When no answer was given last turn or the answer given was false, 
+		a player is chosen at random to select the next question.
 		Muted and disconnected players don't count.
 		"""
-		numActivePlayers = len(self.players)
-		for player in self.players.values():
-			if player[2] == 'Muted' or player[2] == 'Disconnected':
-				numActivePlayers -= 1
-
-		#numActivePlayers now holds the number of unmuted players still ingame
-
+		availablePlayers = []
+		for player in self.players.items():
+			if player[1][2] != 'Muted' and player[1][2] != 'Disconnected':
+				availablePlayers.append(player)
+				
+		#numActivePlayers = the number of unmuted players still ingame
+		numActivePlayers = len(availablePlayers)
+			
 		if numActivePlayers > 0:
 			pass
 		else:
 			alertMsg = QMessageBox()
-			alertMsg.setText("Please wait for the players to reconnect or unmute existing players")
+			alertMsg.setText("Please wait for the players to " + 
+				"reconnect or unmute existing players")
 			alertMsg.exec_()
 
 		n = random.randint(0, numActivePlayers - 1)
-		for player in self.players.items():
-			if player[1][2] == 'Muted' or player[1][2] == 'Disconnected':
-				continue
-			if n == 0:
-				self.changeStatus(player[0], 'Selecting')
-				break
-			else:
-				n -= 1
+		self.changeStatus(availablePlayers[n][0], 'Selecting')
+		self.selectingPlayer = availablePlayers[n][0]
+		print ('randomly selected player is: ' + self.selectingPlayer)
 
 	def nameQuestion(self, i):
 		(c,q) = self.toLineCol(self.round, i)
 		category = self.round['categories'][c]
 		self.question = deepcopy(category['questions'][q])
 		self.question['category'] = category['title']
-		print('Question is chosen')
 
 	def selectQuestion(self, i):
 		"""
@@ -233,7 +230,6 @@ class GameServer(Server):
 			self.selectingPlayer = ''
 			self.changeScore(name, score)
 		self.changeStatus(name, 'Waiting')
-
 		self.showAnswer()
 
 	def showAnswer(self):
@@ -256,9 +252,13 @@ class GameServer(Server):
 	def nextQuestion(self):
 		"""
 		The game continues by waiting for another question to be selected.
-		  1. we must find out if there are any more questions this round, or if there are any more questions at all.
-		  2. a player must be chosen to select a question - if the last answer was correct, then the player who gave that answer gets to pick, otherwise, a player is chosen at random.
-		  3. the players are signaled to display the ButtonGrids and the AdminGui itself displays its grid.
+		  1. we must find out if there are any more questions this round, 
+		     or if there are any more questions at all.
+		  2. a player must be chosen to select a question - if the last 
+		    answer was correct, then the player who gave that answer gets 
+		    to pick, otherwise, a player is chosen at random.
+		  3. the players are signaled to display the ButtonGrids and 
+		     the AdminGui itself displays its grid.
 		"""
 		if len(self.usedQuestions) == self.numQuestions:
 			if not self.nextRound():
@@ -268,7 +268,6 @@ class GameServer(Server):
 			self.choosePlayer()
 		else:
 			self.changeStatus(self.selectingPlayer, 'Selecting')
-			self.selectingPlayer = ''
 
 		for player in self.players.items():
 			try:
@@ -403,5 +402,3 @@ class GameServer(Server):
 				player[1][0].changeScore(name, score)
 			except (ConnectionClosedError, ProtocolError):
 				self.changeStatus(player[0], 'Disconnected')
-
-
