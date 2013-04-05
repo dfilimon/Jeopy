@@ -25,7 +25,8 @@ from PlotRenderer import PlotRenderer
 
 class AdminGui(Gui):
 	"""
-	Subclasses Gui and is the interface that provides actual control over question selection and overall game progress. Should be used by game Administrator.
+	Subclasses Gui and is the interface that provides actual control over 
+	question selection and overall game progress. Should be used by game Administrator.
 
 	Signals are used to communicate with the GameServer, which is in a
 	different thread. B{Any instance where a GameServer method is called
@@ -71,10 +72,9 @@ class AdminGui(Gui):
 		"""
 		fileName = ''
 		while fileName == '':
-			fileName = QFileDialog.getOpenFileName(self,
-												   'Select a Jeopardy game file',
-												   'example.jeop',
-												   'Jeopardy game files (*.jeop)')
+			fileName = QFileDialog.getOpenFileName(self, 
+				'Select a Jeopardy game file', 'example.jeop',
+				'Jeopardy game files (*.jeop)')
 			if fileName == '':
 				sys.exit()
 			self.log('Validating ' + fileName)
@@ -82,8 +82,9 @@ class AdminGui(Gui):
 			# validateFile is the actual function from RuleLoader that is called
 			if validateFile(self.game, fileName) == False:
 				ans = QMessageBox.warning(self, '',
-										  'The selected game file is invalid.\nPlease choose a different one.',
-										  QMessageBox.Ok | QMessageBox.Cancel)
+					'The selected game file is invalid.\n' 
+					+'Please choose a different one.',
+					QMessageBox.Ok | QMessageBox.Cancel)
 				if ans == QMessageBox.Cancel:
 					sys.exit()
 				fileName = ''
@@ -171,8 +172,9 @@ class AdminGui(Gui):
 		@type name: str
 		"""
 
-		ans = QMessageBox.information(self, '', 'Player ' + name 
-			+ ' is answering.\nIs the answer correct?', QMessageBox.Yes | QMessageBox.No)
+		ans = QMessageBox.information(self, '', 'Player ' + '<b>' + name 
+			+ '</b>' + ' is answering.\nIs the answer correct?',
+			 QMessageBox.Yes | QMessageBox.No)
 		if ans == QMessageBox.Yes:
 			add = True
 		else:
@@ -186,11 +188,15 @@ class AdminGui(Gui):
 		self.time = self.time.addSecs(1)
 		self.getLabel().setText(self.time.toString())
 
-	def acceptQuestion(self, i,name):
-		first_message =  ('Question selected by ' + name + ':\n' 
-				+ self.getQuestion()['statement'])
+	def acceptQuestion(self, i, name):
+		#only accepts requests from the right player
+        	if (self.game.selectingPlayer != name and 
+        		self.game.selectingPlayer != ''):
+            		return
+		first_message =  ('Question selected by ' + '<b>' + name + '</b>' 
+				+ ':\n' + self.getQuestion()['statement'])
 		other_message = ('There already is another question selected,'
-			+' please accept that one!\nQuestion picked by: ' + name)
+			+' please accept that one!\nQuestion picked by: '+ name)
 		self.question_queue.append(1)
 		if len(self.question_queue) == 1:
 			ans = QMessageBox.information(self, '', first_message, 
@@ -207,7 +213,8 @@ class AdminGui(Gui):
 	def displayQuestion(self, i):
 		"""
 		This only adds the I{Show Answer} button to the widget. Check to see how
-		the index i is interpreted in L{ButtonGridWidget.ButtonGrid.emitButtonClicked}. It's really just the position of the button in the grid layout of the ButtonGrid widget.
+		the index i is interpreted in L{ButtonGridWidget.ButtonGrid.emitButtonClicked}.
+		 It's really just the position of the button in the grid layout of the ButtonGrid widget.
 		"""
 		Gui.displayQuestion(self, i)
 		Gui.displayAnswer(self)
@@ -247,7 +254,9 @@ class AdminGui(Gui):
 	def displayPlot(self, path):
 		"""
 		The AdminGui can also save the scores in addition to displaying them.
-		@param path: This is the path to the plot rendered in a different thread by PlotRendered. This method is the slot the L{PlotRenderer.PlotRenderer.finishedPlot} signal from PlotRenderer connects to.
+		@param path: This is the path to the plot rendered in a different 
+		thread by PlotRendered. This method is the slot the 
+		L{PlotRenderer.PlotRenderer.finishedPlot} signal from PlotRenderer connects to.
 		@type path: str
 		"""
 		Gui.displayPlot(self, path)
